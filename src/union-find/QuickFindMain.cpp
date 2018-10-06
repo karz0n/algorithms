@@ -1,6 +1,4 @@
-#include <iostream>
 #include <string>
-#include <chrono>
 
 #include <gtest/gtest.h>
 
@@ -9,7 +7,7 @@
 
 using namespace algorithms::uf;
 
-QuickFind readFromFile(const std::string& path)
+QuickFind createFromFile(const fs::path& path)
 {
     QuickFind quickFind;
 
@@ -22,8 +20,7 @@ QuickFind readFromFile(const std::string& path)
             }
         }
     });
-
-    std::cout << "Processing: '" << path << "' took: " << formatTime(time) << std::endl;
+    printMeasure(path, unions.size(), time);
 
     return quickFind;
 }
@@ -33,7 +30,7 @@ QuickFind readFromFile(const std::string& path)
  */
 TEST(QuickFind, tinyUnionFind)
 {
-    QuickFind quickFind = readFromFile("resources/union-find/tinyUF.txt");
+    QuickFind quickFind = createFromFile(TINY_UNIONS_PATH);
 
     ASSERT_TRUE(quickFind.connected(4, 3));
     ASSERT_TRUE(quickFind.connected(9, 4));
@@ -45,7 +42,7 @@ TEST(QuickFind, tinyUnionFind)
  */
 TEST(QuickFind, mediumUnionFind)
 {
-    QuickFind quickFind = readFromFile("resources/union-find/mediumUF.txt");
+    QuickFind quickFind = createFromFile(MEDIUM_UNIONS_PATH);
 
     ASSERT_TRUE(quickFind.connected(44, 43));
     ASSERT_TRUE(quickFind.connected(474, 473));
@@ -60,7 +57,7 @@ TEST(QuickFind, mediumUnionFind)
  */
 TEST(QuickFind, DISABLED_largeUnionFind)
 {
-    QuickFind quickFind = readFromFile("resources/union-find/largeUF.txt");
+    QuickFind quickFind = createFromFile(LARGE_UNIONS_PATH);
 
     ASSERT_TRUE(quickFind.connected(686513, 37739));
     ASSERT_TRUE(quickFind.connected(612504, 808506));

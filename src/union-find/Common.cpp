@@ -3,6 +3,7 @@
 #include <exception>
 #include <stdexcept>
 #include <fstream>
+#include <iostream>
 #include <iomanip>
 #include <sstream>
 
@@ -24,7 +25,11 @@ namespace algorithms
 namespace uf
 {
 
-Unions readUnionsFromFile(const std::filesystem::path& path)
+fs::path TINY_UNIONS_PATH{"resources/union-find/tinyUF.txt"};
+fs::path MEDIUM_UNIONS_PATH{"resources/union-find/mediumUF.txt"};
+fs::path LARGE_UNIONS_PATH{"resources/union-find/largeUF.txt"};
+
+Unions readUnionsFromFile(const fs::path& path)
 {
     std::ifstream fs(path);
     if (!fs.is_open()) {
@@ -59,6 +64,15 @@ nanoseconds measure(std::function<void()> callable)
     callable();
     auto t2 = std::chrono::steady_clock::now();
     return t2 - t1;
+}
+
+void printMeasure(const fs::path& path, std::size_t count, const std::chrono::nanoseconds& time)
+{
+    std::cout << std::endl;
+    std::cout << "Processing " << path << ":" << std::endl
+              << "   elements: " << count << std::endl
+              << "   time: " << formatTime(time) << std::endl;
+    std::cout << std::endl;
 }
 
 std::string formatTime(nanoseconds time)

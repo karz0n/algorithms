@@ -7,7 +7,7 @@
 
 using namespace algorithms::uf;
 
-UnionFind readFromFile(const std::string& path)
+UnionFind createFromFile(const fs::path& path)
 {
     UnionFind unionFind;
 
@@ -20,8 +20,7 @@ UnionFind readFromFile(const std::string& path)
             }
         }
     });
-
-    std::cout << "Processing: '" << path << "' took: " << formatTime(time) << std::endl;
+    printMeasure(path, unions.size(), time);
 
     return unionFind;
 }
@@ -33,7 +32,7 @@ UnionFind readFromFile(const std::string& path)
  */
 TEST(UnionFind, tinyUnionFind)
 {
-    UnionFind unionFind = readFromFile("resources/union-find/tinyUF.txt");
+    UnionFind unionFind = createFromFile(TINY_UNIONS_PATH);
 
     ASSERT_TRUE(unionFind.connected(4, 3));
     ASSERT_TRUE(unionFind.connected(9, 4));
@@ -47,7 +46,7 @@ TEST(UnionFind, tinyUnionFind)
  */
 TEST(UnionFind, mediumUnionFind)
 {
-    UnionFind unionFind = readFromFile("resources/union-find/mediumUF.txt");
+    UnionFind unionFind = createFromFile(MEDIUM_UNIONS_PATH);
 
     ASSERT_TRUE(unionFind.connected(44, 43));
     ASSERT_TRUE(unionFind.connected(474, 473));
@@ -61,7 +60,7 @@ TEST(UnionFind, mediumUnionFind)
  */
 TEST(UnionFind, largeUnionFind)
 {
-    UnionFind unionFind = readFromFile("resources/union-find/largeUF.txt");
+    UnionFind unionFind = createFromFile(LARGE_UNIONS_PATH);
 
     ASSERT_TRUE(unionFind.connected(686513, 37739));
     ASSERT_TRUE(unionFind.connected(612504, 808506));

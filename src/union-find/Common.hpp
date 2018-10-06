@@ -14,6 +14,15 @@ namespace algorithms
 namespace uf
 {
 
+/** Path to */
+extern fs::path TINY_UNIONS_PATH;
+
+/** Path to */
+extern fs::path MEDIUM_UNIONS_PATH;
+
+/** Path to */
+extern fs::path LARGE_UNIONS_PATH;
+
 /**
  *
  */
@@ -38,6 +47,12 @@ Unions readUnionsFromFile(const fs::path& path);
  * @param callable
  */
 std::chrono::nanoseconds measure(std::function<void()> callable);
+
+/**
+ *
+ * @param path
+ */
+void printMeasure(const fs::path& path, std::size_t count, const std::chrono::nanoseconds& time);
 
 /**
  *

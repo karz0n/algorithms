@@ -7,7 +7,7 @@
 
 using namespace algorithms::uf;
 
-QuickUnion readFromFile(const std::string& path)
+QuickUnion createFromFile(const fs::path& path)
 {
     QuickUnion quickUnion;
 
@@ -20,8 +20,7 @@ QuickUnion readFromFile(const std::string& path)
             }
         }
     });
-
-    std::cout << "Processing: '" << path << "' took: " << formatTime(time) << std::endl;
+    printMeasure(path, unions.size(), time);
 
     return quickUnion;
 }
@@ -33,7 +32,7 @@ QuickUnion readFromFile(const std::string& path)
  */
 TEST(QuickUnion, tinyUnionFind)
 {
-    QuickUnion quickUnion = readFromFile("resources/union-find/tinyUF.txt");
+    QuickUnion quickUnion = createFromFile(TINY_UNIONS_PATH);
 
     ASSERT_TRUE(quickUnion.connected(4, 3));
     ASSERT_TRUE(quickUnion.connected(9, 4));
@@ -47,7 +46,7 @@ TEST(QuickUnion, tinyUnionFind)
  */
 TEST(QuickUnion, mediumUnionFind)
 {
-    QuickUnion quickUnion = readFromFile("resources/union-find/mediumUF.txt");
+    QuickUnion quickUnion = createFromFile(MEDIUM_UNIONS_PATH);
 
     ASSERT_TRUE(quickUnion.connected(44, 43));
     ASSERT_TRUE(quickUnion.connected(474, 473));
@@ -64,7 +63,7 @@ TEST(QuickUnion, mediumUnionFind)
  */
 TEST(QuickUnion, DISABLED_largeUnionFind)
 {
-    QuickUnion quickUnion = readFromFile("resources/union-find/largeUF.txt");
+    QuickUnion quickUnion = createFromFile(LARGE_UNIONS_PATH);
 
     ASSERT_TRUE(quickUnion.connected(686513, 37739));
     ASSERT_TRUE(quickUnion.connected(612504, 808506));
