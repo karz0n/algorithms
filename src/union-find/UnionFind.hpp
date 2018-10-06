@@ -16,10 +16,8 @@ namespace uf
  * two sites are in the same component and a @em count operation that
  * returns the total number of components.
  *
- * This implementation uses weighted quick union (by weight) with full path
- * compression.
- *
- * Cost model:
+ * This implementation uses weighted quick union with full path
+ * compression and has next cost model:
  *  - initalize: N
  *  - union: lg N (includes cost of finding root)
  *  - find: lg N
@@ -74,7 +72,11 @@ public:
      * Takes time equals logarithm with base 2 from N.
      * Where N is a number of sites.
      *
+     * As you can this method now doesn't have const qualifier
+     * because it does path compression.
+     *
      * @param p he integer representing one site.
+     *
      * @return the component identifier of the component containing @em p.
      */
     std::size_t find(std::size_t p);
@@ -97,6 +99,7 @@ public:
      *
      * @param p the integer representing one site.
      * @param q the integer representing another site.
+     *
      * @return \c true iif the two sites @em p and @em q are in the
      *         same component, \c false otherwise.
      */
@@ -121,8 +124,8 @@ private:
     void validate(std::size_t p) const;
 #endif
 private:
-    std::vector<std::size_t> _parent;
-    std::vector<std::size_t> _weight;
+    std::vector<std::size_t> _container;
+    std::vector<std::size_t> _size;
     std::size_t _count;
 };
 

@@ -1,9 +1,8 @@
-
-set(TARGET_PREFIX "uf-")
-
 #------------------------------------------------------------------------------
 # Targets Configuration
 #------------------------------------------------------------------------------
+
+set(TARGET_PREFIX "uf-")
 
 #
 # Quick Find Target
@@ -20,6 +19,7 @@ set_target_properties(${TARGET_NAME}
 )
 
 target_link_libraries(${TARGET_NAME}
+    stdc++fs
     ${GTEST_LIBRARY}
 )
 
@@ -56,6 +56,7 @@ set_target_properties(${TARGET_NAME}
 )
 
 target_link_libraries(${TARGET_NAME}
+    stdc++fs
     ${GTEST_LIBRARY}
 )
 
@@ -92,6 +93,7 @@ set_target_properties(${TARGET_NAME}
 )
 
 target_link_libraries(${TARGET_NAME}
+    stdc++fs
     ${GTEST_LIBRARY}
 )
 

@@ -1,5 +1,6 @@
 #include "QuickUnion.hpp"
 
+#include <numeric>
 #include <string>
 #include <utility>
 #include <stdexcept>
@@ -10,7 +11,7 @@ namespace uf
 {
 
 QuickUnion::QuickUnion()
-    : _count(0)
+    : _count{0}
 { }
 
 QuickUnion::QuickUnion(std::size_t count)
@@ -19,8 +20,8 @@ QuickUnion::QuickUnion(std::size_t count)
 }
 
 QuickUnion::QuickUnion(QuickUnion&& other)
-    : _parent(std::move(other._parent))
-    , _count(other._count)
+    : _container{std::move(other._container)}
+    , _count{other._count}
 {
     other._count = 0;
 }
@@ -28,7 +29,7 @@ QuickUnion::QuickUnion(QuickUnion&& other)
 QuickUnion& QuickUnion::operator=(QuickUnion&& other)
 {
     if (this != &other) {
-        std::swap(_parent, other._parent);
+        std::swap(_container, other._container);
         std::swap(_count, other._count);
     }
     return *this;
@@ -39,8 +40,8 @@ std::size_t QuickUnion::find(std::size_t p) const
 #ifndef NDEBUG
     validate(p);
 #endif
-    while (p != _parent[p]) {
-        p = _parent[p];
+    while (p != _container[p]) {
+        p = _container[p];
     }
     return p;
 }
@@ -52,11 +53,8 @@ std::size_t QuickUnion::count() const
 
 void QuickUnion::reset(std::size_t count)
 {
-    _count = count;
-    _parent.resize(count);
-    for (auto i = 0; i < count; ++i) {
-        _parent[i] = i;
-    }
+    _container.resize(_count = count);
+    std::iota(_container.begin(), _container.end(), 0);
 }
 
 bool QuickUnion::connected(std::size_t p, std::size_t q) const
@@ -71,16 +69,14 @@ void QuickUnion::associate(std::size_t p, std::size_t q)
     if (proot == qroot) {
         return;
     }
-
-    _parent[proot] = qroot;
-
+    _container[proot] = qroot;
     _count--;
 }
 
 #ifndef NDEBUG
 void QuickUnion::validate(std::size_t p) const
 {
-    std::size_t size = _parent.size();
+    std::size_t size = _container.size();
     if (p >= size) {
         throw std::out_of_range(
                     "index " + std::to_string(p) + " is not between 0 and " + std::to_string(size - 1));

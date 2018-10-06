@@ -12,7 +12,7 @@ QuickUnion readFromFile(const std::string& path)
     QuickUnion quickUnion;
 
     Unions unions = readUnionsFromFile(path);
-    run([&] () {
+    auto time = measure([&] () {
         quickUnion.reset(unions.size());
         for (const auto& u : unions) {
             if (!quickUnion.connected(u.first, u.second)) {
@@ -20,6 +20,8 @@ QuickUnion readFromFile(const std::string& path)
             }
         }
     });
+
+    std::cout << "Processing: '" << path << "' took: " << formatTime(time) << std::endl;
 
     return quickUnion;
 }

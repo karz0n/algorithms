@@ -12,7 +12,7 @@ UnionFind readFromFile(const std::string& path)
     UnionFind unionFind;
 
     Unions unions = readUnionsFromFile(path);
-    run([&] () {
+    auto time = measure([&] () {
         unionFind.reset(unions.size());
         for (const auto& u : unions) {
             if (!unionFind.connected(u.first, u.second)) {
@@ -20,6 +20,8 @@ UnionFind readFromFile(const std::string& path)
             }
         }
     });
+
+    std::cout << "Processing: '" << path << "' took: " << formatTime(time) << std::endl;
 
     return unionFind;
 }

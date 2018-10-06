@@ -32,19 +32,19 @@ namespace uf
  * two sites are in the same component iff they are connected.
  * Both sites and components are identified with integers between 0 and
  * @em n – 1.
+ *
  * Initially, there are @em n components, with each site in its
- * own component.  The <em>component identifier</em> of a component
+ * own component. The <em>component identifier</em> of a component
  * is one of the sites in the component:
  *  -# two sites have the same component identifier iff they are
  *     in the same component.
+ *
  * The component identifier of a component can change
  * only when the component itself changes during a call to
- * @em associate it cannot change during a call
+ * @em associate, it cannot be changed during a call
  * to @em find, @em connected, or @em count.
  *
- * This implementation uses quick find.
- *
- * Cost model:
+ * This implementation uses quick find with next cost model:
  *  - initalize: N
  *  - union: N
  *  + find: 1 (constantly)
@@ -104,6 +104,7 @@ public:
      * Takes constant time.
      *
      * @param p he integer representing one site.
+     *
      * @return the component identifier of the component containing @em p.
      */
     std::size_t find(std::size_t p) const;
@@ -125,6 +126,7 @@ public:
      *
      * @param p the integer representing one site.
      * @param q the integer representing another site.
+     *
      * @return \c true iif the two sites @em p and @em q are in the
      *         same component, \c false otherwise.
      */
@@ -145,10 +147,10 @@ public:
 
 #ifndef NDEBUG
 private:
-    void validate(std::size_t p) const;
+    void validate(std::size_t n) const;
 #endif
 private:
-    std::vector<std::size_t> _parent;
+    std::vector<std::size_t> _container;
     std::size_t _count;
 };
 

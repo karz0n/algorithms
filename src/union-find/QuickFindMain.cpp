@@ -14,7 +14,7 @@ QuickFind readFromFile(const std::string& path)
     QuickFind quickFind;
 
     Unions unions = readUnionsFromFile(path);
-    run([&] () {
+    auto time = measure([&] () {
         quickFind.reset(unions.size());
         for (const auto& u : unions) {
             if (!quickFind.connected(u.first, u.second)) {
@@ -22,6 +22,8 @@ QuickFind readFromFile(const std::string& path)
             }
         }
     });
+
+    std::cout << "Processing: '" << path << "' took: " << formatTime(time) << std::endl;
 
     return quickFind;
 }

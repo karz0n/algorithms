@@ -1,5 +1,6 @@
-#include "QuickFind.hpp"
+ #include "QuickFind.hpp"
 
+#include <numeric>
 #include <algorithm>
 #include <string>
 #include <utility>
@@ -11,7 +12,7 @@ namespace uf
 {
 
 QuickFind::QuickFind()
-    : _count(0)
+    : _count{0}
 { }
 
 QuickFind::QuickFind(std::size_t size)
@@ -20,8 +21,8 @@ QuickFind::QuickFind(std::size_t size)
 }
 
 QuickFind::QuickFind(QuickFind&& other)
-    : _parent(std::move(other._parent))
-    , _count(other._count)
+    : _container{std::move(other._container)}
+    , _count{other._count}
 {
     other._count = 0;
 }
@@ -29,7 +30,7 @@ QuickFind::QuickFind(QuickFind&& other)
 QuickFind& QuickFind::operator=(QuickFind&& other)
 {
     if (this != &other) {
-        std::swap(_parent, other._parent);
+        std::swap(_container, other._container);
         std::swap(_count, other._count);
     }
     return *this;
@@ -40,7 +41,7 @@ std::size_t QuickFind::find(std::size_t p) const
 #ifndef NDEBUG
     validate(p);
 #endif
-    return _parent[p];
+    return _container[p];
 }
 
 std::size_t QuickFind::count() const
@@ -50,11 +51,8 @@ std::size_t QuickFind::count() const
 
 void QuickFind::reset(std::size_t count)
 {
-    _count = count;
-    _parent.resize(count);
-    for (auto i = 0; i < count; ++i) {
-        _parent[i] = i;
-    }
+    _container.resize(_count = count);
+    std::iota(_container.begin(), _container.end(), 0);
 }
 
 bool QuickFind::connected(std::size_t p, std::size_t q) const
@@ -63,7 +61,7 @@ bool QuickFind::connected(std::size_t p, std::size_t q) const
     validate(p);
     validate(q);
 #endif
-    return _parent[p] == _parent[q];
+    return _container[p] == _container[q];
 }
 
 void QuickFind::associate(std::size_t p, std::size_t q)
@@ -72,24 +70,22 @@ void QuickFind::associate(std::size_t p, std::size_t q)
     validate(p);
     validate(q);
 #endif
-    std::size_t proot = _parent[p];
-    std::size_t qroot = _parent[q];
+    std::size_t proot = _container[p];
+    std::size_t qroot = _container[q];
     if (proot == qroot) {
         return;
     }
-
-    std::replace(_parent.begin(), _parent.end(), proot, qroot);
-
+    std::replace(_container.begin(), _container.end(), proot, qroot);
     _count--;
 }
 
 #ifndef NDEBUG
-void QuickFind::validate(std::size_t p) const
+void QuickFind::validate(std::size_t n) const
 {
-    std::size_t size = _parent.size();
-    if (p >= size) {
+    std::size_t size = _container.size();
+    if (n >= size) {
         throw std::out_of_range(
-                    "index " + std::to_string(p) + " is not between 0 and " + std::to_string(size - 1));
+                    "Index " + std::to_string(n) + " is not between 0 and " + std::to_string(size - 1));
     }
 }
 #endif

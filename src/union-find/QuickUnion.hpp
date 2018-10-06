@@ -42,9 +42,7 @@ namespace uf
  * @em associate it cannot change during a call
  * to @em find, @em connected, or @em count.
  *
- * This implementation uses quick union.
- *
- * Cost model:
+ * This implementation uses quick union with next cost model:
  *  - initalize: N
  *  - union: N* (includes cost of finding root)
  *  - find: N (in worst case)
@@ -148,7 +146,7 @@ private:
     void validate(std::size_t p) const;
 #endif
 private:
-    std::vector<std::size_t> _parent;
+    std::vector<std::size_t> _container;
     std::size_t _count;
 };
 
