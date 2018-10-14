@@ -1,9 +1,11 @@
 #ifndef STACK_HPP
 #define STACK_HPP
 
-namespace algorithms
-{
+namespace algorithms {
 
+/**
+ * Interface class for stack implementations.
+ */
 template<typename T>
 class Stack {
 public:

@@ -8,6 +8,9 @@
 
 namespace algorithms {
 
+/**
+ * Resizable stack implementation.
+ */
 template<typename T>
 class ResizableStack : public Stack<T> {
 public:

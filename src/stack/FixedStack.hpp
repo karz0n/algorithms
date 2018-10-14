@@ -8,7 +8,7 @@
 namespace algorithms {
 
 /**
- *
+ * Fixed size stack implementation.
  */
 template<typename T>
 class FixedStack : public Stack<T> {

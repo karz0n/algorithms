@@ -8,7 +8,7 @@
 namespace algorithms {
 
 /**
- *
+ * Linked list stack implementation.
  */
 template<typename T>
 class LinkedStack : public Stack<T> {
