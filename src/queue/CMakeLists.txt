@@ -2,7 +2,7 @@
 # Targets Configuration
 #------------------------------------------------------------------------------
 
-set(TARGET_NAME "stack")
+set(TARGET_NAME "queue")
 
 add_executable(${TARGET_NAME} "")
 
@@ -18,11 +18,9 @@ target_link_libraries(${TARGET_NAME}
 
 target_sources(${TARGET_NAME}
     PRIVATE
-        "Stack.hpp"
-        "LinkedStack.hpp"
-        "FixedArrayStack.hpp"
-        "ResizableArrayStack.hpp"
-        "StackMain.cpp"
+        "Queue.hpp"
+        "LinkedQueue.hpp"
+        "QueueMain.cpp"
 )
 
 add_test(

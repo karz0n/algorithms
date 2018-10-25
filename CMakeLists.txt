@@ -41,4 +41,4 @@ include(${PROJECT_SOURCE_DIR}/external/googletest.cmake)
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/union-find)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/stack)
-
+add_subdirectory(${PROJECT_SOURCE_DIR}/src/queue)
