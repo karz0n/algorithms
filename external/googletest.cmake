@@ -77,8 +77,8 @@ add_library(${GTEST_LIBRARY} INTERFACE)
 
 target_link_libraries(${GTEST_LIBRARY}
     INTERFACE
-        ${GTEST_BINARY_DIR}/${CMAKE_FIND_LIBRARY_PREFIXES}gtest.a
-        ${GTEST_BINARY_DIR}/${CMAKE_FIND_LIBRARY_PREFIXES}gtest_main.a
+        ${GTEST_BINARY_DIR}/lib/${CMAKE_FIND_LIBRARY_PREFIXES}gtest.a
+        ${GTEST_BINARY_DIR}/lib/${CMAKE_FIND_LIBRARY_PREFIXES}gtest_main.a
         # Include thread library of the system to the final target
         ${CMAKE_THREAD_LIBS_INIT}
 )
@@ -118,8 +118,8 @@ add_library(${GMOCK_LIBRARY} INTERFACE)
 
 target_link_libraries(${GMOCK_LIBRARY}
     INTERFACE
-        ${GMOCK_BINARY_DIR}/${CMAKE_FIND_LIBRARY_PREFIXES}gmock.a
-        ${GMOCK_BINARY_DIR}/${CMAKE_FIND_LIBRARY_PREFIXES}gmock_main.a
+        ${GMOCK_BINARY_DIR}/lib/${CMAKE_FIND_LIBRARY_PREFIXES}gmock.a
+        ${GMOCK_BINARY_DIR}/lib/${CMAKE_FIND_LIBRARY_PREFIXES}gmock_main.a
         # Include thread library of the system to the final target
         ${CMAKE_THREAD_LIBS_INIT}
 )
