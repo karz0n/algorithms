@@ -1,20 +1,19 @@
-#ifndef RESIZABLESTACK_HPP
-#define RESIZABLESTACK_HPP
+#ifndef FIXEDARRAYSTACK_HPP
+#define FIXEDARRAYSTACK_HPP
 
 #include <stdexcept>
-#include <algorithm>
 
 #include "Stack.hpp"
 
 namespace algorithms {
 
 /**
- * Resizable stack implementation.
+ * Fixed size stack implementation.
  */
 template<typename T>
-class ResizableStack : public Stack<T> {
+class FixedArrayStack : public Stack<T> {
 public:
-    ResizableStack(std::size_t size)
+    FixedArrayStack(std::size_t size)
         : _n{0}
         , _s{size}
     {
@@ -23,14 +22,21 @@ public:
             throw std::invalid_argument("Capacity is invalid");
         }
 #endif
-       _data = new T[size];
+        _data = new T[size];
+    }
+
+    ~FixedArrayStack() override
+    {
+        delete[] _data;
     }
 
     void push(const T& item) override
     {
+#ifndef NDEBUG
         if (_n == _s) {
-            resize(_s * 2);
+            throw std::overflow_error("Stack is overflow");
         }
+#endif
         _data[_n++] = item;
     }
 
@@ -41,24 +47,12 @@ public:
             throw std::underflow_error("Stack is empty");
         }
 #endif
-        if (_n == _s / 4) {
-            resize(_s / 2);
-        }
         return _data[--_n];
     }
 
     bool isEmpty() const override
     {
         return (_n == 0);
-    }
-
-    void resize(std::size_t size)
-    {
-        T* data = new T[size];
-        std::move(_data, _data + _n, data);
-        delete[] _data;
-        _data = data;
-        _s = size;
     }
 
 private:
@@ -69,4 +63,4 @@ private:
 
 } // namespace algorithms
 
-#endif // RESIZABLESTACK_HPP
+#endif // FIXEDARRAYSTACK_HPP

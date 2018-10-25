@@ -17,10 +17,18 @@ public:
         : _first{nullptr}
     { }
 
+    ~LinkedStack() override
+    {
+        while (_first) {
+            Node* next = _first->next;
+            delete _first;
+            _first = next;
+        }
+    }
+
     void push(const T& item) override
     {
-        Node* p = _first;
-        _first = new Node{item, p};
+        _first = new Node{item, _first};
     }
 
     T pop() override

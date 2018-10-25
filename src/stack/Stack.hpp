@@ -19,7 +19,7 @@ public:
     virtual void push(const T& item) = 0;
 
     /**
-     * Pop item from the item.
+     * Pop item from the stack.
      *
      * @return The item object.
      */
