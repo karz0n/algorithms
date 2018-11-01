@@ -71,6 +71,6 @@ TEST(List, LinkedListIterator)
         values.push_back(*it2);
     }
 
-    std::vector<int> expected{0,1,2,3,4};
+    std::vector<int> expected{0, 1, 2, 3, 4};
     ASSERT_THAT(values, expected);
 }

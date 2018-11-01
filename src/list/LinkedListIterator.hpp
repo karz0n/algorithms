@@ -8,13 +8,7 @@
 namespace algorithms {
 
 /**
- *
- *  BidirectionalIterator = ForwardIterator + decrementable
- *  ForwardIterator = InputIterator + DefaultConstructible
- *  InputIterator = Iterator + EqualityComparable
- *  Iterator = CopyConstructible + CopyAssignable + Destructible
- *  CopyConstructible = MoveAssignable + appropriate operator overload
- *  MoveAssignable = appropriate operator overload
+ * Simple linked list iterator.
  */
 template<typename T>
 class LinkedListIterator {
@@ -26,29 +20,17 @@ public:
     using iterator_category = std::bidirectional_iterator_tag;
 
 public:
-    /**
-     * DefaultConstructible
-     */
     LinkedListIterator()
         : _p{nullptr}
     { }
 
-    /**
-     * Destructible
-     */
     ~LinkedListIterator() noexcept
     { }
 
-    /**
-     *
-     */
     explicit LinkedListIterator(Node<T>* front)
         : _p{front}
     { }
 
-    /**
-     * CopyAssignable
-     */
     LinkedListIterator<T>& operator=(const LinkedListIterator<T>& other)
     {
         if (this != &other) {
@@ -57,9 +39,6 @@ public:
         return *this;
     }
 
-    /**
-     * MoveAssignable
-     */
     LinkedListIterator<T>& operator=(LinkedListIterator<T>&& other)
     {
         if (this != &other) {
@@ -69,9 +48,6 @@ public:
         return *this;
     }
 
-    /**
-     * EqualityComparable
-     */
     bool operator==(const LinkedListIterator<T>& other)
     {
         if (this != &other)
@@ -81,17 +57,11 @@ public:
         return true;
     }
 
-    /**
-     * InputIterator
-     */
     bool operator!=(const LinkedListIterator<T>& other)
     {
         return !(*this == other);
     }
 
-    /**
-     * BidirectionalIterator
-     */
     T operator--(int)
     {
         T item = _p->item;
@@ -99,18 +69,12 @@ public:
         return item;
     }
 
-    /**
-     * BidirectionalIterator
-     */
     LinkedListIterator& operator--()
     {
         _p = _p->prev;
         return *this;
     }
 
-    /**
-     * InputIterator
-     */
     T operator++(int)
     {
         T item = _p->item;
@@ -118,26 +82,17 @@ public:
         return item;
     }
 
-    /**
-     * Iterator
-     */
     LinkedListIterator<T>& operator++()
     {
         _p = _p->next;
         return *this;
     }
 
-    /**
-     * Iterator
-     */
     T& operator*()
     {
         return _p->item;
     }
 
-    /**
-     * Iterator
-     */
     const T& operator*() const
     {
         return _p->item;
