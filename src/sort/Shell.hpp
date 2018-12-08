@@ -25,22 +25,22 @@ public:
     {
         // Get number of elements.
         //
-        std::size_t l = std::distance(first, last);
+        std::size_t count = std::distance(first, last);
 
         // Obtain optimal first step.
         //
         std::size_t h = 1;
-        while (h < l / 3) {
+        while (h < count / 3) {
             h = 3 * h + 1;
         }
 
         // First cycle: iterate size of step beginning from optimal and
-        // reduce size by 1/3 in each iteration.
+        // reduce step by 1/3 in each iteration.
         //
         while (h >= 1) {
             // Sort interleaved sequence array using insertion sort.
             //
-            for (std::size_t i = h; i < l; ++i) {
+            for (std::size_t i = h; i < count; ++i) {
                 // Sort items by h (not by one).
                 //
                 for (std::size_t j = i; j >= h; j -= h) {
@@ -52,6 +52,7 @@ public:
                     }
                 }
             }
+
             h /= 3;
         }
     }

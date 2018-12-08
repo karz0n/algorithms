@@ -1,20 +1,43 @@
 #include <gtest/gtest.h>
 
+#include <Tools.hpp>
+
 #include "Shell.hpp"
 
 using namespace algorithms;
 
-TEST(Sort, Shell)
+TEST(Shell, Sort1K)
 {
-    std::vector<int> numbers{ 4, 1, 5, 0, 10 };
-    Shell::sort(numbers.begin(), numbers.end());
+    Numbers numbers = RandomGenerator::generate(1000);
+
+    auto time = measure([&] () {
+        Shell::sort(numbers.begin(), numbers.end());
+    });
+    printMeasure("Shell - 1K", time);
+
     ASSERT_TRUE(Shell::isAscending(numbers.begin(), numbers.end()));
+}
 
-    std::vector<char> chars{ 'B', 'A', 'C', 'F', 'L' };
-    Shell::sort(chars.begin(), chars.end());
-    ASSERT_TRUE(Shell::isAscending(chars.begin(), chars.end()));
+TEST(Shell, Sort10K)
+{
+    Numbers numbers = RandomGenerator::generate(10000);
 
-    std::vector<std::string> strings{ "About", "New", "Text", "End", "Begin" };
-    Shell::sort(strings.begin(), strings.end());
-    ASSERT_TRUE(Shell::isAscending(strings.begin(), strings.end()));
+    auto time = measure([&] () {
+        Shell::sort(numbers.begin(), numbers.end());
+    });
+    printMeasure("Shell - 10K", time);
+
+    ASSERT_TRUE(Shell::isAscending(numbers.begin(), numbers.end()));
+}
+
+TEST(Shell, Sort100K)
+{
+    Numbers numbers = RandomGenerator::generate(100000);
+
+    auto time = measure([&] () {
+        Shell::sort(numbers.begin(), numbers.end());
+    });
+    printMeasure("Shell - 100K", time);
+
+    ASSERT_TRUE(Shell::isAscending(numbers.begin(), numbers.end()));
 }

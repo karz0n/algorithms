@@ -3,7 +3,7 @@
 #include <sstream>
 #include <stdexcept>
 
-#include "LinkedStack.hpp"
+#include <LinkedStack.hpp>
 
 namespace {
 

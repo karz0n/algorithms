@@ -4,12 +4,7 @@ cmake_minimum_required(VERSION 3.5)
 # Project Configuration
 #-------------------------------------------------------------------------------
 
-project(algorithms
-    VERSION
-        0.1
-    DESCRIPTION
-        "Surfing through algorithms project"
-)
+project(algorithms)
 
 set(PROJECT_OUTPUT_DIR ${PROJECT_BINARY_DIR}/out)
 
@@ -44,3 +39,4 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/src/stack)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/queue)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/list)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/sort)
+add_subdirectory(${PROJECT_SOURCE_DIR}/src/tools)

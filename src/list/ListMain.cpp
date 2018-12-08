@@ -41,7 +41,7 @@ TEST(List, LinkedListIterator)
 {
     LinkedList<int> list;
 
-    std::size_t c = 5;
+    int c = 5;
     while (c--) {
         list.pushFront(c);
     }

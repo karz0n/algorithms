@@ -1,8 +1,28 @@
-#------------------------------------------------------------------------------
-# Targets Configuration
-#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------
 
-set(TARGET_NAME "queue")
+set(BASE_PATH ${PROJECT_SOURCE_DIR}/src/queue)
+
+#------------------------------------------------------------------------------------------
+
+set(TARGET_NAME "Queue-Library")
+
+add_library(${TARGET_NAME} INTERFACE)
+
+target_sources(${TARGET_NAME}
+    INTERFACE
+        ${BASE_PATH}/include/Queue.hpp
+        ${BASE_PATH}/include/LinkedQueue.hpp
+        ${BASE_PATH}/include/ResizableArrayQueue.hpp
+)
+
+target_include_directories(${TARGET_NAME}
+    INTERFACE
+        ${BASE_PATH}/include
+)
+
+#------------------------------------------------------------------------------------------
+
+set(TARGET_NAME "Queue-Main")
 
 add_executable(${TARGET_NAME} "")
 
@@ -13,14 +33,18 @@ set_target_properties(${TARGET_NAME}
 )
 
 target_link_libraries(${TARGET_NAME}
+    Queue-Library
     ${GTEST_LIBRARY}
+)
+
+target_include_directories(${TARGET_NAME}
+    PRIVATE
+        ${BASE_PATH}/include
 )
 
 target_sources(${TARGET_NAME}
     PRIVATE
-        "Queue.hpp"
-        "LinkedQueue.hpp"
-        "QueueMain.cpp"
+        ${BASE_PATH}/QueueMain.cpp
 )
 
 add_test(

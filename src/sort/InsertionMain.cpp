@@ -1,20 +1,43 @@
 #include <gtest/gtest.h>
 
+#include <Tools.hpp>
+
 #include "Insertion.hpp"
 
 using namespace algorithms;
 
-TEST(Sort, Insertion)
+TEST(Insertion, Sort1K)
 {
-    std::vector<int> numbers{ 4, 1, 5, 0, 10 };
-    Insertion::sort(numbers.begin(), numbers.end());
+    Numbers numbers = RandomGenerator::generate(1000);
+
+    auto time = measure([&] () {
+        Insertion::sort(numbers.begin(), numbers.end());
+    });
+    printMeasure("Selection - 1K", time);
+
     ASSERT_TRUE(Insertion::isAscending(numbers.begin(), numbers.end()));
+}
 
-    std::vector<char> chars{ 'B', 'A', 'C', 'F', 'L' };
-    Insertion::sort(chars.begin(), chars.end());
-    ASSERT_TRUE(Insertion::isAscending(chars.begin(), chars.end()));
+TEST(Insertion, Sort10K)
+{
+    Numbers numbers = RandomGenerator::generate(10000);
 
-    std::vector<std::string> strings{ "About", "New", "Text", "End", "Begin" };
-    Insertion::sort(strings.begin(), strings.end());
-    ASSERT_TRUE(Insertion::isAscending(strings.begin(), strings.end()));
+    auto time = measure([&] () {
+        Insertion::sort(numbers.begin(), numbers.end());
+    });
+    printMeasure("Insertion - 10K", time);
+
+    ASSERT_TRUE(Insertion::isAscending(numbers.begin(), numbers.end()));
+}
+
+TEST(Insertion, DISABLED_Sort100K)
+{
+    Numbers numbers = RandomGenerator::generate(100000);
+
+    auto time = measure([&] () {
+        Insertion::sort(numbers.begin(), numbers.end());
+    });
+    printMeasure("Insertion - 100K", time);
+
+    ASSERT_TRUE(Insertion::isAscending(numbers.begin(), numbers.end()));
 }

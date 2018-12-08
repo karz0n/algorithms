@@ -23,7 +23,11 @@ public:
     template <typename BidirectionalIt, typename Less>
     static void sort(BidirectionalIt first, BidirectionalIt last, Less less)
     {
-        for (auto it1 = first; it1 != last; ++it1) {
+        if (first == last) {
+            return;
+        }
+
+        for (auto it1 = std::next(first); it1 != last; ++it1) {
             for (auto it2 = it1; it2 != first;) {
                 BidirectionalIt left = std::prev(it2);
                 if (less(*it2, *left)) {

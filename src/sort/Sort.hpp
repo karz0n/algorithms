@@ -10,10 +10,16 @@ namespace algorithms {
  */
 class Sort {
 public:
-    template <typename ForwardIt>
-    static void exchange(ForwardIt from, ForwardIt to)
+    template <typename It>
+    static void exchange(It from, It to)
     {
-        typename std::iterator_traits<ForwardIt>::value_type temp = *from;
+        using ValueType = typename std::iterator_traits<It>::value_type;
+
+        if (from == to) {
+            return;
+        }
+
+        ValueType temp = *from;
         *from = *to;
         *to = temp;
     }

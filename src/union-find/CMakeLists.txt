@@ -1,14 +1,10 @@
+#------------------------------------------------------------------------------------------
+
+set(BASE_PATH ${PROJECT_SOURCE_DIR}/src/union-find)
+
 #------------------------------------------------------------------------------
-# Targets Configuration
-#------------------------------------------------------------------------------
 
-set(TARGET_PREFIX "uf-")
-
-#---------------------
-# Quick Find Target
-#---------------------
-
-set(TARGET_NAME "${TARGET_PREFIX}quick-find")
+set(TARGET_NAME "UF-QuickFind-Main")
 
 add_executable(${TARGET_NAME} "")
 
@@ -41,11 +37,9 @@ add_test(
         ${PROJECT_OUTPUT_DIR}
 )
 
-#---------------------
-# Quick Union Target
-#---------------------
+#------------------------------------------------------------------------------
 
-set(TARGET_NAME "${TARGET_PREFIX}quick-union")
+set(TARGET_NAME "UF-QuickUnion-Main")
 
 add_executable(${TARGET_NAME} "")
 
@@ -78,11 +72,9 @@ add_test(
         ${PROJECT_OUTPUT_DIR}
 )
 
-#---------------------
-# Union Find Target
-#---------------------
+#------------------------------------------------------------------------------
 
-set(TARGET_NAME "${TARGET_PREFIX}union-find")
+set(TARGET_NAME "UF-UnionFind-Main")
 
 add_executable(${TARGET_NAME} "")
 
@@ -115,11 +107,9 @@ add_test(
         ${PROJECT_OUTPUT_DIR}
 )
 
-#---------------------
-# Percolation Target
-#---------------------
+#------------------------------------------------------------------------------
 
-set(TARGET_NAME "${TARGET_PREFIX}percolation")
+set(TARGET_NAME "Percolation-Main")
 
 add_executable(${TARGET_NAME} "")
 
