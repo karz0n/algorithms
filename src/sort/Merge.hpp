@@ -10,6 +10,11 @@ namespace algorithms {
 /**
  * Merge sort method implementation class.
  *
+ * One optimization takes place. It swaps input/output in each recursion call.
+ * It allows to us remoe copyng of elements in merge phase.
+ * Underlying output is overlying input if we compare sort of higher order
+ * and low order.
+ *
  * [merge-sort](https://www.toptal.com/developers/sorting-algorithms/merge-sort)
  */
 class Merge : public Sort {
@@ -32,8 +37,8 @@ public:
         }
 
         std::size_t size = std::distance(first, last);
-        std::vector<T> output(size);
-        sort(first, output.begin(), less, 0, size - 1);
+        std::vector<T> buffer(size);
+        sort(first, buffer.begin(), less, 0, size - 1);
     }
 
 private:
@@ -48,33 +53,33 @@ private:
         std::size_t mid = lo + (hi - lo) / 2;
 
         // sort two parts
-        sort(output, input, less, lo, mid);
-        sort(output, input, less, mid + 1, hi);
+        sort(output, input, less, lo, mid);         // Optimization with swapping of input/output
+        sort(output, input, less, mid + 1, hi);     // Optimization with swapping of input/output
 
         // merge two sorted parts
-        merge(output, input, less, lo, mid, hi);
+        merge(output, input, less, lo, mid, hi);    // Optimization with swapping of input/output
     }
 
 
     template <typename RandomIt, typename Less>
-    static void merge(RandomIt left, RandomIt right, Less less, std::size_t lo, std::size_t mid, std::size_t hi)
+    static void merge(RandomIt input, RandomIt output, Less less, std::size_t lo, std::size_t mid, std::size_t hi)
     {
         std::size_t i = lo;
         std::size_t j = mid + 1;
         for (std::size_t k = lo; k <= hi; ++k) {
             if (i > mid) {
-                right[k] = left[j++];
+                output[k] = input[j++];
                 continue;
             }
             if (j > hi) {
-                right[k] = left[i++];
+                output[k] = input[i++];
                 continue;
             }
-            if (less(left[j], left[i])) {
-                right[k] = left[j++];
+            if (less(input[j], input[i])) {
+                output[k] = input[j++];
             }
             else {
-                right[k] = left[i++];
+                output[k] = input[i++];
             }
         }
     }
