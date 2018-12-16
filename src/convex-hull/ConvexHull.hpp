@@ -11,39 +11,14 @@
 
 namespace algorithms {
 
-/**
- *
- */
-struct Point {
-    Point(double x, double y)
-        : x{x}
-        , y{y}
-    { }
 
-    double x;
-    double y;
-};
 
 /**
  *
  */
 using Points = std::vector<Point>;
 
-/**
- *
- * @param a
- * @param b
- * @param c
- *
- * @return
- */
-static int ccw(const Point& a, const Point& b, const Point& c)
-{
-    double area = (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
-    if (area < 0) return -1;
-    if (area > 0) return +1;
-    return 0;
-}
+
 
 /**
  *
