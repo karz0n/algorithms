@@ -6,18 +6,6 @@
 
 using namespace algorithms;
 
-TEST(BottomUpMerge, Sort)
-{
-    Numbers numbers{2, 4, 3, 0, 5, 7, 6, 8};
-
-    auto time = measure([&] () {
-        BottomUpMerge::sort(numbers.begin(), numbers.end());
-    });
-    printMeasure("BottomUpMerge - 1K", time);
-
-    ASSERT_TRUE(BottomUpMerge::isAscending(numbers.begin(), numbers.end()));
-}
-
 TEST(BottomUpMerge, Sort1K)
 {
     Numbers numbers = RandomGenerator::generate(1000);
