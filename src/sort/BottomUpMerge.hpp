@@ -49,13 +49,11 @@ private:
         for (std::size_t k = lo; k <= hi; ++k) {
             if (i > mid) {
                 input[k] = output[j++];
-                continue;
             }
-            if (j > hi) {
+            else if (j > hi) {
                 input[k] = output[i++];
-                continue;
             }
-            if (less(output[j], output[i])) {
+            else if (less(output[j], output[i])) {
                 input[k] = output[j++];
             }
             else {

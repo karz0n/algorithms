@@ -60,7 +60,6 @@ private:
         merge(output, input, less, lo, mid, hi);    // Optimization with swapping of input/output
     }
 
-
     template <typename RandomIt, typename Less>
     static void merge(RandomIt input, RandomIt output, Less less, std::size_t lo, std::size_t mid, std::size_t hi)
     {
@@ -69,13 +68,11 @@ private:
         for (std::size_t k = lo; k <= hi; ++k) {
             if (i > mid) {
                 output[k] = input[j++];
-                continue;
             }
-            if (j > hi) {
+            else if (j > hi) {
                 output[k] = input[i++];
-                continue;
             }
-            if (less(input[j], input[i])) {
+            else if (less(input[j], input[i])) {
                 output[k] = input[j++];
             }
             else {
