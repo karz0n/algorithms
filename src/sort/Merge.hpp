@@ -15,6 +15,12 @@ namespace algorithms {
  * Underlying output is overlying input if we compare sort of higher order
  * and low order.
  *
+ * Properties:
+ *   + Stable
+ *   + Worst-case performance: O(n log2 n)
+ *   + Best-case performance: O(n log2 n)
+ *   + Average performance: O(n log2 n)
+ *
  * [merge-sort](https://www.toptal.com/developers/sorting-algorithms/merge-sort)
  */
 class Merge : public Sort {

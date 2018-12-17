@@ -10,6 +10,12 @@ namespace algorithms {
 /**
  * Selection sort method implementation class.
  *
+ * Properties:
+ *   + Not stable
+ *   + Worst-case performance: О(n2) comparisons, О(n) swaps
+ *   + Best-case performance: О(n2) comparisons, О(n) swaps
+ *   + Average performance: О(n2) comparisons, О(n) swaps
+ *
  * [selection-sort](https://www.toptal.com/developers/sorting-algorithms/selection-sort)
  */
 class Selection : public Sort {

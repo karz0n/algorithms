@@ -10,6 +10,12 @@ namespace algorithms {
 /**
  * Insertion sort method implementation class.
  *
+ * Properties:
+ *   + Stable
+ *   + Worst-case performance: О(n2) comparisons and swaps
+ *   + Best-case performance: O(n) comparisons, O(1) swaps
+ *   + Average performance: О(n2) comparisons and swaps
+ *
  * [insertion-sort](https://www.toptal.com/developers/sorting-algorithms/insertion-sort)
  */
 class Insertion : public Sort {

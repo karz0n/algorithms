@@ -8,6 +8,18 @@
 
 namespace algorithms {
 
+/**
+ * Bottom-up merge sort method implementation class.
+ *
+ * Bottom-up merge sort is modification of merge sort. It doesn't contain
+ * recursion.
+ *
+ * Properties:
+ *   + Stable
+ *   + Worst-case performance: O(n log2 n)
+ *   + Best-case performance: O(n log2 n)
+ *   + Average performance: O(n log2 n)
+ */
 class BottomUpMerge : public Sort {
 public:
     template <typename RandomIt>
