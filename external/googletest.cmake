@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 2.8.2)
+
 # Import GoogleTest (gtest/gmock) library.
 #
 # Generated library target names contained in variable:
@@ -36,6 +38,8 @@ ExternalProject_Add(googletest
         ""
     LOG_DOWNLOAD
         ON
+    UPDATE_DISCONNECTED
+        ON
 )
 
 ExternalProject_Get_property(googletest SOURCE_DIR)
@@ -64,6 +68,8 @@ ExternalProject_Add(${GTEST_LIBRARY}_compile
         ""
     INSTALL_COMMAND
         ""
+    CMAKE_ARGS
+        -DCMAKE_CXX_STANDARD=11 -DCMAKE_CXX_STANDARD_REQUIRED=ON
     LOG_CONFIGURE
         ON
     LOG_BUILD
@@ -105,6 +111,8 @@ ExternalProject_Add(${GMOCK_LIBRARY}_compile
         ""
     INSTALL_COMMAND
         ""
+    CMAKE_ARGS
+        -DCMAKE_CXX_STANDARD=11 -DCMAKE_CXX_STANDARD_REQUIRED=ON
     LOG_CONFIGURE
         ON
     LOG_BUILD
