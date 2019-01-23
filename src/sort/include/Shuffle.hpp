@@ -13,8 +13,8 @@ namespace algorithms {
  */
 class Shuffle : public Sort {
 public:
-    template <typename RandomAccessIt>
-    static void shuffle(RandomAccessIt first, RandomAccessIt last)
+    template <typename RandomIt>
+    static void shuffle(RandomIt first, RandomIt last)
     {
         using Distribution = std::uniform_int_distribution<std::size_t>;
 
@@ -22,10 +22,10 @@ public:
         std::mt19937 g(device());
         Distribution d;
 
-        std::size_t l = std::distance(first, last);
-        for (std::size_t i = 0; i < l; ++i) {
-            std::size_t r = d(g, Distribution::param_type{0, i});
-            exchange(first + i, first + r);
+        std::size_t size = std::distance(first, last);
+        for (std::size_t i = 0; i < size; ++i) {
+            std::size_t j = d(g, Distribution::param_type{0, i});
+            exchange(first + i, first + j);
         }
     }
 };

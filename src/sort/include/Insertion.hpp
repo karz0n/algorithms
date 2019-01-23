@@ -35,7 +35,7 @@ public:
 
         for (auto it1 = std::next(first); it1 != last; ++it1) {
             for (auto it2 = it1; it2 != first;) {
-                BidirectionalIt left = std::prev(it2);
+                auto left = std::prev(it2);
                 if (less(*it2, *left)) {
                     exchange(it2, left);
                     it2 = left;

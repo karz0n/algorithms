@@ -4,6 +4,28 @@ set(BASE_PATH ${PROJECT_SOURCE_DIR}/src/sort)
 
 #------------------------------------------------------------------------------------------
 
+set(TARGET_NAME "Sort-Library")
+
+add_library(${TARGET_NAME} INTERFACE)
+
+target_sources(${TARGET_NAME}
+    INTERFACE
+        ${BASE_PATH}/include/BottomUpMerge.hpp
+        ${BASE_PATH}/include/Insertion.hpp
+        ${BASE_PATH}/include/Merge.hpp
+        ${BASE_PATH}/include/Selection.hpp
+        ${BASE_PATH}/include/Shell.hpp
+        ${BASE_PATH}/include/Shuffle.hpp
+        ${BASE_PATH}/include/Sort.hpp
+)
+
+target_include_directories(${TARGET_NAME}
+    INTERFACE
+        ${BASE_PATH}/include
+)
+
+#------------------------------------------------------------------------------------------
+
 set(TARGET_NAME "Selection-Main")
 
 add_executable(${TARGET_NAME} "")
@@ -19,10 +41,15 @@ target_link_libraries(${TARGET_NAME}
     ${GTEST_LIBRARY}
 )
 
+target_include_directories(${TARGET_NAME}
+    PRIVATE
+        ${BASE_PATH}/include
+)
+
 target_sources(${TARGET_NAME}
     PRIVATE
-        ${BASE_PATH}/Sort.hpp
-        ${BASE_PATH}/Selection.hpp
+        ${BASE_PATH}/include/Sort.hpp
+        ${BASE_PATH}/include/Selection.hpp
         ${BASE_PATH}/SelectionMain.cpp
 )
 
@@ -52,10 +79,15 @@ target_link_libraries(${TARGET_NAME}
     ${GTEST_LIBRARY}
 )
 
+target_include_directories(${TARGET_NAME}
+    PRIVATE
+        ${BASE_PATH}/include
+)
+
 target_sources(${TARGET_NAME}
     PRIVATE
-        ${BASE_PATH}/Sort.hpp
-        ${BASE_PATH}/Insertion.hpp
+        ${BASE_PATH}/include/Sort.hpp
+        ${BASE_PATH}/include/Insertion.hpp
         ${BASE_PATH}/InsertionMain.cpp
 )
 
@@ -85,10 +117,15 @@ target_link_libraries(${TARGET_NAME}
     ${GTEST_LIBRARY}
 )
 
+target_include_directories(${TARGET_NAME}
+    PRIVATE
+        ${BASE_PATH}/include
+)
+
 target_sources(${TARGET_NAME}
     PRIVATE
-        ${BASE_PATH}/Sort.hpp
-        ${BASE_PATH}/Shell.hpp
+        ${BASE_PATH}/include/Sort.hpp
+        ${BASE_PATH}/include/Shell.hpp
         ${BASE_PATH}/ShellMain.cpp
 )
 
@@ -117,10 +154,15 @@ target_link_libraries(${TARGET_NAME}
     ${GTEST_LIBRARY}
 )
 
+target_include_directories(${TARGET_NAME}
+    PRIVATE
+        ${BASE_PATH}/include
+)
+
 target_sources(${TARGET_NAME}
     PRIVATE
-        ${BASE_PATH}/Sort.hpp
-        ${BASE_PATH}/Shuffle.hpp
+        ${BASE_PATH}/include/Sort.hpp
+        ${BASE_PATH}/include/Shuffle.hpp
         ${BASE_PATH}/ShuffleMain.cpp
 )
 
@@ -150,10 +192,15 @@ target_link_libraries(${TARGET_NAME}
     ${GTEST_LIBRARY}
 )
 
+target_include_directories(${TARGET_NAME}
+    PRIVATE
+        ${BASE_PATH}/include
+)
+
 target_sources(${TARGET_NAME}
     PRIVATE
-        ${BASE_PATH}/Sort.hpp
-        ${BASE_PATH}/Merge.hpp
+        ${BASE_PATH}/include/Sort.hpp
+        ${BASE_PATH}/include/Merge.hpp
         ${BASE_PATH}/MergeMain.cpp
 )
 
@@ -183,10 +230,15 @@ target_link_libraries(${TARGET_NAME}
     ${GTEST_LIBRARY}
 )
 
+target_include_directories(${TARGET_NAME}
+    PRIVATE
+        ${BASE_PATH}/include
+)
+
 target_sources(${TARGET_NAME}
     PRIVATE
-        ${BASE_PATH}/Sort.hpp
-        ${BASE_PATH}/BottomUpMerge.hpp
+        ${BASE_PATH}/include/Sort.hpp
+        ${BASE_PATH}/include/BottomUpMerge.hpp
         ${BASE_PATH}/BottomUpMergeMain.cpp
 )
 
