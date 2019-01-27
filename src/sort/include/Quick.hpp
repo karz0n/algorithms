@@ -13,7 +13,15 @@ namespace algorithms {
 /**
  * Quick sort method implementation class.
  *
+ * To get guaranteed complexity we shuffle given input.
  *
+ * Properties:
+ *   + Not stable
+ *   + Worst-case performance: O(n log2 n)
+ *   + Best-case performance: O(n log2 n)
+ *   + Average performance: O(n log2 n)
+ *
+ * [quick-sort](https://www.toptal.com/developers/sorting-algorithms/quick-sort)
  */
 class Quick : public Sort {
 public:
@@ -21,6 +29,12 @@ public:
     static void sort(RandomIt first, RandomIt last)
     {
         sort(first, last, std::less<typename std::iterator_traits<RandomIt>::value_type>{});
+    }
+
+    template <typename T, typename RandomIt>
+    static T select(RandomIt first, RandomIt last, std::size_t k)
+    {
+        return select<T>(first, last, std::less<typename std::iterator_traits<RandomIt>::value_type>{}, k);
     }
 
     template <typename RandomIt, typename Less>
@@ -33,6 +47,36 @@ public:
         Shuffle::shuffle(first, last);
         std::size_t size = std::distance(first, last);
         sort(first, less, 0, size - 1);
+    }
+
+    template <typename T, typename RandomIt, typename Less>
+    static T select(RandomIt first, RandomIt last, Less less, std::size_t k)
+    {
+        if (first >= last) {
+            throw std::invalid_argument("Invalid iterator arguments");
+        }
+
+        std::size_t size = std::distance(first, last);
+        if (k >= size) {
+            throw std::logic_error("Invalid value of k argument");
+        }
+
+        Shuffle::shuffle(first, last);
+
+        std::size_t lo = 0, hi = size - 1;
+        while (hi > lo) {
+            std::size_t j = partition(first, less, lo, hi);
+            if (j == k) {           // Target item has found
+                return first[k];    //
+            }
+            if (k > j) {            // Target item on the right part
+                lo = j + 1;         //
+            }
+            if (k < j) {            // Target item on the left part
+                hi = j - 1;         //
+            }
+        }
+        return first[k];
     }
 
 private:
