@@ -1,12 +1,11 @@
 #ifndef QUICK_HPP
 #define QUICK_HPP
 
-#include <iostream>
 #include <iterator>
 #include <algorithm>
+#include <functional>
 
-#include "Sort.hpp"
-#include "Shuffle.hpp"
+#include <Sequence.hpp>
 
 namespace algorithms {
 
@@ -23,18 +22,20 @@ namespace algorithms {
  *
  * [quick-sort](https://www.toptal.com/developers/sorting-algorithms/quick-sort)
  */
-class Quick : public Sort {
+class Quick {
 public:
     template <typename RandomIt>
     static void sort(RandomIt first, RandomIt last)
     {
-        sort(first, last, std::less<typename std::iterator_traits<RandomIt>::value_type>{});
+        using T = typename std::iterator_traits<RandomIt>::value_type;
+
+        sort(first, last, std::less<T>{});
     }
 
     template <typename T, typename RandomIt>
     static T select(RandomIt first, RandomIt last, std::size_t k)
     {
-        return select<T>(first, last, std::less<typename std::iterator_traits<RandomIt>::value_type>{}, k);
+        return select<T>(first, last, std::less<T>{}, k);
     }
 
     template <typename RandomIt, typename Less>
@@ -44,7 +45,7 @@ public:
             return;
         }
 
-        Shuffle::shuffle(first, last);
+        Sequence::shuffle(first, last);
         std::size_t size = std::distance(first, last);
         sort(first, less, 0, size - 1);
     }
@@ -61,7 +62,7 @@ public:
             throw std::logic_error("Invalid value of k argument");
         }
 
-        Shuffle::shuffle(first, last);
+        Sequence::shuffle(first, last);
 
         std::size_t lo = 0, hi = size - 1;
         while (hi > lo) {
@@ -112,9 +113,9 @@ private:
 
             if (i >= j) break;                      // Quit when i and j crossed
 
-            exchange(input + i, input + j);         // Exchange items to the right place
+            std::iter_swap(input + i, input + j);   // Exchange items to the right place
         }
-        exchange(input + lo, input + j);
+        std::iter_swap(input + lo, input + j);
         return j;
     }
 };

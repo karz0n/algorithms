@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <Tools.hpp>
+#include <Sequence.hpp>
 
 #include "Shell.hpp"
 
@@ -8,36 +8,27 @@ using namespace algorithms;
 
 TEST(Shell, Sort1K)
 {
-    Numbers numbers = RandomGenerator::generate(1000);
+    Numbers numbers = Sequence::numbers(1000);
 
-    auto time = measure([&] () {
-        Shell::sort(numbers.begin(), numbers.end());
-    });
-    printMeasure("Shell - 1K", time);
+    Shell::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Shell::isAscending(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
 }
 
 TEST(Shell, Sort10K)
 {
-    Numbers numbers = RandomGenerator::generate(10000);
+    Numbers numbers = Sequence::numbers(10000);
 
-    auto time = measure([&] () {
-        Shell::sort(numbers.begin(), numbers.end());
-    });
-    printMeasure("Shell - 10K", time);
+    Shell::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Shell::isAscending(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
 }
 
 TEST(Shell, Sort100K)
 {
-    Numbers numbers = RandomGenerator::generate(100000);
+    Numbers numbers = Sequence::numbers(100000);
 
-    auto time = measure([&] () {
-        Shell::sort(numbers.begin(), numbers.end());
-    });
-    printMeasure("Shell - 100K", time);
+    Shell::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Shell::isAscending(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
 }

@@ -1,10 +1,9 @@
 #ifndef BOTTOMUPMERGE_HPP
 #define BOTTOMUPMERGE_HPP
 
+#include <iterator>
 #include <vector>
-#include <algorithm>
-
-#include "Sort.hpp"
+#include <functional>
 
 namespace algorithms {
 
@@ -20,7 +19,7 @@ namespace algorithms {
  *   + Best-case performance: O(n log2 n)
  *   + Average performance: O(n log2 n)
  */
-class BottomUpMerge : public Sort {
+class BottomUpMerge {
 public:
     template <typename RandomIt>
     static void sort(RandomIt first, RandomIt last)
@@ -39,11 +38,11 @@ public:
             return;
         }
 
-        std::size_t N = std::distance(first, last);
-        std::vector<T> buffer(N);
-        for (std::size_t sz = 1; sz < N; sz += sz) {
-            for (std::size_t lo = 0; lo < N - sz; lo += 2 * sz) {
-                merge(first, buffer.begin(), less, lo, lo + sz - 1, std::min(lo + 2 * sz - 1, N - 1));
+        std::size_t size = std::distance(first, last);
+        std::vector<T> buffer(size);
+        for (std::size_t step = 1; step < size; step += step) {
+            for (std::size_t lo = 0; lo < size - step; lo += 2 * step) {
+                merge(first, buffer.begin(), less, lo, lo + step - 1, std::min(lo + 2 * step - 1, size - 1));
             }
         }
     }

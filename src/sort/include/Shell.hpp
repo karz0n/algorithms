@@ -2,8 +2,8 @@
 #define SHELL_HPP
 
 #include <iterator>
-
-#include "Sort.hpp"
+#include <algorithm>
+#include <functional>
 
 namespace algorithms {
 
@@ -18,16 +18,18 @@ namespace algorithms {
  *
  * [shell-sort](https://www.toptal.com/developers/sorting-algorithms/shell-sort)
  */
-class Shell : public Sort {
+class Shell {
 public:
-    template <typename RandomAccessIt>
-    static void sort(RandomAccessIt first, RandomAccessIt last)
+    template <typename RandomIt>
+    static void sort(RandomIt first, RandomIt last)
     {
-        sort(first, last, std::less<typename std::iterator_traits<RandomAccessIt>::value_type>{});
+        using T = typename std::iterator_traits<RandomIt>::value_type;
+
+        sort(first, last, std::less<T>{});
     }
 
-    template <typename RandomAccessIt, typename Less>
-    static void sort(RandomAccessIt first, RandomAccessIt last, Less less)
+    template <typename RandomIt, typename Less>
+    static void sort(RandomIt first, RandomIt last, Less less)
     {
         // Get number of elements.
         //
@@ -51,7 +53,7 @@ public:
                 //
                 for (std::size_t j = i; j >= h; j -= h) {
                     if (less(first[j], first[j - h])) {
-                        exchange(first + j, first + j - h);
+                        std::iter_swap(first + j, first + j - h);
                     }
                     else {
                         break;

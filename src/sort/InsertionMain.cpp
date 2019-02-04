@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <Tools.hpp>
+#include <Sequence.hpp>
 
 #include "Insertion.hpp"
 
@@ -8,36 +8,27 @@ using namespace algorithms;
 
 TEST(Insertion, Sort1K)
 {
-    Numbers numbers = RandomGenerator::generate(1000);
+    Numbers numbers = Sequence::numbers(1000);
 
-    auto time = measure([&] () {
-        Insertion::sort(numbers.begin(), numbers.end());
-    });
-    printMeasure("Selection - 1K", time);
+    Insertion::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Insertion::isAscending(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
 }
 
 TEST(Insertion, Sort10K)
 {
-    Numbers numbers = RandomGenerator::generate(10000);
+    Numbers numbers = Sequence::numbers(10000);
 
-    auto time = measure([&] () {
-        Insertion::sort(numbers.begin(), numbers.end());
-    });
-    printMeasure("Insertion - 10K", time);
+    Insertion::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Insertion::isAscending(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
 }
 
 TEST(Insertion, DISABLED_Sort100K)
 {
-    Numbers numbers = RandomGenerator::generate(100000);
+    Numbers numbers = Sequence::numbers(100000);
 
-    auto time = measure([&] () {
-        Insertion::sort(numbers.begin(), numbers.end());
-    });
-    printMeasure("Insertion - 100K", time);
+    Insertion::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Insertion::isAscending(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
 }

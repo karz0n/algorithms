@@ -16,8 +16,6 @@ target_sources(${TARGET_NAME}
         ${BASE_PATH}/include/Quick.hpp
         ${BASE_PATH}/include/Selection.hpp
         ${BASE_PATH}/include/Shell.hpp
-        ${BASE_PATH}/include/Shuffle.hpp
-        ${BASE_PATH}/include/Sort.hpp
 )
 
 target_include_directories(${TARGET_NAME}
@@ -49,7 +47,6 @@ target_include_directories(${TARGET_NAME}
 
 target_sources(${TARGET_NAME}
     PRIVATE
-        ${BASE_PATH}/include/Sort.hpp
         ${BASE_PATH}/include/Selection.hpp
         ${BASE_PATH}/SelectionMain.cpp
 )
@@ -87,7 +84,6 @@ target_include_directories(${TARGET_NAME}
 
 target_sources(${TARGET_NAME}
     PRIVATE
-        ${BASE_PATH}/include/Sort.hpp
         ${BASE_PATH}/include/Insertion.hpp
         ${BASE_PATH}/InsertionMain.cpp
 )
@@ -125,46 +121,8 @@ target_include_directories(${TARGET_NAME}
 
 target_sources(${TARGET_NAME}
     PRIVATE
-        ${BASE_PATH}/include/Sort.hpp
         ${BASE_PATH}/include/Shell.hpp
         ${BASE_PATH}/ShellMain.cpp
-)
-
-add_test(
-    NAME
-        ${TARGET_NAME}
-    COMMAND
-        ${TARGET_NAME}
-    WORKING_DIRECTORY
-        ${PROJECT_OUTPUT_DIR}
-)
-
-#------------------------------------------------------------------------------------------
-
-set(TARGET_NAME "Shuffle-Main")
-
-add_executable(${TARGET_NAME} "")
-
-set_target_properties(${TARGET_NAME}
-    PROPERTIES
-        CXX_STANDARD 17
-        CXX_STANDARD_REQUIRED YES
-)
-
-target_link_libraries(${TARGET_NAME}
-    ${GTEST_LIBRARY}
-)
-
-target_include_directories(${TARGET_NAME}
-    PRIVATE
-        ${BASE_PATH}/include
-)
-
-target_sources(${TARGET_NAME}
-    PRIVATE
-        ${BASE_PATH}/include/Sort.hpp
-        ${BASE_PATH}/include/Shuffle.hpp
-        ${BASE_PATH}/ShuffleMain.cpp
 )
 
 add_test(
@@ -200,7 +158,6 @@ target_include_directories(${TARGET_NAME}
 
 target_sources(${TARGET_NAME}
     PRIVATE
-        ${BASE_PATH}/include/Sort.hpp
         ${BASE_PATH}/include/Merge.hpp
         ${BASE_PATH}/MergeMain.cpp
 )
@@ -238,7 +195,6 @@ target_include_directories(${TARGET_NAME}
 
 target_sources(${TARGET_NAME}
     PRIVATE
-        ${BASE_PATH}/include/Sort.hpp
         ${BASE_PATH}/include/BottomUpMerge.hpp
         ${BASE_PATH}/BottomUpMergeMain.cpp
 )
@@ -276,8 +232,6 @@ target_include_directories(${TARGET_NAME}
 
 target_sources(${TARGET_NAME}
     PRIVATE
-        ${BASE_PATH}/include/Sort.hpp
-        ${BASE_PATH}/include/Shuffle.hpp
         ${BASE_PATH}/include/Quick.hpp
         ${BASE_PATH}/QuickMain.cpp
 )

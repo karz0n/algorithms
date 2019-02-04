@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <Tools.hpp>
+#include <Sequence.hpp>
 
 #include "Quick.hpp"
 
@@ -8,38 +8,29 @@ using namespace algorithms;
 
 TEST(Quick, Sort1K)
 {
-    Numbers numbers = RandomGenerator::generate(1000);
+    Numbers numbers = Sequence::numbers(1000);
 
-    auto time = measure([&] () {
-        Quick::sort(numbers.begin(), numbers.end());
-    });
-    printMeasure("Quick - 1K", time);
+    Quick::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Quick::isAscending(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
 }
 
 TEST(Quick, Sort10K)
 {
-    Numbers numbers = RandomGenerator::generate(10000);
+    Numbers numbers = Sequence::numbers(10000);
 
-    auto time = measure([&] () {
-        Quick::sort(numbers.begin(), numbers.end());
-    });
-    printMeasure("Quick - 10K", time);
+    Quick::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Quick::isAscending(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
 }
 
 TEST(Quick, Sort100K)
 {
-    Numbers numbers = RandomGenerator::generate(100000);
+    Numbers numbers = Sequence::numbers(100000);
 
-    auto time = measure([&] () {
-        Quick::sort(numbers.begin(), numbers.end());
-    });
-    printMeasure("Quick - 100K", time);
+    Quick::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Quick::isAscending(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
 }
 
 TEST(Quick, Select)

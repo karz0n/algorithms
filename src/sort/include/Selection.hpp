@@ -2,8 +2,8 @@
 #define SELECTION_HPP
 
 #include <iterator>
-
-#include "Sort.hpp"
+#include <algorithm>
+#include <functional>
 
 namespace algorithms {
 
@@ -18,12 +18,14 @@ namespace algorithms {
  *
  * [selection-sort](https://www.toptal.com/developers/sorting-algorithms/selection-sort)
  */
-class Selection : public Sort {
+class Selection {
 public:
     template <typename ForwardIt>
     static void sort(ForwardIt first, ForwardIt last)
     {
-        sort(first, last, std::less<typename std::iterator_traits<ForwardIt>::value_type>{});
+        using T = typename std::iterator_traits<ForwardIt>::value_type;
+
+        sort(first, last, std::less<T>{});
     }
 
     template <typename ForwardIt, typename Less>
@@ -36,7 +38,7 @@ public:
                     min = it;
                 }
             }
-            exchange(min, first);
+            std::iter_swap(min, first);
         }
     }
 };

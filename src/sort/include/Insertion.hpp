@@ -2,8 +2,8 @@
 #define INSERTION_HPP
 
 #include <iterator>
-
-#include "Sort.hpp"
+#include <algorithm>
+#include <functional>
 
 namespace algorithms {
 
@@ -18,27 +18,29 @@ namespace algorithms {
  *
  * [insertion-sort](https://www.toptal.com/developers/sorting-algorithms/insertion-sort)
  */
-class Insertion : public Sort {
+class Insertion {
 public:
     template <typename BidirectionalIt>
     static void sort(BidirectionalIt first, BidirectionalIt last)
     {
-        sort(first, last, std::less<typename std::iterator_traits<BidirectionalIt>::value_type>{});
+        using T = typename std::iterator_traits<BidirectionalIt>::value_type;
+
+        sort(first, last, std::less<T>{});
     }
 
     template <typename BidirectionalIt, typename Less>
     static void sort(BidirectionalIt first, BidirectionalIt last, Less less)
     {
-        if (first == last) {
+        if (first >= last) {
             return;
         }
 
-        for (auto it1 = std::next(first); it1 != last; ++it1) {
-            for (auto it2 = it1; it2 != first;) {
-                auto left = std::prev(it2);
-                if (less(*it2, *left)) {
-                    exchange(it2, left);
-                    it2 = left;
+        for (auto it = std::next(first); it != last; ++it) {
+            for (auto c = it; c != first;) {
+                auto p = std::prev(c);
+                if (less(*c, *p)) {
+                    std::iter_swap(c, p);
+                    c = p;
                 }
                 else {
                     break;

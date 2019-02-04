@@ -1,15 +1,14 @@
-#include "RandomGenerator.hpp"
+#include "Sequence.hpp"
 
-#include <random>
 #include <limits>
 
 namespace algorithms {
 
-const long RandomGenerator::MIN_VALUE = std::numeric_limits<long>::min();
-const long RandomGenerator::MAX_VALUE = std::numeric_limits<long>::max();
+const long Sequence::MIN_NUMBER_VALUE = std::numeric_limits<long>::min();
+const long Sequence::MAX_NUMBER_VALUE = std::numeric_limits<long>::max();
 
 Numbers
-RandomGenerator::generate(std::size_t count, long from, long to)
+Sequence::numbers(std::size_t count, long from /*= MIN_VALUE*/, long to /*= MAX_VALUE*/)
 {
     using Distribution = std::uniform_int_distribution<long>;
 

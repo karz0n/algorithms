@@ -2,8 +2,7 @@
 #define MERGE_HPP
 
 #include <vector>
-
-#include "Sort.hpp"
+#include <functional>
 
 namespace algorithms {
 
@@ -23,7 +22,7 @@ namespace algorithms {
  *
  * [merge-sort](https://www.toptal.com/developers/sorting-algorithms/merge-sort)
  */
-class Merge : public Sort {
+class Merge {
 public:
     template <typename RandomIt>
     static void sort(RandomIt first, RandomIt last)
