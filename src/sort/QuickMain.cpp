@@ -32,16 +32,3 @@ TEST(Quick, Sort100K)
 
     ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
 }
-
-TEST(Quick, Select)
-{
-    Numbers numbers{0, -1, 15, 3, 7, 10, 1};
-
-    ASSERT_EQ(Quick::select<int>(numbers.begin(), numbers.end(), 0), -1);
-    ASSERT_EQ(Quick::select<int>(numbers.begin(), numbers.end(), 1), 0);
-    ASSERT_EQ(Quick::select<int>(numbers.begin(), numbers.end(), 2), 1);
-    ASSERT_EQ(Quick::select<int>(numbers.begin(), numbers.end(), 3), 3);
-    ASSERT_EQ(Quick::select<int>(numbers.begin(), numbers.end(), 4), 7);
-    ASSERT_EQ(Quick::select<int>(numbers.begin(), numbers.end(), 5), 10);
-    ASSERT_EQ(Quick::select<int>(numbers.begin(), numbers.end(), 6), 15);
-}
