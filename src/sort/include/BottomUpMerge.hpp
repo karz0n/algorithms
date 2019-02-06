@@ -14,10 +14,10 @@ namespace algorithms {
  * recursion.
  *
  * Properties:
- *   + Stable
- *   + Worst-case performance: O(n log2 n)
- *   + Best-case performance: O(n log2 n)
- *   + Average performance: O(n log2 n)
+ *   - Stable
+ *   - Worst-case performance: N * lgN
+ *   - Best-case performance: N * lgN
+ *   - Average performance: N * lgN
  */
 class BottomUpMerge {
 public:

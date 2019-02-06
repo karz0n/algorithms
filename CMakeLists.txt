@@ -6,6 +6,8 @@ cmake_minimum_required(VERSION 3.5)
 
 project(algorithms)
 
+include(CTest)
+
 set(PROJECT_OUTPUT_DIR ${PROJECT_BINARY_DIR}/out)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_OUTPUT_DIR})
@@ -35,9 +37,9 @@ include(${PROJECT_SOURCE_DIR}/external/googletest.cmake)
 #-------------------------------------------------------------------------------
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/union-find)
-add_subdirectory(${PROJECT_SOURCE_DIR}/src/convex-hull)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/stack)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/queue)
+add_subdirectory(${PROJECT_SOURCE_DIR}/src/selection)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/list)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/sort)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/tools)

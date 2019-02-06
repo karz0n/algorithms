@@ -14,11 +14,17 @@ namespace algorithms {
  *
  * To get guaranteed complexity we shuffle given input.
  *
+ * There is flaw in this method of sorting. If input array of elements
+ * has a lot of equal keys, the time of sorting will be quadratic.
+ *
  * Properties:
- *   + Not stable
- *   + Worst-case performance: O(n log2 n)
- *   + Best-case performance: O(n log2 n)
- *   + Average performance: O(n log2 n)
+ *   - Not stable
+ *   - Inplace
+ *   - Worst-case performance: N^2 / 2
+ *   - Average performance: 2N * lnN
+ *   - Best-case performance: N * lgN
+ *
+ * Remark: N * logN probabilistic guarantee fastest in practise.
  *
  * [quick-sort](https://www.toptal.com/developers/sorting-algorithms/quick-sort)
  */

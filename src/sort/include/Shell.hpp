@@ -11,10 +11,13 @@ namespace algorithms {
  * Shell sort method implementation class.
  *
  * Properties:
- *   + Not stable
- *   + Worst-case performance: O(n2) (worst known gap sequence)
- *   + Best-case performance: O(n log2n) (best known gap sequence)
- *   + Average performance: O(n log n)
+ *   - Not stable
+ *   - Inplace
+ *   - Worst-case performance: ? (worst known gap sequence)
+ *   - Average performance: ?
+ *   - Best-case performance: N (best known gap sequence)
+ *
+ * Remark: Tight code, subquadratic.
  *
  * [shell-sort](https://www.toptal.com/developers/sorting-algorithms/shell-sort)
  */

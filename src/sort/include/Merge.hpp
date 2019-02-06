@@ -15,10 +15,10 @@ namespace algorithms {
  * and low order.
  *
  * Properties:
- *   + Stable
- *   + Worst-case performance: O(n log2 n)
- *   + Best-case performance: O(n log2 n)
- *   + Average performance: O(n log2 n)
+ *   - Stable
+ *   - Worst-case performance: N * lgN
+ *   - Average performance: N * lgN
+ *   - Best-case performance: N * lgN
  *
  * [merge-sort](https://www.toptal.com/developers/sorting-algorithms/merge-sort)
  */

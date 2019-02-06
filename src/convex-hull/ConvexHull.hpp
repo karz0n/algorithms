@@ -9,6 +9,8 @@
 
 #include <LinkedList.hpp>
 
+#include "Point.hpp"
+
 namespace algorithms {
 
 
