@@ -42,7 +42,7 @@ public:
     T dequeue() override
     {
 #ifndef NDEBUG
-        if (isEmpty()) {
+        if (empty()) {
             throw std::underflow_error("Stack is empty");
         }
 #endif
@@ -59,7 +59,7 @@ public:
         return item;
     }
 
-    bool isEmpty() const override
+    bool empty() const override
     {
         return (_epos == _dpos);
     }

@@ -9,7 +9,7 @@ TEST(Queue, LinkedQueue)
 {
     LinkedQueue<int> queue;
 
-    ASSERT_TRUE(queue.isEmpty());
+    ASSERT_TRUE(queue.empty());
 
     queue.enqueue(1);
     queue.enqueue(2);
@@ -17,7 +17,7 @@ TEST(Queue, LinkedQueue)
     queue.enqueue(4);
     queue.enqueue(5);
 
-    ASSERT_FALSE(queue.isEmpty());
+    ASSERT_FALSE(queue.empty());
 
     ASSERT_TRUE(queue.dequeue() == 1);
     ASSERT_TRUE(queue.dequeue() == 2);
@@ -25,7 +25,7 @@ TEST(Queue, LinkedQueue)
     ASSERT_TRUE(queue.dequeue() == 4);
     ASSERT_TRUE(queue.dequeue() == 5);
 
-    ASSERT_TRUE(queue.isEmpty());
+    ASSERT_TRUE(queue.empty());
 
 #ifndef NDEBUG
     ASSERT_ANY_THROW(queue.dequeue());
@@ -36,7 +36,7 @@ TEST(Queue, ResizableArrayQueue)
 {
     ResizableArrayQueue<int> queue;
 
-    ASSERT_TRUE(queue.isEmpty());
+    ASSERT_TRUE(queue.empty());
 
     queue.enqueue(1);
     queue.enqueue(2);
@@ -44,7 +44,7 @@ TEST(Queue, ResizableArrayQueue)
     queue.enqueue(4);
     queue.enqueue(5);
 
-    ASSERT_FALSE(queue.isEmpty());
+    ASSERT_FALSE(queue.empty());
 
     ASSERT_TRUE(queue.dequeue() == 1);
     ASSERT_TRUE(queue.dequeue() == 2);
@@ -52,7 +52,7 @@ TEST(Queue, ResizableArrayQueue)
     ASSERT_TRUE(queue.dequeue() == 4);
     ASSERT_TRUE(queue.dequeue() == 5);
 
-    ASSERT_TRUE(queue.isEmpty());
+    ASSERT_TRUE(queue.empty());
 
 #ifndef NDEBUG
     ASSERT_ANY_THROW(queue.dequeue());

@@ -29,7 +29,7 @@ public:
     {
         Node* p = _last;
         _last = new Node(item);
-        if (isEmpty()) {
+        if (empty()) {
            _first = _last;
         }
         else {
@@ -40,7 +40,7 @@ public:
     T dequeue() override
     {
 #ifndef NDEBUG
-        if (isEmpty()) {
+        if (empty()) {
             throw std::underflow_error("Queue is empty");
         }
 #endif
@@ -49,7 +49,7 @@ public:
         return item;
     }
 
-    bool isEmpty() const override
+    bool empty() const override
     {
         return (_first == nullptr);
     }

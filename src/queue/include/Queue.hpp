@@ -27,7 +27,7 @@ public:
      *
      * @return The flag which indicated that queue is empty.
      */
-    virtual bool isEmpty() const = 0;
+    virtual bool empty() const = 0;
 };
 
 
