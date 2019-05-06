@@ -1,11 +1,11 @@
 #include <gtest/gtest.h>
 
 #include "Data.hpp"
-#include "OrderedMap.hpp"
+#include "BinarySearchTreeMap.hpp"
 
 using namespace algorithms;
 
-class OrderedMapTest : public ::testing::Test {
+class BinarySearchTreeMapTest : public ::testing::Test {
 protected:
     void SetUp() override
     {
@@ -24,48 +24,48 @@ protected:
     }
 
 protected:
-    OrderedMap<std::string, Data> map;
+    BinarySearchTreeMap<std::string, Data> map;
 };
 
-TEST_F(OrderedMapTest, EmptyTest)
+TEST_F(BinarySearchTreeMapTest, EmptyTest)
 {
     EXPECT_FALSE(map.empty());
 }
 
-TEST_F(OrderedMapTest, SizeTest)
+TEST_F(BinarySearchTreeMapTest, SizeTest)
 {
     EXPECT_EQ(map.size(), 8);
 }
 
-TEST_F(OrderedMapTest, ContainsTest)
+TEST_F(BinarySearchTreeMapTest, ContainsTest)
 {
     EXPECT_TRUE(map.contains("E"));
 }
 
-TEST_F(OrderedMapTest, ValidGetTest)
+TEST_F(BinarySearchTreeMapTest, ValidGetTest)
 {
     EXPECT_TRUE(map.get("S").name == "S");
 }
 
-TEST_F(OrderedMapTest, InvalidGetTest)
+TEST_F(BinarySearchTreeMapTest, InvalidGetTest)
 {
     EXPECT_THROW(map.get("O"), std::runtime_error);
 }
 
-TEST_F(OrderedMapTest, ValidPickTest)
+TEST_F(BinarySearchTreeMapTest, ValidPickTest)
 {
     auto value = map.pick("S");
     ASSERT_TRUE(value.has_value());
     EXPECT_EQ(value.value().name, "S");
 }
 
-TEST_F(OrderedMapTest, InvalidPickTest)
+TEST_F(BinarySearchTreeMapTest, InvalidPickTest)
 {
     auto value = map.pick("O");
     EXPECT_FALSE(value.has_value());
 }
 
-TEST_F(OrderedMapTest, MinMaxTest)
+TEST_F(BinarySearchTreeMapTest, MinMaxTest)
 {
     auto minKey = map.min();
     ASSERT_TRUE(minKey.has_value());
@@ -80,25 +80,25 @@ TEST_F(OrderedMapTest, MinMaxTest)
     ASSERT_FALSE(map.contains("X"));
 }
 
-TEST_F(OrderedMapTest, EraseTest)
+TEST_F(BinarySearchTreeMapTest, EraseTest)
 {
     map.erase("C");
     EXPECT_FALSE(map.contains("C"));
 }
 
-TEST_F(OrderedMapTest, RankTest)
+TEST_F(BinarySearchTreeMapTest, RankTest)
 {
     EXPECT_EQ(map.rank("M"), 4);
 }
 
-TEST_F(OrderedMapTest, FloorTest)
+TEST_F(BinarySearchTreeMapTest, FloorTest)
 {
     auto floorKey = map.floor("F");
     ASSERT_TRUE(floorKey.has_value());
     EXPECT_EQ(map.get(floorKey.value()).name, "E");
 }
 
-TEST_F(OrderedMapTest, CeilingTest)
+TEST_F(BinarySearchTreeMapTest, CeilingTest)
 {
     auto ceilingKey = map.ceiling("B");
     ASSERT_TRUE(ceilingKey.has_value());

@@ -4,56 +4,78 @@
 #include <algorithm>
 #include <vector>
 #include <utility>
-#include <optional>
+
+#include "Map.hpp"
 
 namespace algorithms {
 
-template <typename Key,
-          typename T,
-          typename Comparator = std::less<Key>>
-class OrderedMap {
+template <typename Key, typename Value, typename Comparator = std::less<Key>>
+class OrderedMap : public Map<Key, Value, Comparator> {
 public:
-    using KeyOrNull = std::optional<Key>;
+    using KeyOrNull = typename Map<Key, Value, Comparator>::KeyOrNull;
     using Keys = std::vector<Key>;
-    using Value = std::optional<T>;
-    using Values = std::vector<Value>;
 
-    void put(const Key& key, const T& value)
+    using ValueOrNull = typename Map<Key, Value, Comparator>::ValueOrNull;
+    using Values = std::vector<ValueOrNull>;
+
+    void put(const Key& key, Value&& value) override
     {
-        auto it = std::find_if(_keys.cbegin(), _keys.cend(), [this, &key] (const Key& k) {
-            return (compare(k, key) >= 0);
-        });
+        auto it
+            = std::find_if(_keys.cbegin(), _keys.cend(), [this, &key](const Key& k) { return (compare(k, key) >= 0); });
 
         if (it == _keys.cend()) {
             _keys.push_back(key);
-            _values.push_back(std::make_optional<T>(value));
+            _values.push_back(std::make_optional<Value>(std::forward<Value>(value)));
         }
         else {
             std::size_t r = std::distance(_keys.cbegin(), it);
             if (compare(key, _keys[r]) == 0) {
-                _values[r] = std::make_optional<T>(value);
+                _values[r] = std::make_optional<Value>(std::forward<Value>(value));
             }
             else {
                 _keys.insert(it, key);
-                _values.insert(_values.cbegin() + r, std::make_optional<T>(value));
+                _values.insert(_values.cbegin() + r, std::make_optional<Value>(std::forward<Value>(value)));
             }
         }
     }
 
-    Value get(const Key& key) const
+    Value& get(const Key& key) override
+    {
+        if (empty()) {
+            throw std::runtime_error{"Item not found"};
+        }
+        std::size_t r = rank(key);
+        if (r >= _keys.size() || _keys[r] != key) {
+            throw std::runtime_error{"Item not found"};
+        }
+        return _values[r].value();
+    }
+
+    const Value& get(const Key& key) const override
+    {
+        if (empty()) {
+            throw std::runtime_error{"Item not found"};
+        }
+        std::size_t r = rank(key);
+        if (r >= _keys.size() || _keys[r] != key) {
+            throw std::runtime_error{"Item not found"};
+        }
+        return _values[r].value();
+    }
+
+    ValueOrNull pick(const Key& key) const override
     {
         if (empty()) {
             return std::nullopt;
         }
-
         std::size_t r = rank(key);
-        if (r < _keys.size() && compare(key, _keys[r]) == 0) {
-            return _values[r];
+        if (r >= _keys.size() || _keys[r] != key) {
+            return std::nullopt;
         }
-        return std::nullopt;
+        return _values[r];
     }
 
-    bool contains(const Key& key) const
+    bool contains(const Key& key) const override
     {
         if (empty()) {
             return false;
@@ -63,106 +85,48 @@ public:
         return (r < _keys.size() && compare(key, _keys[r]) == 0);
     }
 
-    void erase(const Key& key)
+    void erase(const Key& key) override
     {
         if (empty()) {
             return;
         }
 
-         std::size_t r = rank(key);
-         if (r < _keys.size() && compare(key, _keys[r]) == 0) {
-             _keys.erase(_keys.cbegin() + r);
-             _values.erase(_values.cbegin() + r);
-         }
+        std::size_t r = rank(key);
+        if (r < _keys.size() && compare(key, _keys[r]) == 0) {
+            _keys.erase(_keys.cbegin() + r);
+            _values.erase(_values.cbegin() + r);
+        }
     }
 
-    bool empty() const
+    void eraseMin() override
+    {
+        auto k = min();
+        if (!k.has_value()) {
+            return;
+        }
+        erase(k.value());
+    }
+
+    void eraseMax() override
+    {
+        auto k = max();
+        if (!k.has_value()) {
+            return;
+        }
+        erase(k.value());
+    }
+
+    bool empty() const override
     {
         return _keys.empty();
     }
 
-    std::size_t size() const
+    std::size_t size() const override
     {
         return _keys.size();
     }
 
-    std::size_t size(const Key& lo, const Key& hi)
-    {
-        return keys(lo, hi).size();
-    }
-
-    KeyOrNull floor(const Key& key) const
-    {
-        if (empty()) {
-            return std::nullopt;
-        }
-
-        auto r = rank(key);
-        if (r < _keys.size() && compare(key, _keys[r]) == 0) {
-            return std::make_optional<Key>(_keys[r]);
-        }
-        return (r == 0)
-            ? std::nullopt
-            : std::make_optional<Key>(_keys[r - 1]);
-    }
-
-    KeyOrNull ceiling(const Key& key) const
-    {
-        if (empty()) {
-            return std::nullopt;
-        }
-
-        auto r = rank(key);
-        return (r == _keys.size())
-            ? std::nullopt
-            : std::make_optional<Key>(_keys[r]);
-    }
-
-    KeyOrNull select(std::size_t n)
-    {
-        if (empty() || n >= _keys.size()) {
-            return std::nullopt;
-        }
-
-        return _keys[n - 1];
-    }
-
-    Keys keys(const Key& lo, const Key& hi)
-    {
-        if (empty()) {
-            return Keys{};
-        }
-
-        Keys keys;
-        for (std::size_t i = rank(lo); i < rank(hi); ++i) {
-            keys.push_back(_keys[i]);
-        }
-        if (contains(hi)) {
-            keys.push_back(_keys[rank(hi)]);
-        }
-        return keys;
-    }
-
-    KeyOrNull min() const
-    {
-        if (empty()) {
-            return std::nullopt;
-        }
-
-        return std::make_optional<Key>(_keys.front());
-    }
-
-    KeyOrNull max() const
-    {
-        if (empty()) {
-            return std::nullopt;
-        }
-
-        return std::make_optional<Key>(_keys.back());
-    }
-
-private:
-    std::size_t rank(const Key& key) const
+    std::size_t rank(const Key& key) const override
     {
         int lo = 0;
         int hi = _keys.size() - 1;
@@ -182,6 +146,46 @@ private:
         return lo;
     }
 
+    KeyOrNull min() const override
+    {
+        if (empty()) {
+            return std::nullopt;
+        }
+        return std::make_optional<Key>(_keys.front());
+    }
+
+    KeyOrNull max() const override
+    {
+        if (empty()) {
+            return std::nullopt;
+        }
+        return std::make_optional<Key>(_keys.back());
+    }
+
+    KeyOrNull floor(const Key& key) const
+    {
+        if (empty()) {
+            return std::nullopt;
+        }
+
+        auto r = rank(key);
+        if (r < _keys.size() && compare(key, _keys[r]) == 0) {
+            return std::make_optional<Key>(_keys[r]);
+        }
+        return (r == 0) ? std::nullopt : std::make_optional<Key>(_keys[r - 1]);
+    }
+
+    KeyOrNull ceiling(const Key& key) const
+    {
+        if (empty()) {
+            return std::nullopt;
+        }
+
+        auto r = rank(key);
+        return (r == _keys.size()) ? std::nullopt : std::make_optional<Key>(_keys[r]);
+    }
+
+private:
     int compare(const Key& key1, const Key& key2) const
     {
         if (_comparator(key1, key2)) {
