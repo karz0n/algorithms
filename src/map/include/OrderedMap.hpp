@@ -100,20 +100,18 @@ public:
 
     void eraseMin() override
     {
-        auto k = min();
-        if (!k.has_value()) {
-            return;
+        if (empty()) {
+            throw std::runtime_error{"Empty map"};
         }
-        erase(k.value());
+        erase(min());
     }
 
     void eraseMax() override
     {
-        auto k = max();
-        if (!k.has_value()) {
-            return;
+        if (empty()) {
+            throw std::runtime_error{"Empty map"};
         }
-        erase(k.value());
+        erase(max());
     }
 
     bool empty() const override
@@ -146,20 +144,20 @@ public:
         return lo;
     }
 
-    KeyOrNull min() const override
+    Key min() const override
     {
         if (empty()) {
-            return std::nullopt;
+            throw std::runtime_error{"Map is empty"};
         }
-        return std::make_optional<Key>(_keys.front());
+        return _keys.front();
     }
 
-    KeyOrNull max() const override
+    Key max() const override
     {
         if (empty()) {
-            return std::nullopt;
+            throw std::runtime_error{"Map is empty"};
         }
-        return std::make_optional<Key>(_keys.back());
+        return _keys.back();
     }
 
     KeyOrNull floor(const Key& key) const

@@ -1,7 +1,9 @@
 #ifndef BINARYSEARCHTREEMAP_HPP
 #define BINARYSEARCHTREEMAP_HPP
 
+#ifndef NDEBUG
 #include <stdexcept>
+#endif
 #include <memory>
 
 #include "Map.hpp"
@@ -45,18 +47,22 @@ public:
     Value& get(const Key& key) override
     {
         auto n = find(key);
+#ifndef NDEBUG
         if (!n) {
             throw std::runtime_error{"Item not found"};
         }
+#endif
         return n->value;
     }
 
     const Value& get(const Key& key) const override
     {
         auto n = find(key);
+#ifndef NDEBUG
         if (!n) {
             throw std::runtime_error{"Item not found"};
         }
+#endif
         return n->value;
     }
 
@@ -105,16 +111,20 @@ public:
         return rank(key, _root);
     }
 
-    KeyOrNull min() const override
+    Key min() const override
     {
-        auto n = min(_root);
-        return n ? KeyOrNull{n->key} : std::nullopt;
+        if (empty()) {
+            throw std::runtime_error{"Map is empty"};
+        }
+        return min(_root)->key;
     }
 
-    KeyOrNull max() const override
+    Key max() const override
     {
-        auto n = max(_root);
-        return n ? KeyOrNull{n->key} : std::nullopt;
+        if (empty()) {
+            throw std::runtime_error{"Map is empty"};
+        }
+        return max(_root)->key;
     }
 
     KeyOrNull floor(const Key& key) const override
@@ -147,8 +157,10 @@ private:
         std::size_t count;
     };
 
+    using NodePtr = typename Node::Ptr;
+
 private:
-    std::size_t size(typename Node::Ptr node) const
+    std::size_t size(NodePtr node) const
     {
         if (!node) {
             return 0;
@@ -167,130 +179,136 @@ private:
         return 0;
     }
 
-    typename Node::Ptr find(const Key& key) const
+    NodePtr find(const Key& key) const
     {
-        typename Node::Ptr n = _root;
+        NodePtr n = _root;
         while (n) {
-            int cmp = compare(key, n->key);
-            if (cmp < 0) {
+            auto c = compare(key, n->key);
+            if (c == 0) {
+                return n;
+            }
+            else if (c < 0) {
                 n = n->left;
             }
-            else if (cmp > 0) {
+            else if (c > 0) {
                 n = n->right;
-            }
-            else {
-                return n;
             }
         }
         return nullptr;
     }
 
-    typename Node::Ptr put(typename Node::Ptr node, const Key& key, Value&& value)
+    NodePtr put(NodePtr node, const Key& key, Value&& value)
     {
         if (!node) {
             return std::make_shared<Node>(key, std::forward<Value>(value));
         }
 
-        int cmp = compare(key, node->key);
-        if (cmp < 0) {
+        auto c = compare(key, node->key);
+        if (c == 0) {
+            node->value = std::forward<Value>(value);
+        }
+        else if (c < 0) {
             node->left = put(node->left, key, std::forward<Value>(value));
         }
-        else if (cmp > 0) {
+        else if (c > 0) {
             node->right = put(node->right, key, std::forward<Value>(value));
-        }
-        else {
-            node->value = std::forward<Value>(value);
         }
         node->count = 1 + size(node->left) + size(node->right);
 
         return node;
     }
 
-    typename Node::Ptr floor(typename Node::Ptr node, const Key& key) const
+    NodePtr floor(NodePtr node, const Key& key) const
     {
         if (!node) {
             return nullptr;
         }
 
-        int cmp = compare(key, node->key);
-        if (cmp < 0) {
+        auto c = compare(key, node->key);
+        if (c == 0) {
+            return node;
+        }
+        if (c < 0) {
             return floor(node->left, key);
         }
-        else if (cmp > 0) {
-            typename Node::Ptr t = floor(node->right, key);
+        if (c > 0) {
+            NodePtr t = floor(node->right, key);
             return t ? t : node;
         }
-        else {
-            return node;
-        }
+
+        return nullptr;
     }
 
-    typename Node::Ptr ceiling(typename Node::Ptr node, const Key& key) const
+    NodePtr ceiling(NodePtr node, const Key& key) const
     {
         if (!node) {
             return nullptr;
         }
 
-        int cmp = compare(key, node->key);
-        if (cmp < 0) {
-            typename Node::Ptr t = ceiling(node->left, key);
-            return t ? t : node;
-        }
-        else if (cmp > 0) {
-            return ceiling(node->right, key);
-        }
-        else {
+        auto c = compare(key, node->key);
+        if (c == 0) {
             return node;
         }
+        if (c < 0) {
+            NodePtr t = ceiling(node->left, key);
+            return t ? t : node;
+        }
+        if (c > 0) {
+            return ceiling(node->right, key);
+        }
+
+        return nullptr;
     }
 
-    std::size_t rank(const Key& key, typename Node::Ptr node) const
+    std::size_t rank(const Key& key, NodePtr node) const
     {
         if (!node) {
             return 0;
         }
 
-        int cmp = compare(key, node->key);
-        if (cmp < 0) {
-            return rank(key, node->left);
-        }
-        else if (cmp > 0) {
-            return 1 + size(node->left) + rank(key, node->right);
-        }
-        else {
+        auto c = compare(key, node->key);
+        if (c == 0) {
             return size(node->left);
         }
+        if (c < 0) {
+            return rank(key, node->left);
+        }
+        if (c > 0) {
+            return 1 + size(node->left) + rank(key, node->right);
+        }
+
+        return 0;
     }
 
-    typename Node::Ptr erase(typename Node::Ptr node, const Key& key)
+    NodePtr erase(NodePtr node, const Key& key)
     {
         if (!node) {
             return nullptr;
         }
 
-        int cmp = compare(key, node->key);
-        if (cmp < 0) {
-            node->left = erase(node->left, key);
-        }
-        else if (cmp > 0) {
-            node->right = erase(node->right, key);
-        }
-        else {
+        auto c = compare(key, node->key);
+        if (c == 0) {
             if (!node->right) {
                 return node->left;
             }
 
-            typename Node::Ptr t = node;
+            NodePtr t = node;
             node = min(t->right);
             node->right = eraseMin(t->right);
             node->left = t->left;
+        }
+        else if (c < 0) {
+            node->left = erase(node->left, key);
+        }
+        else if (c > 0) {
+            node->right = erase(node->right, key);
         }
         node->count = 1 + size(node->left) + size(node->right);
 
         return node;
     }
 
-    typename Node::Ptr eraseMin(typename Node::Ptr node)
+    NodePtr eraseMin(NodePtr node)
     {
         if (!node->left) {
             return node->right;
@@ -300,7 +318,7 @@ private:
         return node;
     }
 
-    typename Node::Ptr eraseMax(typename Node::Ptr node)
+    NodePtr eraseMax(NodePtr node)
     {
         if (!node->right) {
             return node->left;
@@ -310,30 +328,18 @@ private:
         return node;
     }
 
-    typename Node::Ptr min(typename Node::Ptr node) const
+    NodePtr min(NodePtr node) const
     {
-        if (!node) {
-            return nullptr;
-        }
-        while (node->left) {
-            node = node->left;
-        }
-        return node;
+        return (node->left) ? min(node->left) : node;
     }
 
-    typename Node::Ptr max(typename Node::Ptr node) const
+    NodePtr max(NodePtr node) const
     {
-        if (!node) {
-            return nullptr;
-        }
-        while (node->right) {
-            node = node->right;
-        }
-        return node;
+        return (node->right) ? max(node->right) : node;
     }
 
 private:
-    typename Node::Ptr _root;
+    NodePtr _root;
     Comparator _comparator;
 };
 

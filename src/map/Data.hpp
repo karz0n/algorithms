@@ -16,6 +16,7 @@ struct Data {
 
     Data(const Data& other)
         : name{other.name}
+        , logging{other.logging}
     {
         if (logging) {
             std::cout << "ptor: " << name << std::endl;
@@ -38,6 +39,8 @@ struct Data {
         }
 
         name = other.name;
+        logging = other.logging;
+
         if (logging) {
             std::cout << "cper: " << name << std::endl;
         }
@@ -52,6 +55,8 @@ struct Data {
         }
 
         name = std::move(other.name);
+        logging = other.logging;
+
         if (logging) {
             std::cout << "mper: " << name << std::endl;
         }

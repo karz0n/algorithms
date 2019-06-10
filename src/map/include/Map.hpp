@@ -37,9 +37,9 @@ public:
 
     virtual std::size_t rank(const Key& key) const = 0;
 
-    virtual KeyOrNull min() const = 0;
+    virtual Key min() const = 0;
 
-    virtual KeyOrNull max() const = 0;
+    virtual Key max() const = 0;
 
     virtual KeyOrNull floor(const Key& key) const = 0;
 
