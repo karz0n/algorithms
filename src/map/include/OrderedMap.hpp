@@ -1,6 +1,7 @@
 #ifndef ELEMENTARYMAP_HPP
 #define ELEMENTARYMAP_HPP
 
+#include <stdexcept>
 #include <algorithm>
 #include <vector>
 #include <utility>
@@ -13,10 +14,7 @@ template <typename Key, typename Value, typename Comparator = std::less<Key>>
 class OrderedMap : public Map<Key, Value, Comparator> {
 public:
     using KeyOrNull = typename Map<Key, Value, Comparator>::KeyOrNull;
-    using Keys = std::vector<Key>;
-
     using ValueOrNull = typename Map<Key, Value, Comparator>::ValueOrNull;
-    using Values = std::vector<ValueOrNull>;
 
     void put(const Key& key, Value&& value) override
     {
@@ -42,7 +40,7 @@ public:
     Value& get(const Key& key) override
     {
         if (empty()) {
-            throw std::runtime_error{"Item not found"};
+            throw std::runtime_error{"Empty map"};
         }
         std::size_t r = rank(key);
         if (r >= _keys.size() || _keys[r] != key) {
@@ -54,7 +52,7 @@ public:
     const Value& get(const Key& key) const override
     {
         if (empty()) {
-            throw std::runtime_error{"Item not found"};
+            throw std::runtime_error{"Empty map"};
         }
         std::size_t r = rank(key);
         if (r >= _keys.size() || _keys[r] != key) {
@@ -80,7 +78,6 @@ public:
         if (empty()) {
             return false;
         }
-
         std::size_t r = rank(key);
         return (r < _keys.size() && compare(key, _keys[r]) == 0);
     }
@@ -88,7 +85,7 @@ public:
     void erase(const Key& key) override
     {
         if (empty()) {
-            return;
+            throw std::runtime_error{"Map is empty"};
         }
 
         std::size_t r = rank(key);
@@ -101,7 +98,7 @@ public:
     void eraseMin() override
     {
         if (empty()) {
-            throw std::runtime_error{"Empty map"};
+            throw std::runtime_error{"Map is empty"};
         }
         erase(min());
     }
@@ -109,7 +106,7 @@ public:
     void eraseMax() override
     {
         if (empty()) {
-            throw std::runtime_error{"Empty map"};
+            throw std::runtime_error{"Map is empty"};
         }
         erase(max());
     }
@@ -163,7 +160,7 @@ public:
     KeyOrNull floor(const Key& key) const
     {
         if (empty()) {
-            return std::nullopt;
+            throw std::runtime_error{"Map is empty"};
         }
 
         auto r = rank(key);
@@ -176,14 +173,16 @@ public:
     KeyOrNull ceiling(const Key& key) const
     {
         if (empty()) {
-            return std::nullopt;
+            throw std::runtime_error{"Map is empty"};
         }
-
         auto r = rank(key);
         return (r == _keys.size()) ? std::nullopt : std::make_optional<Key>(_keys[r]);
     }
 
 private:
+    using Keys = std::vector<Key>;
+    using Values = std::vector<ValueOrNull>;
+
     int compare(const Key& key1, const Key& key2) const
     {
         if (_comparator(key1, key2)) {

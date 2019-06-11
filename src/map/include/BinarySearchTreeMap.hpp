@@ -1,9 +1,7 @@
 #ifndef BINARYSEARCHTREEMAP_HPP
 #define BINARYSEARCHTREEMAP_HPP
 
-#ifndef NDEBUG
 #include <stdexcept>
-#endif
 #include <memory>
 
 #include "Map.hpp"
@@ -46,23 +44,25 @@ public:
 
     Value& get(const Key& key) override
     {
+        if (empty()) {
+            throw std::runtime_error{"Map is empty"};
+        }
         auto n = find(key);
-#ifndef NDEBUG
         if (!n) {
             throw std::runtime_error{"Item not found"};
         }
-#endif
         return n->value;
     }
 
     const Value& get(const Key& key) const override
     {
+        if (empty()) {
+            throw std::runtime_error{"Map is empty"};
+        }
         auto n = find(key);
-#ifndef NDEBUG
         if (!n) {
             throw std::runtime_error{"Item not found"};
         }
-#endif
         return n->value;
     }
 
@@ -79,21 +79,26 @@ public:
 
     void erase(const Key& key) override
     {
+        if (empty()) {
+            throw std::runtime_error{"Map is empty"};
+        }
         _root = erase(_root, key);
     }
 
     void eraseMin() override
     {
-        if (_root) {
-            _root = eraseMin(_root);
+        if (empty()) {
+            throw std::runtime_error{"Map is empty"};
         }
+        _root = eraseMin(_root);
     }
 
     void eraseMax() override
     {
-        if (_root) {
-            _root = eraseMax(_root);
+        if (empty()) {
+            throw std::runtime_error{"Map is empty"};
         }
+        _root = eraseMax(_root);
     }
 
     bool empty() const override
@@ -129,12 +134,18 @@ public:
 
     KeyOrNull floor(const Key& key) const override
     {
+        if (empty()) {
+            throw std::runtime_error{"Map is empty"};
+        }
         auto n = floor(_root, key);
         return n ? KeyOrNull{n->key} : std::nullopt;
     }
 
     KeyOrNull ceiling(const Key& key) const override
     {
+        if (empty()) {
+            throw std::runtime_error{"Map is empty"};
+        }
         auto n = ceiling(_root, key);
         return n ? KeyOrNull{n->key} : std::nullopt;
     }

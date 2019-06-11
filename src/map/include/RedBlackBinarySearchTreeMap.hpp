@@ -1,9 +1,7 @@
 #ifndef REDBLACKBINARYSEARCHTREEMAP_HPP
 #define REDBLACKBINARYSEARCHTREEMAP_HPP
 
-#ifndef NDEBUG
 #include <stdexcept>
-#endif
 #include <memory>
 
 #include "Map.hpp"
@@ -42,7 +40,7 @@ public:
     Value& get(const Key& key) override
     {
         if (empty()) {
-            throw std::runtime_error{"Empty map"};
+            throw std::runtime_error{"Map is empty"};
         }
         auto n = find(key);
         if (!n) {
@@ -54,7 +52,7 @@ public:
     const Value& get(const Key& key) const override
     {
         if (empty()) {
-            throw std::runtime_error{"Empty map"};
+            throw std::runtime_error{"Map is empty"};
         }
         auto n = find(key);
         if (!n) {
@@ -77,7 +75,7 @@ public:
     void erase(const Key& key) override
     {
         if (empty()) {
-            throw std::runtime_error{"Empty map"};
+            throw std::runtime_error{"Map is empty"};
         }
         if (!contains(key)) {
             return;
@@ -95,7 +93,7 @@ public:
     void eraseMin() override
     {
         if (empty()) {
-            throw std::runtime_error{"Empty map"};
+            throw std::runtime_error{"Map is empty"};
         }
 
         if (!isRed(_root->left) && !isRed(_root->right)) {
@@ -110,7 +108,7 @@ public:
     void eraseMax() override
     {
         if (empty()) {
-            throw std::runtime_error{"Empty map"};
+            throw std::runtime_error{"Map is empty"};
         }
 
         if (!isRed(_root->left) && !isRed(_root->right)) {
