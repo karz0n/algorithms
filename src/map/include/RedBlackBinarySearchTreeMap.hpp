@@ -7,12 +7,16 @@
 #include "Map.hpp"
 
 /**
+ * Red-black tree implementation.
  *
- * Invariants:
- *  - No node has two red link connected to it
+ * Rules:
+ *  - Every node is red or black
+ *  - Root is always black
+ *  - New nodes are always red
  *  - Every path from root to null link has the same number of black links (perfect black balance)
+ *  - No path can have two consecutive red nodes
+ *  - Nulls are black
  *  - Red link lean left
- *
  */
 namespace algorithms {
 
@@ -34,6 +38,8 @@ public:
     void put(const Key& key, Value&& value) override
     {
         _root = put(_root, key, std::forward<Value>(value));
+
+        /** Root is always black */
         _root->color = Node::Colors::black;
     }
 
@@ -179,7 +185,7 @@ private:
             : key{key}
             , value{std::forward<Value>(value)}
             , count{1}
-            , color{Colors::red} /* New link is RED by default */
+            , color{Colors::red} /** New nodes are always red */
         {
         }
 
@@ -405,12 +411,15 @@ private:
         if (!isRed(node->right)) {
             throw std::logic_error("Right link should be red");
         }
+        if (isRed(node->left)) {
+            throw std::logic_error("Left link should be black");
+        }
 #endif
         NodePtr x = node->right;
         node->right = x->left;
         x->left = node;
-        x->color = x->left->color;
-        x->left->color = Node::Colors::red;
+        x->color = node->color;
+        node->color = Node::Colors::red;
         x->count = node->count;
         node->count = size(node->left) + size(node->right) + 1;
         return x;
@@ -425,12 +434,15 @@ private:
         if (!isRed(node->left)) {
             throw std::logic_error("Left link should be red");
         }
+        if (isRed(node->right)) {
+            throw std::logic_error("Right link should be black");
+        }
 #endif
         NodePtr x = node->left;
         node->left = x->right;
         x->right = node;
-        x->color = x->right->color;
-        x->right->color = Node::Colors::red;
+        x->color = node->color;
+        node->color = Node::Colors::red;
         x->count = node->count;
         node->count = size(node->left) + size(node->right) + 1;
         return x;
@@ -449,9 +461,9 @@ private:
             throw std::logic_error("Left and right links should be red");
         }
 #endif
-        node->color = (node->color == Node::Colors::red) ? Node::Colors::black : Node::Colors::red;
-        node->left->color = (node->left->color == Node::Colors::red) ? Node::Colors::black : Node::Colors::red;
-        node->right->color = (node->right->color == Node::Colors::red) ? Node::Colors::black : Node::Colors::red;
+        node->color = invert(node->color);
+        node->left->color = invert(node->left->color);
+        node->right->color = invert(node->right->color);
     }
 
     NodePtr balance(NodePtr node)
@@ -490,9 +502,14 @@ private:
         return node;
     }
 
-    bool isRed(NodePtr node) const
+    static bool isRed(NodePtr node)
     {
         return node ? (node->color == Node::Colors::red) : false;
+    }
+
+    static typename Node::Colors invert(typename Node::Colors color)
+    {
+        return (color == Node::Colors::red) ? Node::Colors::black : Node::Colors::red;
     }
 
 private:
