@@ -35,6 +35,8 @@ public:
 
     virtual std::size_t size() const = 0;
 
+    virtual std::size_t size(Key lo, Key hi) const = 0;
+
     virtual std::size_t rank(const Key& key) const = 0;
 
     virtual Key min() const = 0;

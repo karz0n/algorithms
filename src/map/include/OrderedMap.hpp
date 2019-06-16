@@ -121,6 +121,14 @@ public:
         return _keys.size();
     }
 
+    std::size_t size(Key lo, Key hi) const override
+    {
+        if (contains(hi)) {
+            return rank(hi) - rank(lo) + 1;
+        }
+        return rank(hi) - rank(lo);
+    }
+
     std::size_t rank(const Key& key) const override
     {
         int lo = 0;

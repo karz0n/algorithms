@@ -74,6 +74,11 @@ TEST_P(MapTest, SizeTest)
     EXPECT_EQ(_map->size(), 8);
 }
 
+TEST_P(MapTest, RangeSizeTest)
+{
+    EXPECT_EQ(_map->size("A", "H"), 4);
+}
+
 TEST_P(MapTest, ContainsTest)
 {
     EXPECT_TRUE(_map->contains("E"));
