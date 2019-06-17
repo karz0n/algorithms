@@ -14,8 +14,12 @@ template <typename Key, typename Value, typename Comparator = std::less<Key>>
 class OrderedMap : public Map<Key, Value, Comparator> {
 public:
     using KeyOrNull = typename Map<Key, Value, Comparator>::KeyOrNull;
+
     using ValueOrNull = typename Map<Key, Value, Comparator>::ValueOrNull;
 
+    using Keys = typename Map<Key, Value, Comparator>::Keys;
+
+public:
     void put(const Key& key, Value&& value) override
     {
         auto it
@@ -187,8 +191,27 @@ public:
         return (r == _keys.size()) ? std::nullopt : std::make_optional<Key>(_keys[r]);
     }
 
+    Keys keys() const override
+    {
+        return _keys;
+    }
+
+    Keys keys(Key lo, Key hi) const override
+    {
+        if (empty() || compare(lo, hi) > 0) {
+            return {};
+        }
+
+        Keys output;
+        for (const auto& key : _keys) {
+            if (key >= lo && key <= hi) {
+                output.push_back(key);
+            }
+        }
+        return output;
+    }
+
 private:
-    using Keys = std::vector<Key>;
     using Values = std::vector<ValueOrNull>;
 
     int compare(const Key& key1, const Key& key2) const

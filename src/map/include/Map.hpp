@@ -13,6 +13,9 @@ public:
 
     using ValueOrNull = std::optional<Value>;
 
+    using Keys = std::vector<Key>;
+
+public:
     virtual ~Map() = default;
 
     virtual void put(const Key& key, Value&& value) = 0;
@@ -46,6 +49,10 @@ public:
     virtual KeyOrNull floor(const Key& key) const = 0;
 
     virtual KeyOrNull ceiling(const Key& key) const = 0;
+
+    virtual Keys keys() const = 0;
+
+    virtual Keys keys(Key lo, Key hi) const = 0;
 };
 
 } // namespace algorithms

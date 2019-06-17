@@ -3,6 +3,7 @@
 
 #include <stdexcept>
 #include <memory>
+#include <list>
 
 #include "Map.hpp"
 
@@ -29,6 +30,9 @@ public:
 
     using ValueOrNull = typename Map<Key, Value, Comparator>::ValueOrNull;
 
+    using Keys = typename Map<Key, Value, Comparator>::Keys;
+
+public:
     BinarySearchTreeMap()
     {
     }
@@ -156,6 +160,22 @@ public:
         }
         auto n = ceiling(_root, key);
         return n ? KeyOrNull{n->key} : std::nullopt;
+    }
+
+    Keys keys() const override
+    {
+        return keys(min(), max());
+    }
+
+    Keys keys(Key lo, Key hi) const override
+    {
+        if (empty() || compare(lo, hi) > 0) {
+            return {};
+        }
+
+        std::list<Key> items;
+        keys(_root, items, lo, hi);
+        return Keys{std::make_move_iterator(std::begin(items)), std::make_move_iterator(std::end(items))};
     }
 
 private:
@@ -355,6 +375,26 @@ private:
     NodePtr max(NodePtr node) const
     {
         return (node->right) ? max(node->right) : node;
+    }
+
+    void keys(NodePtr n, const std::list<Key>& items, Key lo, Key hi) const override
+    {
+        if (!n) {
+            return;
+        }
+
+        auto loc = compare(lo, n->key);
+        auto hic = compare(hi, n->key);
+
+        if (loc < 0) {
+            keys(n->left, items, lo, hi);
+        }
+        if (loc <= 0 && hic >= 0) {
+            items.push(n->key);
+        }
+        if (hic > 0) {
+            keys(n->right, items, lo, hi);
+        }
     }
 
 private:

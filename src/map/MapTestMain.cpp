@@ -143,6 +143,20 @@ TEST_P(MapTest, CeilingTest)
     EXPECT_EQ(_map->get(ceilingKey.value()).name, "C");
 }
 
+TEST_P(MapTest, AllKeysTest)
+{
+    auto keys = _map->keys();
+    StringDataMap::Keys expected{"A", "C", "E", "H", "M", "R", "S", "X"};
+    EXPECT_EQ(keys, expected);
+}
+
+TEST_P(MapTest, KeysTest)
+{
+    auto keys = _map->keys("A", "H");
+    StringDataMap::Keys expected{"A", "C", "E", "H"};
+    EXPECT_EQ(keys, expected);
+}
+
 INSTANTIATE_TEST_SUITE_P(MapTestMain, MapTest,
                          ::testing::Values(&createOrderedMap, &createBinarySearchTreeMap,
                                            &createRedBlackBinarySearchTreeMap));
