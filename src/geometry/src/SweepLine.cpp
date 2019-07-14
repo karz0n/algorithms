@@ -55,12 +55,12 @@ Points orthogonalSegmentIntersection(const Segments& segments)
     MinPriorityQueue<Event, EventComparator> events;
     for (const auto& segment : segments) {
         if (segment.isVertical()) {
-            events.enqueue(Event{segment.p1.x, segment});
+            events.push(Event{segment.p1.x, segment});
             continue;
         }
         if (segment.isHorizontal()) {
-            events.enqueue(Event{segment.p1.x, segment});
-            events.enqueue(Event{segment.p2.x, segment});
+            events.push(Event{segment.p1.x, segment});
+            events.push(Event{segment.p2.x, segment});
             continue;
         }
         throw std::logic_error{"Segment should be vertical or horizontal"};
@@ -68,7 +68,7 @@ Points orthogonalSegmentIntersection(const Segments& segments)
 
     std::set<Segment, OrthogonalSegmentComparator> set;
     while (!events.empty()) {
-        auto e = events.dequeue();
+        auto e = events.pop();
 
         if (e.segment.isVertical()) {
             Segment s1{Point{MIN_X, e.segment.p1.y}, Point{MIN_X, e.segment.p1.y}};

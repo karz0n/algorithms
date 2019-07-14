@@ -7,69 +7,121 @@
 
 namespace algorithms {
 
-template<typename T>
-class LinkedQueue : public Queue<T>
-{
+template <typename T>
+class LinkedQueue : public Queue<T> {
 public:
     LinkedQueue()
         : _first{nullptr}
         , _last{nullptr}
-    { }
+        , _size{0}
+    {
+    }
 
     ~LinkedQueue()
     {
+        Node* n = nullptr;
         while (_first) {
-            Node* n = _first->next;
+            n = _first->next;
             delete _first;
             _first = n;
         }
     }
 
-    void enqueue(const T& item) override
+    void push(const T& item) override
     {
-        Node* p = _last;
+        Node* n = _last;
         _last = new Node(item);
         if (empty()) {
-           _first = _last;
+            _first = _last;
         }
         else {
-           p->next = _last;
+            n->next = _last;
         }
+        _size++;
     }
 
-    T dequeue() override
+    T pop() override
     {
 #ifndef NDEBUG
         if (empty()) {
-            throw std::underflow_error("Queue is empty");
+            throw std::runtime_error("Queue is empty");
         }
 #endif
-        T item = _first->item;
-        _first = _first->next;
+        Node* n = _first;
+        _first = n->next;
+        T item = n->value;
+        delete n;
+        _size--;
         return item;
+    }
+
+    T& front() override
+    {
+#ifndef NDEBUG
+        if (empty()) {
+            throw std::runtime_error("Queue is empty");
+        }
+#endif
+        return _first->value;
+    }
+
+    const T& front() const override
+    {
+#ifndef NDEBUG
+        if (empty()) {
+            throw std::runtime_error("Queue is empty");
+        }
+#endif
+        return _first->value;
+    }
+
+    T& back() override
+    {
+#ifndef NDEBUG
+        if (empty()) {
+            throw std::runtime_error("Queue is empty");
+        }
+#endif
+        return _last->value;
+    }
+
+    const T& back() const
+    {
+#ifndef NDEBUG
+        if (empty()) {
+            throw std::runtime_error("Queue is empty");
+        }
+#endif
+        return _last->value;
     }
 
     bool empty() const override
     {
-        return (_first == nullptr);
+        return (_size == 0);
+    }
+
+    std::size_t size() const override
+    {
+        return _size;
     }
 
 private:
     struct Node {
-        Node(const T& item)
-            : item{item}
+        Node(const T& value)
+            : value{value}
             , next{nullptr}
-        { }
+        {
+        }
 
-        T item;
+        T value;
         Node* next;
     };
 
 private:
     Node* _first;
     Node* _last;
+    std::size_t _size;
 };
-
 
 } // namespace algorithms
 

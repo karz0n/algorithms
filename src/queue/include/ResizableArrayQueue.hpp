@@ -7,21 +7,19 @@
 
 namespace algorithms {
 
+/** Default capacity for the empty queue */
+constexpr std::size_t DEFAULT_CAPACITY = 15;
+
 template <typename T>
 class ResizableArrayQueue : public Queue<T> {
 public:
-    ResizableArrayQueue(std::size_t size = 1)
+    ResizableArrayQueue()
         : _size{0}
         , _epos{0}
         , _dpos{0}
         , _data{nullptr}
     {
-#ifndef NDEBUG
-        if (size == 0) {
-            throw std::invalid_argument("Capacity is invalid");
-        }
-#endif
-        _data = new T[_size = size];
+        resize(DEFAULT_CAPACITY);
     }
 
     ~ResizableArrayQueue() override
@@ -31,7 +29,7 @@ public:
         }
     }
 
-    void enqueue(const T& item) override
+    void push(const T& item) override
     {
         if (_epos == _size) {
             resize(_size * 2);
@@ -39,15 +37,14 @@ public:
         _data[_epos++] = item;
     }
 
-    T dequeue() override
+    T pop() override
     {
 #ifndef NDEBUG
         if (empty()) {
-            throw std::underflow_error("Stack is empty");
+            throw std::runtime_error("Queue is empty");
         }
 #endif
-        if (_epos - _dpos == _size / 4)
-        {
+        if (_epos - _dpos == _size / 4) {
             resize(_size / 2);
         }
 
@@ -59,9 +56,54 @@ public:
         return item;
     }
 
+    T& front()
+    {
+#ifndef NDEBUG
+        if (empty()) {
+            throw std::runtime_error("Queue is empty");
+        }
+#endif
+        return _data[_dpos];
+    }
+
+    const T& front() const
+    {
+#ifndef NDEBUG
+        if (empty()) {
+            throw std::runtime_error("Queue is empty");
+        }
+#endif
+        return _data[_dpos];
+    }
+
+    T& back()
+    {
+#ifndef NDEBUG
+        if (empty()) {
+            throw std::runtime_error("Queue is empty");
+        }
+#endif
+        return _data[_epos - 1];
+    }
+
+    const T& back() const
+    {
+#ifndef NDEBUG
+        if (empty()) {
+            throw std::runtime_error("Queue is empty");
+        }
+#endif
+        return _data[_epos - 1];
+    }
+
     bool empty() const override
     {
         return (_epos == _dpos);
+    }
+
+    std::size_t size() const
+    {
+        return (_epos > _dpos) ? _epos - _dpos : 0;
     }
 
 private:

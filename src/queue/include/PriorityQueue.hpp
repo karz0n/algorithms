@@ -2,12 +2,12 @@
 #define PRIORITYQUEUE_HPP
 
 #include <functional>
-#include <vector>
 #include <optional>
 
-#include "Queue.hpp"
-
 namespace algorithms {
+
+/** Default capacity for the empty queue */
+constexpr std::size_t DEFAULT_CAPACITY = 15;
 
 /**
  * Priority queue class implementation based on binary tree and binary heap ordering.
@@ -21,56 +21,84 @@ namespace algorithms {
  *
  */
 template <typename T, typename Comparator>
-class PriorityQueue : public Queue<T> {
+class PriorityQueue {
 public:
     using Value = std::optional<T>;
 
     PriorityQueue()
-        : PriorityQueue{1}
+        : _size{0}
+        , _capacity{0}
+        , _data{nullptr}
     {
+        resize(DEFAULT_CAPACITY);
     }
 
-    PriorityQueue(std::size_t capacity)
-        : _n{0}
+    ~PriorityQueue()
     {
-        _data.resize(capacity + 1);
+        if (_data) {
+            delete[] _data;
+        }
     }
 
-    void enqueue(const T& value) override
+    void push(const T& value)
     {
         /** Increase the size */
-        if (_n == _data.size() - 1) {
-            _data.resize(_data.size() * 2);
+        if (_size == _capacity - 1) {
+            resize(_capacity * 2);
         }
 
-        _data[++_n] = std::make_optional<T>(value);
-        swim(_n);
+        _data[++_size] = std::make_optional<T>(value);
+        swim(_size);
     }
 
-    T dequeue() override
+    T pop()
     {
 #ifndef NDEBUG
         if (empty()) {
-            throw std::underflow_error("Queue is empty");
+            throw std::runtime_error("Queue is empty");
         }
 #endif
         auto value = _data[1].value();
-        std::swap(_data[1], _data[_n--]);
+        std::swap(_data[1], _data[_size--]);
         sink(1);
-        _data[_n + 1].reset();
+        _data[_size + 1].reset();
 
         /** Reduce the size */
-        if (_n > 0 && _n == ((_data.size() - 1) / 4)) {
-            _data.resize(_data.size() / 2);
-            _data.shrink_to_fit();
+        if (_size > 0 && _size == ((_capacity - 1) / 4)) {
+            resize(_capacity / 2);
         }
 
         return value;
     }
 
-    bool empty() const override
+    const T& top() const
     {
-        return (_n == 0);
+#ifndef NDEBUG
+        if (empty()) {
+            throw std::runtime_error("Queue is empty");
+        }
+#endif
+        return _data[1].value();
+    }
+
+    const T& bottom() const
+    {
+#ifndef NDEBUG
+        if (empty()) {
+            throw std::runtime_error("Queue is empty");
+        }
+#endif
+        return _data[_size].value();
+    }
+
+    bool empty() const
+    {
+        return (_size == 0);
+    }
+
+    std::size_t size() const
+    {
+        return _size;
     }
 
 private:
@@ -84,9 +112,9 @@ private:
 
     void sink(std::size_t k, Comparator cmp = {})
     {
-        while (2 * k <= _n) {
+        while (2 * k <= _size) {
             std::size_t j = 2 * k;
-            if (j < _n && cmp(_data[j].value(), _data[j + 1].value())) {
+            if (j < _size && cmp(_data[j].value(), _data[j + 1].value())) {
                 j++;
             }
             if (!cmp(_data[k].value(), _data[j].value())) {
@@ -97,9 +125,28 @@ private:
         }
     }
 
+    void resize(std::size_t capacity)
+    {
+        if (capacity == _capacity) {
+            return;
+        }
+
+        Value* data = new Value[capacity];
+        if (!empty()) {
+            std::move(_data + 1, _data + _size + 1, data + 1);
+        }
+
+        _capacity = capacity;
+        if (_data) {
+            delete[] _data;
+        }
+        _data = data;
+    }
+
 private:
-    std::size_t _n;
-    std::vector<Value> _data;
+    std::size_t _size;
+    std::size_t _capacity;
+    Value* _data;
 };
 
 /**

@@ -22,14 +22,14 @@ void CollisionSystem::init()
         predict(particle);
     }
 
-    _events.enqueue(Event{0.0, Particle::OptionalRef{}, Particle::OptionalRef{}});
+    _events.push(Event{0.0, Particle::OptionalRef{}, Particle::OptionalRef{}});
 }
 
 void CollisionSystem::draw()
 {
     while (!_events.empty())
     {
-        auto event = _events.dequeue();
+        auto event = _events.pop();
         if (!event.isValid()) {
             continue;
         }
@@ -69,18 +69,18 @@ void CollisionSystem::predict(Particle& target)
     for (auto& particle : _particles) {
         double dt = target.timeToHit(particle);
         if (_time + dt <= _limit) {
-            _events.enqueue(Event{_time + dt, Particle::OptionalRef{target}, Particle::OptionalRef{particle}});
+            _events.push(Event{_time + dt, Particle::OptionalRef{target}, Particle::OptionalRef{particle}});
         }
     }
 
     double dtX = target.timeToHitVerticalWall();
     if (_time + dtX <= _limit) {
-        _events.enqueue(Event{_time + dtX, Particle::OptionalRef{target}, Particle::OptionalRef{}});
+        _events.push(Event{_time + dtX, Particle::OptionalRef{target}, Particle::OptionalRef{}});
     }
 
     double dtY = target.timeToHitHorizontalWall();
     if (_time + dtY) {
-        _events.enqueue(Event{_time + dtY, Particle::OptionalRef{}, Particle::OptionalRef{target}});
+        _events.push(Event{_time + dtY, Particle::OptionalRef{}, Particle::OptionalRef{target}});
     }
 }
 
@@ -93,7 +93,7 @@ void CollisionSystem::redraw()
     }
 
     if (_time < _limit) {
-        _events.enqueue(Event{_time + 1.0 / 0.5, Particle::OptionalRef{}, Particle::OptionalRef{}});
+        _events.push(Event{_time + 1.0 / 0.5, Particle::OptionalRef{}, Particle::OptionalRef{}});
     }
 
     swapBuffers();

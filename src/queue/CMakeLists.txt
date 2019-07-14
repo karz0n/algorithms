@@ -1,3 +1,5 @@
+include(GoogleTest)
+
 #------------------------------------------------------------------------------------------
 
 set(BASE_PATH ${PROJECT_SOURCE_DIR}/src/queue)
@@ -23,7 +25,7 @@ target_include_directories(${TARGET_NAME}
 
 #------------------------------------------------------------------------------------------
 
-set(TARGET_NAME "Queue-Main")
+set(TARGET_NAME "Queue-Test")
 
 add_executable(${TARGET_NAME} "")
 
@@ -34,8 +36,8 @@ set_target_properties(${TARGET_NAME}
 )
 
 target_link_libraries(${TARGET_NAME}
-    Queue-Library
     ${GTEST_LIBRARY}
+    "Queue-Library"
 )
 
 target_include_directories(${TARGET_NAME}
@@ -45,7 +47,8 @@ target_include_directories(${TARGET_NAME}
 
 target_sources(${TARGET_NAME}
     PRIVATE
-        ${BASE_PATH}/QueueMain.cpp
+        ${BASE_PATH}/test/QueueTest.cpp
+        ${BASE_PATH}/test/PriorityQueueTest.cpp
 )
 
 add_test(
@@ -56,40 +59,3 @@ add_test(
     WORKING_DIRECTORY
         ${PROJECT_OUTPUT_DIR}
 )
-
-#------------------------------------------------------------------------------------------
-
-set(TARGET_NAME "PriorityQueue-Main")
-
-add_executable(${TARGET_NAME} "")
-
-set_target_properties(${TARGET_NAME}
-    PROPERTIES
-        CXX_STANDARD 17
-        CXX_STANDARD_REQUIRED YES
-)
-
-target_link_libraries(${TARGET_NAME}
-    Queue-Library
-    ${GTEST_LIBRARY}
-)
-
-target_include_directories(${TARGET_NAME}
-    PRIVATE
-        ${BASE_PATH}/include
-)
-
-target_sources(${TARGET_NAME}
-    PRIVATE
-        ${BASE_PATH}/PriorityQueueMain.cpp
-)
-
-add_test(
-    NAME
-        ${TARGET_NAME}
-    COMMAND
-        ${TARGET_NAME}
-    WORKING_DIRECTORY
-        ${PROJECT_OUTPUT_DIR}
-)
-
