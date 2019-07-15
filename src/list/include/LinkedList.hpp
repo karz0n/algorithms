@@ -22,33 +22,63 @@ public:
     {
     }
 
+    ~LinkedList()
+    {
+        NodeType* n = nullptr;
+        while (_front) {
+            n = _front->next;
+            delete _front;
+            _front = n;
+        }
+    }
+
     LinkedListIterator<T> begin() const
     {
-        return LinkedListIterator<T>(_front);
+        return Iterator{_front};
     }
 
     LinkedListIterator<T> end() const
     {
-        return LinkedListIterator<T>();
+        return Iterator{};
     }
 
     T& front() override
     {
+#ifndef NDEBUG
+        if (empty()) {
+            throw std::runtime_error("Queue is empty");
+        }
+#endif
         return _front->item;
     }
 
     const T& front() const override
     {
+#ifndef NDEBUG
+        if (empty()) {
+            throw std::runtime_error("List is empty");
+        }
+#endif
         return _front->item;
     }
 
     T& back() override
     {
+#ifndef NDEBUG
+        if (empty()) {
+            throw std::runtime_error("List is empty");
+        }
+#endif
         return _back->item;
     }
 
     const T& back() const override
     {
+#ifndef NDEBUG
+        if (empty()) {
+            throw std::runtime_error("List is empty");
+        }
+#endif
         return _back->item;
     }
 
@@ -58,7 +88,8 @@ public:
         n->next = _front;
         if (_front) {
             _front->prev = n;
-        } else {
+        }
+        else {
             _back = n;
         }
         _front = n;
@@ -67,7 +98,7 @@ public:
     T popFront() override
     {
 #ifndef NDEBUG
-        if (isEmpty()) {
+        if (empty()) {
             throw std::runtime_error("List is empty");
         }
 #endif
@@ -93,7 +124,8 @@ public:
         n->prev = _back;
         if (_back) {
             _back->next = n;
-        } else {
+        }
+        else {
             _front = n;
         }
         _back = n;
@@ -102,7 +134,7 @@ public:
     T popBack() override
     {
 #ifndef NDEBUG
-        if (isEmpty()) {
+        if (empty()) {
             throw std::runtime_error("List is empty");
         }
 #endif
@@ -122,7 +154,7 @@ public:
         return item;
     }
 
-    bool isEmpty() const override
+    bool empty() const override
     {
         return (_front == nullptr);
     }

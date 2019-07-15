@@ -24,7 +24,7 @@ public:
 
     virtual T popBack() = 0;
 
-    virtual bool isEmpty() const = 0;
+    virtual bool empty() const = 0;
 };
 
 } // namespace algorithms

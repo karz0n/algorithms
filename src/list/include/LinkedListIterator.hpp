@@ -10,7 +10,7 @@ namespace algorithms {
 /**
  * Simple linked list iterator.
  */
-template<typename T>
+template <typename T>
 class LinkedListIterator {
 public:
     using value_type = T;
@@ -22,14 +22,17 @@ public:
 public:
     LinkedListIterator()
         : _p{nullptr}
-    { }
+    {
+    }
 
     ~LinkedListIterator() noexcept
-    { }
+    {
+    }
 
     explicit LinkedListIterator(Node<T>* front)
         : _p{front}
-    { }
+    {
+    }
 
     LinkedListIterator<T>& operator=(const LinkedListIterator<T>& other)
     {
@@ -50,8 +53,7 @@ public:
 
     bool operator==(const LinkedListIterator<T>& other)
     {
-        if (this != &other)
-        {
+        if (this != &other) {
             return (_p == other._p);
         }
         return true;
@@ -102,6 +104,6 @@ private:
     Node<T>* _p;
 };
 
-} // namespace name
+} // namespace algorithms
 
 #endif // LINKEDLISTITERATOR_HPP
