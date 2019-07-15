@@ -55,7 +55,7 @@ TEST_P(QueueTest, Invariants)
     ASSERT_EQ(_queue->front(), MIN);
     ASSERT_EQ(_queue->back(), MAX);
 
-    EXPECT_FALSE(_queue->empty());
+    ASSERT_FALSE(_queue->empty());
 
     _queue->pop();
     _queue->pop();

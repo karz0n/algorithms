@@ -51,11 +51,7 @@ target_sources(${TARGET_NAME}
         ${BASE_PATH}/test/PriorityQueueTest.cpp
 )
 
-add_test(
-    NAME
-        ${TARGET_NAME}
-    COMMAND
-        ${TARGET_NAME}
+gtest_discover_tests(${TARGET_NAME}
     WORKING_DIRECTORY
         ${PROJECT_OUTPUT_DIR}
 )
