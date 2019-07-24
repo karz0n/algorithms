@@ -6,7 +6,7 @@
 namespace algorithms {
 
 /**
- * Arithmetic evaluator which uses two stack to calculate any expression.
+ * Arithmetic evaluator which uses two stack to calculate expression.
  */
 class ArithmeticEvaluator {
 public:

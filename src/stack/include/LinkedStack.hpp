@@ -10,12 +10,13 @@ namespace algorithms {
 /**
  * Linked list stack implementation.
  */
-template<typename T>
+template <typename T>
 class LinkedStack : public Stack<T> {
 public:
     LinkedStack()
         : _first{nullptr}
-    { }
+    {
+    }
 
     ~LinkedStack() override
     {
@@ -34,7 +35,7 @@ public:
     T pop() override
     {
 #ifndef NDEBUG
-        if (isEmpty()) {
+        if (empty()) {
             throw std::underflow_error("Stack is empty");
         }
 #endif
@@ -44,7 +45,7 @@ public:
         return item;
     }
 
-    bool isEmpty() const override
+    bool empty() const override
     {
         return (_first == nullptr);
     }
@@ -54,7 +55,8 @@ private:
         Node(const T& item, Node* next)
             : item{item}
             , next{next}
-        { }
+        {
+        }
 
         T item;
         Node* next;

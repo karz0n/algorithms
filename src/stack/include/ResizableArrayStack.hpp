@@ -15,9 +15,9 @@ template <typename T>
 class ResizableArrayStack : public Stack<T> {
 public:
     ResizableArrayStack(std::size_t size = 1)
-        : _dpos{ 0 }
-        , _size{ size }
-        , _data{ nullptr }
+        : _dpos{0}
+        , _size{size}
+        , _data{nullptr}
     {
 #ifndef NDEBUG
         if (size == 0) {
@@ -45,7 +45,7 @@ public:
     T pop() override
     {
 #ifndef NDEBUG
-        if (isEmpty()) {
+        if (empty()) {
             throw std::underflow_error("Stack is empty");
         }
 #endif
@@ -55,7 +55,7 @@ public:
         return _data[--_dpos];
     }
 
-    bool isEmpty() const override
+    bool empty() const override
     {
         return (_dpos == 0);
     }

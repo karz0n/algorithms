@@ -7,13 +7,15 @@
 
 namespace algorithms {
 
+static constexpr std::size_t DEFAULT_CAPACITY = 10;
+
 /**
  * Fixed size stack implementation.
  */
-template<typename T>
+template <typename T>
 class FixedArrayStack : public Stack<T> {
 public:
-    FixedArrayStack(std::size_t size)
+    FixedArrayStack(std::size_t size = DEFAULT_CAPACITY)
         : _n{0}
         , _s{size}
     {
@@ -43,14 +45,14 @@ public:
     T pop() override
     {
 #ifndef NDEBUG
-        if (isEmpty()) {
+        if (empty()) {
             throw std::underflow_error("Stack is empty");
         }
 #endif
         return _data[--_n];
     }
 
-    bool isEmpty() const override
+    bool empty() const override
     {
         return (_n == 0);
     }

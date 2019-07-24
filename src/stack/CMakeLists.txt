@@ -1,3 +1,5 @@
+include(GoogleTest)
+
 #------------------------------------------------------------------------------------------
 
 set(BASE_PATH ${PROJECT_SOURCE_DIR}/src/stack)
@@ -23,7 +25,7 @@ target_include_directories(${TARGET_NAME}
 
 #------------------------------------------------------------------------------------------
 
-set(TARGET_NAME "Stack-Main")
+set(TARGET_NAME "Stack-Test")
 
 add_executable(${TARGET_NAME} "")
 
@@ -34,7 +36,7 @@ set_target_properties(${TARGET_NAME}
 )
 
 target_link_libraries(${TARGET_NAME}
-    Stack-Library
+    "Stack-Library"
     ${GTEST_LIBRARY}
 )
 
@@ -45,21 +47,17 @@ target_include_directories(${TARGET_NAME}
 
 target_sources(${TARGET_NAME}
     PRIVATE
-        StackMain.cpp
+        ${BASE_PATH}/test/StackTest.cpp
 )
 
-add_test(
-    NAME
-        ${TARGET_NAME}
-    COMMAND
-        ${TARGET_NAME}
+gtest_discover_tests(${TARGET_NAME}
     WORKING_DIRECTORY
         ${PROJECT_OUTPUT_DIR}
 )
 
 #------------------------------------------------------------------------------------------
 
-set(TARGET_NAME "Evaluator-Main")
+set(TARGET_NAME "Stack-Evaluator")
 
 add_executable(${TARGET_NAME} "")
 
@@ -70,22 +68,18 @@ set_target_properties(${TARGET_NAME}
 )
 
 target_link_libraries(${TARGET_NAME}
-    Stack-Library
+    "Stack-Library"
     ${GTEST_LIBRARY}
 )
 
 target_sources(${TARGET_NAME}
     PRIVATE
-        ${BASE_PATH}/ArithmeticEvaluator.hpp
-        ${BASE_PATH}/ArithmeticEvaluator.cpp
-        ${BASE_PATH}/ArithmeticEvaluationMain.cpp
+        ${BASE_PATH}/include/ArithmeticEvaluator.hpp
+        ${BASE_PATH}/src/ArithmeticEvaluator.cpp
+        ${BASE_PATH}/test/ArithmeticEvaluatorTest.cpp
 )
 
-add_test(
-    NAME
-        ${TARGET_NAME}
-    COMMAND
-        ${TARGET_NAME}
+gtest_discover_tests(${TARGET_NAME}
     WORKING_DIRECTORY
         ${PROJECT_OUTPUT_DIR}
 )

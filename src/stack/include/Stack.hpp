@@ -6,7 +6,7 @@ namespace algorithms {
 /**
  * Interface class for stack implementations.
  */
-template<typename T>
+template <typename T>
 class Stack {
 public:
     virtual ~Stack() = default;
@@ -30,7 +30,7 @@ public:
      *
      * @return The flag which indicated that stack is empty.
      */
-    virtual bool isEmpty() const = 0;
+    virtual bool empty() const = 0;
 };
 
 } // namespace algorithms
