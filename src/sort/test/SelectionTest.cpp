@@ -2,33 +2,33 @@
 
 #include <Sequence.hpp>
 
-#include "Quick.hpp"
+#include "Selection.hpp"
 
 using namespace algorithms;
 
-TEST(Quick, Sort1K)
+TEST(SelectionTest, Sort1K)
 {
     Numbers numbers = Sequence::numbers(1000);
 
-    Quick::sort(numbers.begin(), numbers.end());
+    Selection::sort(numbers.begin(), numbers.end());
 
     ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
 }
 
-TEST(Quick, Sort10K)
+TEST(SelectionTest, Sort10K)
 {
     Numbers numbers = Sequence::numbers(10000);
 
-    Quick::sort(numbers.begin(), numbers.end());
+    Selection::sort(numbers.begin(), numbers.end());
 
     ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
 }
 
-TEST(Quick, Sort100K)
+TEST(SelectionTest, DISABLED_Sort100K /* disabled because test takes too much time */)
 {
     Numbers numbers = Sequence::numbers(100000);
 
-    Quick::sort(numbers.begin(), numbers.end());
+    Selection::sort(numbers.begin(), numbers.end());
 
     ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
 }

@@ -2,33 +2,33 @@
 
 #include <Sequence.hpp>
 
-#include "Merge.hpp"
+#include "Insertion.hpp"
 
 using namespace algorithms;
 
-TEST(Merge, Sort1K)
+TEST(InsertionTest, Sort1K)
 {
     Numbers numbers = Sequence::numbers(1000);
 
-    Merge::sort(numbers.begin(), numbers.end());
+    Insertion::sort(numbers.begin(), numbers.end());
 
     ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
 }
 
-TEST(Merge, Sort10K)
+TEST(InsertionTest, Sort10K)
 {
     Numbers numbers = Sequence::numbers(10000);
 
-    Merge::sort(numbers.begin(), numbers.end());
+    Insertion::sort(numbers.begin(), numbers.end());
 
     ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
 }
 
-TEST(Merge, Sort100K)
+TEST(InsertionTest, DISABLED_Sort100K /* disabled because test takes too much time */)
 {
     Numbers numbers = Sequence::numbers(100000);
 
-    Merge::sort(numbers.begin(), numbers.end());
+    Insertion::sort(numbers.begin(), numbers.end());
 
     ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
 }

@@ -18,12 +18,10 @@ namespace algorithms {
  *   - Best-case performance: N
  *
  * Remark: Use for small N or partially ordered.
- *
- * [insertion-sort](https://www.toptal.com/developers/sorting-algorithms/insertion-sort)
  */
 class Insertion {
 public:
-    template <typename BidirectionalIt>
+    template<typename BidirectionalIt>
     static void sort(BidirectionalIt first, BidirectionalIt last)
     {
         using T = typename std::iterator_traits<BidirectionalIt>::value_type;
@@ -31,7 +29,7 @@ public:
         sort(first, last, std::less<T>{});
     }
 
-    template <typename BidirectionalIt, typename Less>
+    template<typename BidirectionalIt, typename Less>
     static void sort(BidirectionalIt first, BidirectionalIt last, Less less)
     {
         if (first >= last) {

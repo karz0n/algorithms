@@ -18,12 +18,10 @@ namespace algorithms {
  *
  * Remark: No linear extra space and no quadratic time in worst case,
  *         but makes poor use of cache memory.
- *
- * [heap-sort](https://www.toptal.com/developers/sorting-algorithms/heap-sort)
  */
 class HeapSort {
 public:
-    template <typename RandomIt>
+    template<typename RandomIt>
     static void sort(RandomIt first, RandomIt last)
     {
         using T = typename std::iterator_traits<RandomIt>::value_type;
@@ -31,7 +29,7 @@ public:
         sort(first, last, std::less<T>{});
     }
 
-    template <typename RandomIt, typename Less>
+    template<typename RandomIt, typename Less>
     static void sort(RandomIt first, RandomIt last, Less less)
     {
         if (first >= last) {
@@ -51,7 +49,7 @@ public:
     }
 
 private:
-    template <typename RandomIt, typename Less>
+    template<typename RandomIt, typename Less>
     static void sink(RandomIt input, std::size_t k, std::size_t size, Less less)
     {
         while (2 * k <= size) {
@@ -63,10 +61,10 @@ private:
                 std::swap(input[k - 1], input[j - 1]);
                 k = j;
             }
-            else break;
+            else
+                break;
         }
     }
-
 };
 
 } // namespace algorithms

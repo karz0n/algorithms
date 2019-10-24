@@ -21,7 +21,7 @@ namespace algorithms {
  */
 class BottomUpMerge {
 public:
-    template <typename RandomIt>
+    template<typename RandomIt>
     static void sort(RandomIt first, RandomIt last)
     {
         using T = typename std::iterator_traits<RandomIt>::value_type;
@@ -29,7 +29,7 @@ public:
         sort(first, last, std::less<T>{});
     }
 
-    template <typename RandomIt, typename Less>
+    template<typename RandomIt, typename Less>
     static void sort(RandomIt first, RandomIt last, Less less)
     {
         using T = typename std::iterator_traits<RandomIt>::value_type;
@@ -48,7 +48,7 @@ public:
     }
 
 private:
-    template <typename RandomIt, typename Less>
+    template<typename RandomIt, typename Less>
     static void merge(RandomIt input, RandomIt output, Less less, std::size_t lo, std::size_t mid, std::size_t hi)
     {
         for (std::size_t k = lo; k <= hi; ++k) {

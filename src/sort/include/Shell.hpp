@@ -18,12 +18,10 @@ namespace algorithms {
  *   - Best-case performance: N (best known gap sequence)
  *
  * Remark: Tight code, subquadratic.
- *
- * [shell-sort](https://www.toptal.com/developers/sorting-algorithms/shell-sort)
  */
 class Shell {
 public:
-    template <typename RandomIt>
+    template<typename RandomIt>
     static void sort(RandomIt first, RandomIt last)
     {
         using T = typename std::iterator_traits<RandomIt>::value_type;
@@ -31,7 +29,7 @@ public:
         sort(first, last, std::less<T>{});
     }
 
-    template <typename RandomIt, typename Less>
+    template<typename RandomIt, typename Less>
     static void sort(RandomIt first, RandomIt last, Less less)
     {
         // Get number of elements.

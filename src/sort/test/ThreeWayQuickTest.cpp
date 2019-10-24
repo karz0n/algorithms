@@ -2,33 +2,33 @@
 
 #include <Sequence.hpp>
 
-#include "Insertion.hpp"
+#include "ThreeWayQuick.hpp"
 
 using namespace algorithms;
 
-TEST(Insertion, Sort1K)
+TEST(ThreeWayQuickTest, Sort1K)
 {
     Numbers numbers = Sequence::numbers(1000);
 
-    Insertion::sort(numbers.begin(), numbers.end());
+    ThreeWayQuick::sort(numbers.begin(), numbers.end());
 
     ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
 }
 
-TEST(Insertion, Sort10K)
+TEST(ThreeWayQuickTest, Sort10K)
 {
     Numbers numbers = Sequence::numbers(10000);
 
-    Insertion::sort(numbers.begin(), numbers.end());
+    ThreeWayQuick::sort(numbers.begin(), numbers.end());
 
     ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
 }
 
-TEST(Insertion, DISABLED_Sort100K)
+TEST(ThreeWayQuickTest, Sort100K)
 {
     Numbers numbers = Sequence::numbers(100000);
 
-    Insertion::sort(numbers.begin(), numbers.end());
+    ThreeWayQuick::sort(numbers.begin(), numbers.end());
 
     ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
 }
