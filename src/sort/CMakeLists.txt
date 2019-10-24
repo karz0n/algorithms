@@ -40,7 +40,7 @@ set_target_properties(${TARGET_NAME}
 
 target_link_libraries(${TARGET_NAME}
     "Tools-Library"
-    ${GTEST_LIBRARY}
+    "googletest-gtest"
 )
 
 target_include_directories(${TARGET_NAME}

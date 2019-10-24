@@ -30,7 +30,7 @@ file(COPY
 # External Dependencies Configuration
 #-------------------------------------------------------------------------------
 
-include(${PROJECT_SOURCE_DIR}/external/googletest.cmake)
+include(${PROJECT_SOURCE_DIR}/external/GoogleTest.cmake)
 
 #-------------------------------------------------------------------------------
 # Structure Configuration

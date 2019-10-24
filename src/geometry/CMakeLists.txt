@@ -41,8 +41,8 @@ set_target_properties(${TARGET_NAME}
 )
 
 target_link_libraries(${TARGET_NAME}
-    ${GTEST_LIBRARY}
     "Geometry-Library"
+    "googletest-gtest"
 )
 
 target_sources(${TARGET_NAME}

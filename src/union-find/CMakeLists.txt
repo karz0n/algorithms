@@ -15,8 +15,7 @@ set_target_properties(${TARGET_NAME}
 )
 
 target_link_libraries(${TARGET_NAME}
-    stdc++fs
-    ${GTEST_LIBRARY}
+    "googletest-gtest"
 )
 
 target_sources(${TARGET_NAME}
@@ -50,8 +49,7 @@ set_target_properties(${TARGET_NAME}
 )
 
 target_link_libraries(${TARGET_NAME}
-    stdc++fs
-    ${GTEST_LIBRARY}
+    "googletest-gtest"
 )
 
 target_sources(${TARGET_NAME}
@@ -85,8 +83,7 @@ set_target_properties(${TARGET_NAME}
 )
 
 target_link_libraries(${TARGET_NAME}
-    stdc++fs
-    ${GTEST_LIBRARY}
+    "googletest-gtest"
 )
 
 target_sources(${TARGET_NAME}
@@ -120,8 +117,7 @@ set_target_properties(${TARGET_NAME}
 )
 
 target_link_libraries(${TARGET_NAME}
-    stdc++fs
-    ${GTEST_LIBRARY}
+    "googletest-gtest"
 )
 
 target_sources(${TARGET_NAME}

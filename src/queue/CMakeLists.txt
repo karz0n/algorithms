@@ -36,8 +36,8 @@ set_target_properties(${TARGET_NAME}
 )
 
 target_link_libraries(${TARGET_NAME}
-    ${GTEST_LIBRARY}
     "Queue-Library"
+    "googletest-gtest"
 )
 
 target_include_directories(${TARGET_NAME}

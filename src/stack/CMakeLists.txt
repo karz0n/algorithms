@@ -37,7 +37,7 @@ set_target_properties(${TARGET_NAME}
 
 target_link_libraries(${TARGET_NAME}
     "Stack-Library"
-    ${GTEST_LIBRARY}
+    "googletest-gtest"
 )
 
 target_include_directories(${TARGET_NAME}
@@ -69,7 +69,7 @@ set_target_properties(${TARGET_NAME}
 
 target_link_libraries(${TARGET_NAME}
     "Stack-Library"
-    ${GTEST_LIBRARY}
+    "googletest-gtest"
 )
 
 target_sources(${TARGET_NAME}

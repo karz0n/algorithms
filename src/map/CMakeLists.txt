@@ -33,8 +33,8 @@ set_target_properties(${TARGET_NAME}
 )
 
 target_link_libraries(${TARGET_NAME}
-    Map-Library
-    ${GTEST_LIBRARY}
+    "Map-Library"
+    "googletest-gtest"
 )
 
 target_include_directories(${TARGET_NAME}
