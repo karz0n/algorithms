@@ -1,0 +1,2 @@
+resources/tree filter=lfs diff=lfs merge=lfs -text
+resources/union-find filter=lfs diff=lfs merge=lfs -text
