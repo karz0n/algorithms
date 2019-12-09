@@ -16,10 +16,13 @@ if(${_NAME}_POPULATED)
     return()
 endif()
 FetchContent_Populate(${_NAME})
+
 set(_SOURCE_DIR ${${_NAME}_SOURCE_DIR})
 set(_BINARY_DIR ${${_NAME}_BINARY_DIR})
 
+#
 # Configure and compile
+#
 execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" ${_SOURCE_DIR}
     WORKING_DIRECTORY "${_BINARY_DIR}" )
 execute_process(COMMAND "${CMAKE_COMMAND}" --build . --parallel
@@ -27,7 +30,9 @@ execute_process(COMMAND "${CMAKE_COMMAND}" --build . --parallel
 
 find_package(Threads REQUIRED)
 
+#
 # Define GTest library target
+#
 add_library(${_NAME}-gtest INTERFACE IMPORTED GLOBAL)
 target_link_libraries(${_NAME}-gtest
     INTERFACE
@@ -40,7 +45,9 @@ set_property(TARGET ${_NAME}-gtest
              APPEND
              PROPERTY INTERFACE_LINK_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
 
+#
 # Define GMock library target
+#
 add_library(${_NAME}-gmock INTERFACE IMPORTED GLOBAL)
 target_link_libraries(${_NAME}-gmock
     INTERFACE

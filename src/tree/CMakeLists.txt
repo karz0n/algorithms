@@ -1,18 +1,17 @@
 #------------------------------------------------------------------------------------------
 
-set(BASE_PATH ${PROJECT_SOURCE_DIR}/src/map)
+set(BASE_PATH ${PROJECT_SOURCE_DIR}/src/tree)
 
 #------------------------------------------------------------------------------------------
 
-set(TARGET_NAME "Map-Library")
+set(TARGET_NAME "Tree-Library")
 
 add_library(${TARGET_NAME} INTERFACE)
 
 target_sources(${TARGET_NAME}
     INTERFACE
-        ${BASE_PATH}/include/Map.hpp
-        ${BASE_PATH}/include/OrderedMap.hpp
-        ${BASE_PATH}/include/BinarySearchTreeMap.hpp
+        ${BASE_PATH}/include/BinarySearchTree.hpp
+        ${BASE_PATH}/include/RedBlackBinarySearchTree.hpp
 )
 
 target_include_directories(${TARGET_NAME}
@@ -22,7 +21,7 @@ target_include_directories(${TARGET_NAME}
 
 #------------------------------------------------------------------------------------------
 
-set(TARGET_NAME "MapTestMain")
+set(TARGET_NAME "Tree-Test")
 
 add_executable(${TARGET_NAME} "")
 
@@ -33,8 +32,10 @@ set_target_properties(${TARGET_NAME}
 )
 
 target_link_libraries(${TARGET_NAME}
-    "Map-Library"
+    "Tree-Library"
+    "Tools-Library"
     "googletest-gtest"
+    "stdc++fs"
 )
 
 target_include_directories(${TARGET_NAME}
@@ -44,8 +45,9 @@ target_include_directories(${TARGET_NAME}
 
 target_sources(${TARGET_NAME}
     PRIVATE
-        Data.hpp
-        MapTestMain.cpp
+        ${BASE_PATH}/test/TreeTestData.hpp
+        ${BASE_PATH}/test/TreeTestData.cpp
+        ${BASE_PATH}/test/TreeTest.cpp
 )
 
 add_test(

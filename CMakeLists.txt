@@ -16,6 +16,8 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_OUTPUT_DIR})
 
 enable_testing()
 
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/modules")
+
 #-------------------------------------------------------------------------------
 # Resources Configuration
 #-------------------------------------------------------------------------------
@@ -30,7 +32,7 @@ file(COPY
 # External Dependencies Configuration
 #-------------------------------------------------------------------------------
 
-include(${PROJECT_SOURCE_DIR}/external/GoogleTest.cmake)
+include(${PROJECT_SOURCE_DIR}/cmake/external/GoogleTest.cmake)
 
 #-------------------------------------------------------------------------------
 # Structure Configuration
@@ -44,5 +46,5 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/src/list)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/sort)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/tools)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/event-driven)
-add_subdirectory(${PROJECT_SOURCE_DIR}/src/map)
+add_subdirectory(${PROJECT_SOURCE_DIR}/src/tree)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/geometry)
