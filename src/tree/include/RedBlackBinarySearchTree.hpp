@@ -149,10 +149,7 @@ public:
 
     std::size_t size(KeyType lo, KeyType hi) const override
     {
-        if (contains(hi)) {
-            return rank(hi) - rank(lo) + 1;
-        }
-        return rank(hi) - rank(lo);
+        return contains(hi) ? rank(hi) - rank(lo) + 1 : rank(hi) - rank(lo);
     }
 
     std::size_t rank(const KeyType& key) const override
