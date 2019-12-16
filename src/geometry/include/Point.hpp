@@ -1,8 +1,6 @@
-#ifndef POINT_HPP
-#define POINT_HPP
+#pragma once
 
 #include <cmath>
-
 #include <limits>
 #include <vector>
 
@@ -39,8 +37,8 @@ struct Point {
     /**
      * Finds orientation given segment and this point.
      *
-     * @param p
-     * @param q
+     * @param p - the point one
+     * @param q - the point two
      *
      * @return 0 - Colinear
      *         1 - ClockWise
@@ -62,5 +60,3 @@ struct Point {
 using Points = std::vector<Point>;
 
 } // namespace algorithms
-
-#endif // POINT_HPP

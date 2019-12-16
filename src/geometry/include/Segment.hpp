@@ -1,5 +1,4 @@
-#ifndef SEGMENT_HPP
-#define SEGMENT_HPP
+#pragma once
 
 #include <vector>
 
@@ -27,6 +26,23 @@ struct Segment {
         return p1.equalByY(p2);
     }
 
+    constexpr bool operator<(const Segment& other) const
+    {
+        if (p1.y < other.p1.y || p2.y < other.p2.y) {
+            return true;
+        }
+        if (p1.y > other.p1.y || p2.y > other.p2.y) {
+            return false;
+        }
+        if (p1.x < other.p1.x || p2.x < other.p2.x) {
+            return true;
+        }
+        if (p1.x > other.p1.x || p2.x > other.p2.x) {
+            return false;
+        }
+        return false;
+    }
+
     Point p1;
     Point p2;
 };
@@ -37,5 +53,3 @@ struct Segment {
 using Segments = std::vector<Segment>;
 
 } // namespace algorithms
-
-#endif // SEGMENT_HPP
