@@ -23,7 +23,7 @@ list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/modules")
 #-------------------------------------------------------------------------------
 
 file(COPY
-        ${PROJECT_SOURCE_DIR}/resources
+        ${PROJECT_SOURCE_DIR}/assets
      DESTINATION
         ${PROJECT_OUTPUT_DIR}
      USE_SOURCE_PERMISSIONS)
