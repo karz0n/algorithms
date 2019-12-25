@@ -8,7 +8,7 @@ using namespace algorithms;
 
 TEST(Quick, Select)
 {
-    Numbers numbers{0, -1, 15, 3, 7, 10, 1};
+    Numbers<int> numbers{0, -1, 15, 3, 7, 10, 1};
 
     ASSERT_EQ(Select::get<int>(numbers.begin(), numbers.end(), 0), -1);
     ASSERT_EQ(Select::get<int>(numbers.begin(), numbers.end(), 1), 0);

@@ -8,7 +8,7 @@ using namespace algorithms;
 
 TEST(MergeTest, Sort1K)
 {
-    Numbers numbers = Sequence::numbers(1000);
+    auto numbers = Sequence::numbers<int>(1000);
 
     Merge::sort(numbers.begin(), numbers.end());
 
@@ -17,7 +17,7 @@ TEST(MergeTest, Sort1K)
 
 TEST(MergeTest, Sort10K)
 {
-    Numbers numbers = Sequence::numbers(10000);
+    auto numbers = Sequence::numbers<int>(10000);
 
     Merge::sort(numbers.begin(), numbers.end());
 
@@ -26,7 +26,7 @@ TEST(MergeTest, Sort10K)
 
 TEST(MergeTest, Sort100K)
 {
-    Numbers numbers = Sequence::numbers(100000);
+    auto numbers = Sequence::numbers<int>(100000);
 
     Merge::sort(numbers.begin(), numbers.end());
 

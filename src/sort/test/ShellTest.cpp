@@ -8,7 +8,7 @@ using namespace algorithms;
 
 TEST(ShellTest, Sort1K)
 {
-    Numbers numbers = Sequence::numbers(1000);
+    auto numbers = Sequence::numbers<int>(1000);
 
     Shell::sort(numbers.begin(), numbers.end());
 
@@ -17,7 +17,7 @@ TEST(ShellTest, Sort1K)
 
 TEST(ShellTest, Sort10K)
 {
-    Numbers numbers = Sequence::numbers(10000);
+    auto numbers = Sequence::numbers<int>(10000);
 
     Shell::sort(numbers.begin(), numbers.end());
 
@@ -26,7 +26,7 @@ TEST(ShellTest, Sort10K)
 
 TEST(ShellTest, Sort100K)
 {
-    Numbers numbers = Sequence::numbers(100000);
+    auto numbers = Sequence::numbers<int>(100000);
 
     Shell::sort(numbers.begin(), numbers.end());
 

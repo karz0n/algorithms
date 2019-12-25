@@ -19,7 +19,6 @@ set_target_properties(${TARGET_NAME}
 target_sources(${TARGET_NAME}
     PRIVATE
         ${BASE_PATH}/include/Sequence.hpp
-        ${BASE_PATH}/src/Sequence.cpp
         ${BASE_PATH}/include/CsvFileHandler.hpp
         ${BASE_PATH}/src/CsvFileHandler.cpp
         ${BASE_PATH}/include/CsvFileReader.hpp
