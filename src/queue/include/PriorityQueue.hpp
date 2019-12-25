@@ -20,7 +20,7 @@ constexpr std::size_t DEFAULT_CAPACITY = 15;
  *  - largest key is a[1] which is root of binary tree
  *
  */
-template <typename T, typename Comparator>
+template<typename T, typename Comparator>
 class PriorityQueue {
 public:
     using Value = std::optional<T>;
@@ -152,13 +152,13 @@ private:
 /**
  * Min priority queue class alias
  */
-template <typename T, typename C = std::greater<std::optional<T>>>
+template<typename T, typename C = std::greater<T>>
 using MinPriorityQueue = PriorityQueue<T, C>;
 
 /**
  * Max priority queue class alias
  */
-template <typename T, typename C = std::less<std::optional<T>>>
+template<typename T, typename C = std::less<T>>
 using MaxPriorityQueue = PriorityQueue<T, C>;
 
 } // namespace algorithms
