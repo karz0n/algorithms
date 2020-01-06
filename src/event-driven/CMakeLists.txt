@@ -1,3 +1,11 @@
+#[[
+
+Dependencies:
+    $ sudo apt-get update
+    $ sudo apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev
+
+]]#
+
 #------------------------------------------------------------------------------------------
 
 set(BASE_PATH ${PROJECT_SOURCE_DIR}/src/event-driven)
@@ -6,10 +14,8 @@ set(BASE_PATH ${PROJECT_SOURCE_DIR}/src/event-driven)
 
 set(TARGET_NAME "EventDriven-Main")
 
-#
-# $ sudo apt-get update
-# $ sudo apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev
-#
+set(OpenGL_GL_PREFERENCE GLVND)
+
 find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
 
@@ -22,7 +28,7 @@ set_target_properties(${TARGET_NAME}
 )
 
 target_link_libraries(${TARGET_NAME}
-    Queue-Library
+    "Queue-Library"
     ${OPENGL_LIBRARIES}
     ${GLUT_LIBRARIES}
 )
@@ -30,7 +36,6 @@ target_link_libraries(${TARGET_NAME}
 target_include_directories(${TARGET_NAME}
     PRIVATE
         ${OPENGL_INCLUDE_DIR}
-    PRIVATE
         ${GLUT_INCLUDE_DIR}
 )
 
