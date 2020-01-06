@@ -12,7 +12,7 @@ TEST(SelectionTest, Sort1K)
 
     Selection::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
 TEST(SelectionTest, Sort10K)
@@ -21,7 +21,7 @@ TEST(SelectionTest, Sort10K)
 
     Selection::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
 TEST(SelectionTest, DISABLED_Sort100K /* disabled because test takes too much time */)
@@ -30,5 +30,5 @@ TEST(SelectionTest, DISABLED_Sort100K /* disabled because test takes too much ti
 
     Selection::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }

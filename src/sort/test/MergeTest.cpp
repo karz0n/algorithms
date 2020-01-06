@@ -12,7 +12,7 @@ TEST(MergeTest, Sort1K)
 
     Merge::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
 TEST(MergeTest, Sort10K)
@@ -21,7 +21,7 @@ TEST(MergeTest, Sort10K)
 
     Merge::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
 TEST(MergeTest, Sort100K)
@@ -30,5 +30,5 @@ TEST(MergeTest, Sort100K)
 
     Merge::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }

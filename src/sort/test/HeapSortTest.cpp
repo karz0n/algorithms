@@ -12,7 +12,7 @@ TEST(HeapSortTest, Sort1K)
 
     HeapSort::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
 TEST(HeapSortTest, Sort10K)
@@ -21,7 +21,7 @@ TEST(HeapSortTest, Sort10K)
 
     HeapSort::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
 TEST(HeapSortTest, Sort100K)
@@ -30,5 +30,5 @@ TEST(HeapSortTest, Sort100K)
 
     HeapSort::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }

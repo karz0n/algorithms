@@ -12,7 +12,7 @@ TEST(ThreeWayQuickTest, Sort1K)
 
     ThreeWayQuick::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
 TEST(ThreeWayQuickTest, Sort10K)
@@ -21,7 +21,7 @@ TEST(ThreeWayQuickTest, Sort10K)
 
     ThreeWayQuick::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
 TEST(ThreeWayQuickTest, Sort100K)
@@ -30,5 +30,5 @@ TEST(ThreeWayQuickTest, Sort100K)
 
     ThreeWayQuick::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }

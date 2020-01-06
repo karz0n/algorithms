@@ -12,7 +12,7 @@ TEST(QuickTest, Sort1K)
 
     Quick::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
 TEST(QuickTest, Sort10K)
@@ -21,7 +21,7 @@ TEST(QuickTest, Sort10K)
 
     Quick::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
 TEST(QuickTest, Sort100K)
@@ -30,5 +30,5 @@ TEST(QuickTest, Sort100K)
 
     Quick::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }

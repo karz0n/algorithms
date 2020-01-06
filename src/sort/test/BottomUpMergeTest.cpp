@@ -12,7 +12,7 @@ TEST(BottomUpMergeTest, Sort1K)
 
     BottomUpMerge::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
 TEST(BottomUpMergeTest, Sort10K)
@@ -21,7 +21,7 @@ TEST(BottomUpMergeTest, Sort10K)
 
     BottomUpMerge::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
 TEST(BottomUpMergeTest, Sort100K)
@@ -30,5 +30,5 @@ TEST(BottomUpMergeTest, Sort100K)
 
     BottomUpMerge::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }

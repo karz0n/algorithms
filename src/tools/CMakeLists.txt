@@ -52,6 +52,7 @@ target_link_libraries(${TARGET_NAME}
 target_sources(${TARGET_NAME}
     PRIVATE
         ${BASE_PATH}/test/CsvFileReaderTest.cpp
+        ${BASE_PATH}/test/SequenceTest.cpp
 )
 
 gtest_discover_tests(${TARGET_NAME}

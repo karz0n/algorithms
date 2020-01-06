@@ -12,7 +12,7 @@ TEST(ShellTest, Sort1K)
 
     Shell::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
 TEST(ShellTest, Sort10K)
@@ -21,7 +21,7 @@ TEST(ShellTest, Sort10K)
 
     Shell::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
 TEST(ShellTest, Sort100K)
@@ -30,5 +30,5 @@ TEST(ShellTest, Sort100K)
 
     Shell::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }

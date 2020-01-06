@@ -12,7 +12,7 @@ TEST(InsertionTest, Sort1K)
 
     Insertion::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
 TEST(InsertionTest, Sort10K)
@@ -21,7 +21,7 @@ TEST(InsertionTest, Sort10K)
 
     Insertion::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
 TEST(InsertionTest, DISABLED_Sort100K /* disabled because test takes too much time */)
@@ -30,5 +30,5 @@ TEST(InsertionTest, DISABLED_Sort100K /* disabled because test takes too much ti
 
     Insertion::sort(numbers.begin(), numbers.end());
 
-    ASSERT_TRUE(Sequence::isOrdered(numbers.begin(), numbers.end()));
+    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
