@@ -8,14 +8,14 @@
 
 #include "Segment.hpp"
 
-static constexpr double MIN_X = std::numeric_limits<double>::min();
-static constexpr double MAX_X = std::numeric_limits<double>::max();
+static constexpr float MIN_X = std::numeric_limits<float>::min();
+static constexpr float MAX_X = std::numeric_limits<float>::max();
 
 namespace algorithms {
 
 class Event {
 public:
-    constexpr Event(const Segment& s, double time)
+    constexpr Event(const Segment& s, float time)
         : _segment{s}
         , _time{time}
     {
@@ -26,19 +26,19 @@ public:
         return _segment;
     }
 
-    constexpr double time() const
+    constexpr float time() const
     {
         return _time;
     }
 
     constexpr bool isLeft() const
     {
-        return std::abs(_time - _segment.p1.x) < std::numeric_limits<double>::epsilon();
+        return std::abs(_time - _segment.p1.x) < std::numeric_limits<float>::epsilon();
     }
 
     constexpr bool isRight() const
     {
-        return std::abs(_time - _segment.p2.x) < std::numeric_limits<double>::epsilon();
+        return std::abs(_time - _segment.p2.x) < std::numeric_limits<float>::epsilon();
     }
 
     constexpr bool operator<(const Event& other) const
@@ -53,7 +53,7 @@ public:
 
 private:
     Segment _segment;
-    double _time;
+    float _time;
 };
 
 Points

@@ -13,7 +13,7 @@ struct Point {
     {
     }
 
-    constexpr Point(double x, double y)
+    constexpr Point(float x, float y)
         : x{x}
         , y{y}
     {
@@ -26,12 +26,17 @@ struct Point {
 
     constexpr bool equalByX(const Point& other) const
     {
-        return std::abs(x - other.x) < std::numeric_limits<double>::epsilon();
+        return std::abs(x - other.x) < std::numeric_limits<float>::epsilon();
     }
 
     constexpr bool equalByY(const Point& other) const
     {
-        return std::abs(y - other.y) < std::numeric_limits<double>::epsilon();
+        return std::abs(y - other.y) < std::numeric_limits<float>::epsilon();
+    }
+
+    float distanceTo(const Point& other) const
+    {
+        return std::sqrt(std::pow(other.x - x, 2.f) + std::pow(other.y - y, 2.f));
     }
 
     /**
@@ -46,12 +51,12 @@ struct Point {
      */
     constexpr int orientTo(const Point& p, const Point& q) const
     {
-        double v = (q.y - p.y) * (x - q.x) - (q.x - p.x) * (y - q.y);
-        return (v == 0.0) ? 0 : (v > 0.0) ? 1 : 2;
+        float v = (q.y - p.y) * (x - q.x) - (q.x - p.x) * (y - q.y);
+        return (v == 0.f) ? 0 : (v > 0.f) ? 1 : 2;
     }
 
-    double x;
-    double y;
+    float x;
+    float y;
 };
 
 /**
