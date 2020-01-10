@@ -15,7 +15,9 @@ target_sources(${TARGET_NAME}
         ${BASE_PATH}/include/Point.hpp
         ${BASE_PATH}/include/Segment.hpp
         ${BASE_PATH}/include/SweepLine.hpp
+        ${BASE_PATH}/include/KdTree.hpp
         ${BASE_PATH}/src/SweepLine.cpp
+        ${BASE_PATH}/src/KdTree.cpp
 )
 
 target_include_directories(${TARGET_NAME}
@@ -26,6 +28,7 @@ target_include_directories(${TARGET_NAME}
 target_link_libraries(${TARGET_NAME}
     INTERFACE
         "Queue-Library"
+        "Sort-Library"
 )
 
 #------------------------------------------------------------------------------------------
@@ -42,6 +45,7 @@ set_target_properties(${TARGET_NAME}
 
 target_link_libraries(${TARGET_NAME}
     "Geometry-Library"
+    "Tools-Library"
     "googletest-gtest"
 )
 
@@ -50,6 +54,7 @@ target_sources(${TARGET_NAME}
         ${BASE_PATH}/test/PointTest.cpp
         ${BASE_PATH}/test/SegmentTest.cpp
         ${BASE_PATH}/test/SweepLineTest.cpp
+        ${BASE_PATH}/test/KdTreeTest.cpp
 )
 
 gtest_discover_tests(${TARGET_NAME}
