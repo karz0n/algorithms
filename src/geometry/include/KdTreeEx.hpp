@@ -7,9 +7,9 @@
 namespace algorithms {
 
 /**
- * Basic canonical k-d tree implementation
+ * Optimized k-d tree implementation
  */
-class KdTree final {
+class KdTreeEx final {
 public:
     static const int K = 2; /** The number of dimensions to work with */
 
@@ -17,9 +17,9 @@ public:
     using BestPointAndDistance = std::tuple<Point, float>;
 
 public:
-    KdTree();
+    KdTreeEx();
 
-    ~KdTree();
+    ~KdTreeEx();
 
     void
     create(Points points);
@@ -33,9 +33,9 @@ public:
     bool
     empty() const;
 
-private:
+public:
     /**
-     * The list of possible directions of split line.
+     * The list of possible directions of split line according to possible directions.
      */
     enum class Directions {
         vertical,  /// Split line perpendicular to the X axis
@@ -62,25 +62,16 @@ private:
     };
 
 private:
-    Node*
-    create(Points points, int depth);
-
-    void
-    nearestTo(Node* node, const Point& queryPoint, Point& bestPoint, float& bestDistance);
-
     void
     clear(Node* node);
 
     static float
-    getMedian(const Points& points, Directions direction);
+    getMedian(Points points, Directions direction);
 
     static Directions
     getDirection(int depth);
 
-    static void
-    sortBy(Points& points, Directions direction);
-
-    static std::tuple<Points::const_iterator, Points::const_iterator>
+    static std::tuple<Points::iterator, Points::iterator>
     partitionBy(float median, Points& points, Directions direction);
 
     void

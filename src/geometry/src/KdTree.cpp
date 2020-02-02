@@ -19,15 +19,18 @@ KdTree::~KdTree()
 void
 KdTree::create(Points points)
 {
+    if (!empty()) {
+        clear();
+    }
     _root = create(points, 0 /* Start from vertical splitting */);
 }
 
-std::tuple<Point, float>
-KdTree::nearestTo(const Point& point)
+KdTree::BestPointAndDistance
+KdTree::nearestTo(const Point& queryPoint)
 {
     Point bestPoint;
-    float bestDistance = std::numeric_limits<float>::max();
-    nearestTo(_root, point, bestPoint, bestDistance);
+    float bestDistance{std::numeric_limits<float>::max()};
+    nearestTo(_root, queryPoint, bestPoint, bestDistance);
     return std::make_tuple(bestPoint, bestDistance);
 }
 
@@ -35,6 +38,12 @@ void
 KdTree::clear()
 {
     clear(_root);
+}
+
+bool
+KdTree::empty() const
+{
+    return !_root;
 }
 
 void
@@ -79,6 +88,7 @@ KdTree::clear(Node* node)
 
     clear(node->lh);
     clear(node->rh);
+
     delete node;
 }
 
@@ -95,12 +105,14 @@ KdTree::create(Points points, int depth)
     if (points.size() == 1 /* Leaf case */) {
         Node* node = new Node;
         node->direction = direction;
-        node->value = (direction == Directions::vertical) ? points[0].x : points[0].y;
+        node->value = (direction == Directions::vertical)
+                          ? points[0].x
+                          : points[0].y;
         node->points = std::move(points);
         return node;
     }
 
-    // Sort all sequence (needed to get split value)
+    // Sort all points (needed to get split value)
     sortBy(points, direction);
 
     // Get split value (median)
