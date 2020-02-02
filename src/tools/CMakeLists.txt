@@ -53,6 +53,7 @@ target_sources(${TARGET_NAME}
     PRIVATE
         ${BASE_PATH}/test/CsvFileReaderTest.cpp
         ${BASE_PATH}/test/SequenceTest.cpp
+        ${BASE_PATH}/test/PartitionTest.cpp
 )
 
 gtest_discover_tests(${TARGET_NAME}

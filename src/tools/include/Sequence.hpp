@@ -31,7 +31,8 @@ public:
      * @return the list of generated numbers
      */
     template<typename T>
-    static Numbers<T> numbers(std::size_t count, T from = MIN_NUMBER_VALUE<T>, T to = MAX_NUMBER_VALUE<T>)
+    static Numbers<T>
+    numbers(std::size_t count, T from = MIN_NUMBER_VALUE<T>, T to = MAX_NUMBER_VALUE<T>)
     {
         static_assert(std::is_integral_v<T> || std::is_floating_point_v<T>, "Unsupported type");
 
@@ -54,7 +55,8 @@ public:
      * @return the list of generated numbers
      */
     template<typename T, typename D>
-    static Numbers<T> numbers(std::size_t count, T from, T to, D d)
+    static Numbers<T>
+    numbers(std::size_t count, T from, T to, D d)
     {
         if (count == 0) {
             return {};
@@ -81,7 +83,8 @@ public:
      * @param last - the iterator to the last position of sequence
      */
     template<typename RandomIt>
-    static void shuffle(RandomIt first, RandomIt last)
+    static void
+    shuffle(RandomIt first, RandomIt last)
     {
         using D = std::uniform_int_distribution<std::size_t>;
 
@@ -105,7 +108,8 @@ public:
      * @return \c true if sequence sorted in ascending order, \c false otherwise
      */
     template<typename ForwardIt>
-    static bool isAscending(ForwardIt first, ForwardIt last)
+    static bool
+    isAscending(ForwardIt first, ForwardIt last)
     {
         using T = typename std::iterator_traits<ForwardIt>::value_type;
 
@@ -121,7 +125,8 @@ public:
      * @return \c true if sequence sorted in descending order, \c false otherwise
      */
     template<typename ForwardIt>
-    static bool isDescending(ForwardIt first, ForwardIt last)
+    static bool
+    isDescending(ForwardIt first, ForwardIt last)
     {
         using T = typename std::iterator_traits<ForwardIt>::value_type;
 
@@ -136,7 +141,8 @@ public:
      * @param p - the predicate used to compare two values
      */
     template<typename ForwardIt, typename BinaryPredicate>
-    static bool isOrdered(ForwardIt first, ForwardIt last, BinaryPredicate p)
+    static bool
+    isOrdered(ForwardIt first, ForwardIt last, BinaryPredicate p)
     {
         for (; first != last; ++first) {
             ForwardIt next = std::next(first);
@@ -165,19 +171,16 @@ public:
      * @return the pair of iteratos, where first points to the first not less than pivot
      *         and the second points to the first greater than pivot element
      */
-    template<typename BidirIt, typename BinaryPredicate>
-    static std::tuple<BidirIt, BidirIt> partition(BidirIt first, BidirIt last, BinaryPredicate p)
+    template<typename BidirIt, typename UnaryPredicate>
+    static std::tuple<BidirIt, BidirIt>
+    partition(BidirIt first, BidirIt last, UnaryPredicate p)
     {
-        if (first >= last) {
-            return std::make_tuple(last, last);
-        }
-
         BidirIt lt = first;
         BidirIt gt = std::prev(last);
-        BidirIt it = std::next(first);
+        BidirIt it = first;
 
         while (it <= gt) {
-            int c = std::invoke(p, *it, *lt);
+            int c = std::invoke(p, *it);
             if (c < 0) {
                 std::iter_swap(it++, lt++);
                 continue;
