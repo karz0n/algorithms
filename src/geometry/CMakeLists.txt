@@ -49,8 +49,8 @@ set_target_properties(${TARGET_NAME}
 target_link_libraries(${TARGET_NAME}
     "Geometry-Library"
     "Tools-Library"
-    "googletest-gtest"
-    "googletest-gmock"
+    GTest::gtest
+    GTest::gtest_main
 )
 
 target_sources(${TARGET_NAME}

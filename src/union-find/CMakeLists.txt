@@ -15,7 +15,8 @@ set_target_properties(${TARGET_NAME}
 )
 
 target_link_libraries(${TARGET_NAME}
-    "googletest-gtest"
+    GTest::gtest
+    GTest::gtest_main
 )
 
 target_sources(${TARGET_NAME}
@@ -49,7 +50,8 @@ set_target_properties(${TARGET_NAME}
 )
 
 target_link_libraries(${TARGET_NAME}
-    "googletest-gtest"
+    GTest::gtest
+    GTest::gtest_main
 )
 
 target_sources(${TARGET_NAME}
@@ -83,7 +85,8 @@ set_target_properties(${TARGET_NAME}
 )
 
 target_link_libraries(${TARGET_NAME}
-    "googletest-gtest"
+    GTest::gtest
+    GTest::gtest_main
 )
 
 target_sources(${TARGET_NAME}
@@ -117,7 +120,8 @@ set_target_properties(${TARGET_NAME}
 )
 
 target_link_libraries(${TARGET_NAME}
-    "googletest-gtest"
+    GTest::gtest
+    GTest::gtest_main
 )
 
 target_sources(${TARGET_NAME}

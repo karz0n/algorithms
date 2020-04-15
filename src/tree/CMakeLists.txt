@@ -34,8 +34,8 @@ set_target_properties(${TARGET_NAME}
 target_link_libraries(${TARGET_NAME}
     "Tree-Library"
     "Tools-Library"
-    "googletest-gtest"
-    "stdc++fs"
+    GTest::gtest
+    GTest::gtest_main
 )
 
 target_include_directories(${TARGET_NAME}

@@ -39,14 +39,15 @@ add_executable(${TARGET_NAME} "")
 set_target_properties(${TARGET_NAME}
     PROPERTIES
         CXX_STANDARD 17
-        CXX_EXTENSIONS OFF
         CXX_STANDARD_REQUIRED YES
 )
 
 target_link_libraries(${TARGET_NAME}
     "Tools-Library"
-    "googletest-gtest"
-    "googletest-gmock"
+    GTest::gtest
+    GTest::gtest_main
+    GTest::gmock
+    GTest::gmock_main
 )
 
 target_sources(${TARGET_NAME}
