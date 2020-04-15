@@ -11,7 +11,7 @@ namespace algorithms {
  * Ordinary binary search tree implementation.
  */
 template<typename Key, typename Value, typename Compare = std::less<Key>>
-class BinarySearchTree : public Tree<Key, Value, Compare> {
+class BinaryTree : public Tree<Key, Value, Compare> {
 public:
     using KeyType = typename Tree<Key, Value, Compare>::KeyType;
     using ValueType = typename Tree<Key, Value, Compare>::ValueType;
@@ -22,22 +22,24 @@ public:
     using TraverseOrder = typename Tree<Key, Value, Compare>::TraverseOrder;
 
 public:
-    BinarySearchTree()
+    BinaryTree()
         : _root{nullptr}
     {
     }
 
-    ~BinarySearchTree()
+    ~BinaryTree()
     {
         clear();
     }
 
-    void put(const KeyType& key, const ValueType& value) override
+    void
+    put(const KeyType& key, const ValueType& value) override
     {
         _root = put(_root, key, value);
     }
 
-    ValueType& get(const KeyType& key) override
+    ValueType&
+    get(const KeyType& key) override
     {
         if (empty()) {
             throw std::runtime_error{"Tree is empty"};
@@ -49,7 +51,8 @@ public:
         return n->value;
     }
 
-    const ValueType& get(const KeyType& key) const override
+    const ValueType&
+    get(const KeyType& key) const override
     {
         if (empty()) {
             throw std::runtime_error{"Tree is empty"};
@@ -61,18 +64,21 @@ public:
         return n->value;
     }
 
-    ValueTypeOrNull pick(const KeyType& key) const override
+    ValueTypeOrNull
+    pick(const KeyType& key) const override
     {
         auto n = find(key);
         return n ? ValueTypeOrNull{n->value} : std::nullopt;
     }
 
-    bool contains(const KeyType& key) const override
+    bool
+    contains(const KeyType& key) const override
     {
         return (find(key) != nullptr);
     }
 
-    void erase(const KeyType& key) override
+    void
+    erase(const KeyType& key) override
     {
         if (empty()) {
             throw std::runtime_error{"Tree is empty"};
@@ -80,7 +86,8 @@ public:
         _root = erase(_root, key);
     }
 
-    void eraseMin() override
+    void
+    eraseMin() override
     {
         if (empty()) {
             throw std::runtime_error{"Tree is empty"};
@@ -88,7 +95,8 @@ public:
         _root = eraseMin(_root);
     }
 
-    void eraseMax() override
+    void
+    eraseMax() override
     {
         if (empty()) {
             throw std::runtime_error{"Tree is empty"};
@@ -96,32 +104,38 @@ public:
         _root = eraseMax(_root);
     }
 
-    void clear() override
+    void
+    clear() override
     {
         clear(_root);
     }
 
-    bool empty() const override
+    bool
+    empty() const override
     {
         return !_root;
     }
 
-    std::size_t size() const override
+    std::size_t
+    size() const override
     {
         return size(_root);
     }
 
-    std::size_t size(KeyType lo, KeyType hi) const override
+    std::size_t
+    size(KeyType lo, KeyType hi) const override
     {
         return contains(hi) ? rank(hi) - rank(lo) + 1 : rank(hi) - rank(lo);
     }
 
-    std::size_t rank(const KeyType& key) const override
+    std::size_t
+    rank(const KeyType& key) const override
     {
         return rank(key, _root);
     }
 
-    KeyType min() const override
+    KeyType
+    min() const override
     {
         if (empty()) {
             throw std::runtime_error{"Tree is empty"};
@@ -129,7 +143,8 @@ public:
         return min(_root)->key;
     }
 
-    KeyType max() const override
+    KeyType
+    max() const override
     {
         if (empty()) {
             throw std::runtime_error{"Tree is empty"};
@@ -137,7 +152,8 @@ public:
         return max(_root)->key;
     }
 
-    KeyTypeOrNull floor(const KeyType& key) const override
+    KeyTypeOrNull
+    floor(const KeyType& key) const override
     {
         if (empty()) {
             throw std::runtime_error{"Tree is empty"};
@@ -146,7 +162,8 @@ public:
         return n ? KeyTypeOrNull{n->key} : std::nullopt;
     }
 
-    KeyTypeOrNull ceiling(const KeyType& key) const override
+    KeyTypeOrNull
+    ceiling(const KeyType& key) const override
     {
         if (empty()) {
             throw std::runtime_error{"Tree is empty"};
@@ -155,12 +172,14 @@ public:
         return n ? KeyTypeOrNull{n->key} : std::nullopt;
     }
 
-    KeysType keys() const override
+    KeysType
+    keys() const override
     {
         return keys(min(), max());
     }
 
-    KeysType keys(Key lo, Key hi) const override
+    KeysType
+    keys(Key lo, Key hi) const override
     {
         if (empty() || compare(lo, hi) > 0) {
             return KeysType{};
@@ -171,7 +190,8 @@ public:
         return output;
     }
 
-    void traverse(TraverseOrder type, Callback callback) override
+    void
+    traverse(TraverseOrder type, Callback callback) override
     {
         if (!callback) {
             throw std::runtime_error{"Invalid callback object"};
@@ -212,7 +232,8 @@ private:
     };
 
 private:
-    std::size_t size(Node* node) const
+    std::size_t
+    size(Node* node) const
     {
         if (!node) {
             return 0;
@@ -220,7 +241,8 @@ private:
         return node->count;
     }
 
-    int compare(const KeyType& k1, const KeyType& k2) const
+    int
+    compare(const KeyType& k1, const KeyType& k2) const
     {
         if (_compare(k1, k2)) {
             return -1;
@@ -231,7 +253,8 @@ private:
         return 0;
     }
 
-    Node* find(const KeyType& key) const
+    Node*
+    find(const KeyType& key) const
     {
         Node* n = _root;
         while (n) {
@@ -249,7 +272,8 @@ private:
         return nullptr;
     }
 
-    Node* put(Node* node, const KeyType& key, const ValueType& value)
+    Node*
+    put(Node* node, const KeyType& key, const ValueType& value)
     {
         if (!node) {
             return new Node{key, value};
@@ -270,7 +294,8 @@ private:
         return node;
     }
 
-    Node* floor(Node* node, const KeyType& key) const
+    Node*
+    floor(Node* node, const KeyType& key) const
     {
         if (!node) {
             return nullptr;
@@ -291,7 +316,8 @@ private:
         return nullptr;
     }
 
-    Node* ceiling(Node* node, const KeyType& key) const
+    Node*
+    ceiling(Node* node, const KeyType& key) const
     {
         if (!node) {
             return nullptr;
@@ -312,7 +338,8 @@ private:
         return nullptr;
     }
 
-    std::size_t rank(const KeyType& key, Node* node) const
+    std::size_t
+    rank(const KeyType& key, Node* node) const
     {
         if (!node) {
             return 0;
@@ -332,7 +359,8 @@ private:
         return 0;
     }
 
-    Node* erase(Node* node, const KeyType& key)
+    Node*
+    erase(Node* node, const KeyType& key)
     {
         if (!node) {
             return nullptr;
@@ -363,7 +391,8 @@ private:
         return node;
     }
 
-    Node* eraseMin(Node* node)
+    Node*
+    eraseMin(Node* node)
     {
         if (!node->lh) {
             Node* t = node->rh;
@@ -375,7 +404,8 @@ private:
         return node;
     }
 
-    Node* eraseMax(Node* node)
+    Node*
+    eraseMax(Node* node)
     {
         if (!node->rh) {
             Node* t = node->lh;
@@ -387,17 +417,20 @@ private:
         return node;
     }
 
-    Node* min(Node* node) const
+    Node*
+    min(Node* node) const
     {
         return node->lh ? min(node->lh) : node;
     }
 
-    Node* max(Node* node) const
+    Node*
+    max(Node* node) const
     {
         return node->rh ? max(node->rh) : node;
     }
 
-    void keys(Node* node, KeysType& output, const KeyType& lo, const KeyType& hi) const
+    void
+    keys(Node* node, KeysType& output, const KeyType& lo, const KeyType& hi) const
     {
         if (!node) {
             return;
@@ -417,7 +450,8 @@ private:
         }
     }
 
-    Node* dropMin(Node* node)
+    Node*
+    dropMin(Node* node)
     {
         if (!node->lh) {
             return node->rh;
@@ -427,7 +461,8 @@ private:
         return node;
     }
 
-    void depthPreOrder(Node* node, const Callback& callback)
+    void
+    depthPreOrder(Node* node, const Callback& callback)
     {
         if (!node) {
             return;
@@ -438,7 +473,8 @@ private:
         depthPreOrder(node->rh, callback);
     }
 
-    void depthInOrder(Node* node, const Callback& callback)
+    void
+    depthInOrder(Node* node, const Callback& callback)
     {
         if (!node) {
             return;
@@ -449,7 +485,8 @@ private:
         depthPreOrder(node->rh, callback);
     }
 
-    void depthPostOrder(Node* node, const Callback& callback)
+    void
+    depthPostOrder(Node* node, const Callback& callback)
     {
         if (!node) {
             return;
@@ -460,7 +497,8 @@ private:
         callback(node->key, node->value);
     }
 
-    void breadthOrder(Node* node, const Callback& callback)
+    void
+    breadthOrder(Node* node, const Callback& callback)
     {
         if (!node) {
             return;
@@ -481,7 +519,8 @@ private:
         }
     }
 
-    void clear(Node* node)
+    void
+    clear(Node* node)
     {
         if (!node) {
             return;

@@ -184,4 +184,4 @@ TEST_P(TreeTest, BreadthOrderTraverseTest)
 
 //----------------------------------------------------------------------------------------------------------------------
 
-INSTANTIATE_TEST_SUITE_P(TreeTestMain, TreeTest, ::testing::Values(&getBinarySearchTree, &getRedBlackBinarySearchTree));
+INSTANTIATE_TEST_SUITE_P(TreeTestMain, TreeTest, ::testing::Values(&getBinaryTree, &getRedBlackTree));

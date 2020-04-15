@@ -10,8 +10,8 @@ add_library(${TARGET_NAME} INTERFACE)
 
 target_sources(${TARGET_NAME}
     INTERFACE
-        ${BASE_PATH}/include/BinarySearchTree.hpp
-        ${BASE_PATH}/include/RedBlackBinarySearchTree.hpp
+        ${BASE_PATH}/include/BinaryTree.hpp
+        ${BASE_PATH}/include/RedBlackTree.hpp
 )
 
 target_include_directories(${TARGET_NAME}

@@ -9,17 +9,17 @@ fillByTestData(TestFileDataTreePtr to)
 }
 
 TestFileDataTreePtr
-getBinarySearchTree()
+getBinaryTree()
 {
-    auto tree = std::make_shared<BinarySearchDataTree>();
+    auto tree = std::make_shared<BinaryDataTree>();
     fillByTestData(tree);
     return std::move(tree);
 }
 
 TestFileDataTreePtr
-getRedBlackBinarySearchTree()
+getRedBlackTree()
 {
-    auto tree = std::make_shared<RedBlackBinarySearchDataTree>();
+    auto tree = std::make_shared<RedBlackDataTree>();
     fillByTestData(tree);
     return std::move(tree);
 }

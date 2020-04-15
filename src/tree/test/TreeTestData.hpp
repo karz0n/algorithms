@@ -3,8 +3,8 @@
 #include <array>
 #include <memory>
 
-#include <BinarySearchTree.hpp>
-#include <RedBlackBinarySearchTree.hpp>
+#include <BinaryTree.hpp>
+#include <RedBlackTree.hpp>
 
 const std::size_t TEST_DATA_SIZE = 26;
 const std::array<std::string, TEST_DATA_SIZE> TEST_DATA{
@@ -16,14 +16,14 @@ const std::array<std::string, TEST_DATA_SIZE> TEST_DATA{
 using DataTree = algorithms::Tree<std::string, std::string>;
 using TestFileDataTreePtr = std::shared_ptr<DataTree>;
 
-using BinarySearchDataTree = algorithms::BinarySearchTree<DataTree::KeyType, DataTree::ValueType>;
-using BinarySearchDataTreePtr = std::shared_ptr<BinarySearchDataTree>;
+using BinaryDataTree = algorithms::BinaryTree<DataTree::KeyType, DataTree::ValueType>;
+using BinaryDataTreePtr = std::shared_ptr<BinaryDataTree>;
 
-using RedBlackBinarySearchDataTree = algorithms::RedBlackBinarySearchTree<DataTree::KeyType, DataTree::ValueType>;
-using RedBlackBinarySearchDataTreePtr = std::shared_ptr<RedBlackBinarySearchDataTree>;
-
-extern TestFileDataTreePtr
-getBinarySearchTree();
+using RedBlackDataTree = algorithms::RedBlackTree<DataTree::KeyType, DataTree::ValueType>;
+using RedBlackDataTreePtr = std::shared_ptr<RedBlackDataTree>;
 
 extern TestFileDataTreePtr
-getRedBlackBinarySearchTree();
+getBinaryTree();
+
+extern TestFileDataTreePtr
+getRedBlackTree();
