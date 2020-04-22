@@ -341,18 +341,24 @@ public:
      * @param callback The method that will be called for each node
      */
     void
-    traverse(TraverseOrder order, CallbackType callback)
+    traverse(TraverseOrder order, CallbackType callback, bool recursion = true)
     {
         if (order == TraverseOrder::DepthPreOrder) {
-            DepthPreOrderTraverser<Node>{_root}.traverse(std::move(callback));
+            recursion
+                ? DepthPreOrderTraverser<Node>{_root}.traverse(std::move(callback))
+                : DepthPreOrderNoRecTraverser<Node>{_root}.traverse(std::move(callback));
             return;
         }
         if (order == TraverseOrder::DepthInOrder) {
-            DepthInOrderTraverser<Node>{_root}.traverse(std::move(callback));
+            recursion
+                ? DepthInOrderTraverser<Node>{_root}.traverse(std::move(callback))
+                : DepthInOrderNoRecTraverser<Node>{_root}.traverse(std::move(callback));
             return;
         }
         if (order == TraverseOrder::DepthPostOrder) {
-            DepthPostOrderTraverser<Node>{_root}.traverse(std::move(callback));
+            recursion
+                ? DepthPostOrderTraverser<Node>{_root}.traverse(std::move(callback))
+                : DepthPostOrderNoRecTraverser<Node>{_root}.traverse(std::move(callback));
             return;
         }
         if (order == TraverseOrder::BreadthOrder) {

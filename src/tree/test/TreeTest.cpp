@@ -153,10 +153,19 @@ TYPED_TEST(TreeTest, DepthPreOrderTraverseTest)
     static const typename TypeParam::KeysType EXPECTED(TEST_DATA.cbegin(), TEST_DATA.cend());
 
     typename TypeParam::KeysType keys;
-    this->_tree.traverse(TraverseOrder::DepthPreOrder, [&keys](const auto& key, auto&) {
-        keys.push_back(key);
-    });
+    this->_tree.traverse(
+        TraverseOrder::DepthPreOrder, [&keys](const auto& key, auto&) {
+            keys.push_back(key);
+        },
+        true);
+    EXPECT_EQ(keys, EXPECTED);
 
+    keys.clear();
+    this->_tree.traverse(
+        TraverseOrder::DepthPreOrder, [&keys](const auto& key, auto&) {
+            keys.push_back(key);
+        },
+        false);
     EXPECT_EQ(keys, EXPECTED);
 }
 
@@ -169,10 +178,19 @@ TYPED_TEST(TreeTest, DepthInOrderTraverseTest)
         "V", "W", "X", "Y", "Z"};
 
     typename TypeParam::KeysType keys;
-    this->_tree.traverse(TraverseOrder::DepthInOrder, [&keys](const auto& key, auto&) {
-        keys.push_back(key);
-    });
+    this->_tree.traverse(
+        TraverseOrder::DepthInOrder, [&keys](const auto& key, auto&) {
+            keys.push_back(key);
+        },
+        true);
+    EXPECT_EQ(keys, EXPECTED);
 
+    keys.clear();
+    this->_tree.traverse(
+        TraverseOrder::DepthInOrder, [&keys](const auto& key, auto&) {
+            keys.push_back(key);
+        },
+        false);
     EXPECT_EQ(keys, EXPECTED);
 }
 
@@ -185,10 +203,19 @@ TYPED_TEST(TreeTest, DepthPostOrderTraverseTest)
         "Y", "Z", "X", "T", "P"};
 
     typename TypeParam::KeysType keys;
-    this->_tree.traverse(TraverseOrder::DepthPostOrder, [&keys](const auto& key, auto&) {
-        keys.push_back(key);
-    });
+    this->_tree.traverse(
+        TraverseOrder::DepthPostOrder, [&keys](const auto& key, auto&) {
+            keys.push_back(key);
+        },
+        true);
+    EXPECT_EQ(keys, EXPECTED);
 
+    keys.clear();
+    this->_tree.traverse(
+        TraverseOrder::DepthPostOrder, [&keys](const auto& key, auto&) {
+            keys.push_back(key);
+        },
+        false);
     EXPECT_EQ(keys, EXPECTED);
 }
 

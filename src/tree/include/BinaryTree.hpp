@@ -305,7 +305,7 @@ public:
      * @param callback The method that will be called for each node
      */
     void
-    traverse(TraverseOrder order, CallbackType callback)
+    traverse(TraverseOrder order, CallbackType callback, bool recursion = true)
     {
         if (order == TraverseOrder::DepthPreOrder) {
             DepthPreOrderTraverser<Node>{_root}.traverse(std::move(callback));
