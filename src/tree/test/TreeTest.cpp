@@ -1,187 +1,209 @@
-﻿#include <gtest/gtest.h>
+#include <gtest/gtest.h>
 
-#include "TreeTestData.hpp"
+#include "BinaryTree.hpp"
+#include "RedBlackTree.hpp"
 
-/** Pointer to string data tree factory method */
-using CreateTestFileDataTreeFunctionPtr = TestFileDataTreePtr (*)();
+#include <string>
+#include <vector>
 
-class TreeTest : public ::testing::TestWithParam<CreateTestFileDataTreeFunctionPtr> {
-public:
+using namespace algorithms;
+
+static const std::vector<std::string> TEST_DATA{
+    "P", "H", "D", "B", "A", "C", "F",
+    "E", "G", "L", "J", "I", "K", "N",
+    "M", "O", "T", "R", "Q", "S", "X",
+    "V", "U", "W", "Z", "Y"};
+
+template<typename T>
+class TreeTest : public ::testing::Test {
+protected:
     void
-    SetUp()
+    SetUp() override
     {
-        CreateTestFileDataTreeFunctionPtr f = *GetParam();
-        _tree = f();
+        fillByTestData();
     }
 
 protected:
-    TestFileDataTreePtr _tree;
+    void
+    fillByTestData()
+    {
+        std::for_each(TEST_DATA.cbegin(),
+                      TEST_DATA.cend(),
+                      [&](const auto& d) {
+                          _tree.put(d, d);
+                      });
+    }
+
+protected:
+    T _tree;
 };
 
-TEST_P(TreeTest, EmptyTest)
+using BinaryStringTree = BinaryTree<std::string, std::string>;
+using RedBlackStringTree = RedBlackTree<std::string, std::string>;
+
+using TestTypes = ::testing::Types<BinaryStringTree, RedBlackStringTree>;
+TYPED_TEST_SUITE(TreeTest, TestTypes);
+
+TYPED_TEST(TreeTest, EmptyTest)
 {
-    EXPECT_FALSE(_tree->empty());
+    EXPECT_FALSE(this->_tree.empty());
 }
 
-TEST_P(TreeTest, SizeTest)
+TYPED_TEST(TreeTest, SizeTest)
 {
-    EXPECT_EQ(_tree->size(), TEST_DATA_SIZE);
+    EXPECT_EQ(this->_tree.size(), TEST_DATA.size());
 }
 
-TEST_P(TreeTest, RangeSizeTest)
+TYPED_TEST(TreeTest, RangeSizeTest)
 {
-    EXPECT_EQ(_tree->size("A", "H"), 8);
+    EXPECT_EQ(this->_tree.size("A", "H"), 8);
 }
 
-TEST_P(TreeTest, ContainsTest)
+TYPED_TEST(TreeTest, ContainsTest)
 {
-    EXPECT_TRUE(_tree->contains("E"));
+    EXPECT_TRUE(this->_tree.contains("E"));
 }
 
-TEST_P(TreeTest, ValidGetTest)
+TYPED_TEST(TreeTest, ValidGetTest)
 {
-    EXPECT_EQ(_tree->get("S"), "S");
+    EXPECT_EQ(this->_tree.get("S"), "S");
 }
 
-TEST_P(TreeTest, InvalidGetTest)
+TYPED_TEST(TreeTest, InvalidGetTest)
 {
-    EXPECT_THROW(_tree->get("o"), std::runtime_error);
+    EXPECT_THROW(this->_tree.get("o"), std::runtime_error);
 }
 
-TEST_P(TreeTest, ValidPickTest)
+TYPED_TEST(TreeTest, ValidPickTest)
 {
-    auto value = _tree->pick("S");
+    auto value = this->_tree.pick("S");
     ASSERT_TRUE(value.has_value());
     EXPECT_EQ(value.value(), "S");
 }
 
-TEST_P(TreeTest, PickTest)
+TYPED_TEST(TreeTest, PickTest)
 {
-    auto value = _tree->pick("o");
+    auto value = this->_tree.pick("o");
     EXPECT_FALSE(value.has_value());
 }
 
-TEST_P(TreeTest, MinTest)
+TYPED_TEST(TreeTest, MinTest)
 {
-    EXPECT_EQ(_tree->min(), "A");
-    _tree->eraseMin();
-    EXPECT_FALSE(_tree->contains("A"));
+    EXPECT_EQ(this->_tree.min(), "A");
+    this->_tree.eraseMin();
+    EXPECT_FALSE(this->_tree.contains("A"));
 }
 
-TEST_P(TreeTest, MaxTest)
+TYPED_TEST(TreeTest, MaxTest)
 {
-    EXPECT_EQ(_tree->max(), "Z");
-    _tree->eraseMax();
-    ASSERT_FALSE(_tree->contains("Z"));
+    EXPECT_EQ(this->_tree.max(), "Z");
+    this->_tree.eraseMax();
+    ASSERT_FALSE(this->_tree.contains("Z"));
 }
 
-TEST_P(TreeTest, EraseTest)
+TYPED_TEST(TreeTest, EraseTest)
 {
-    _tree->erase("R");
-    EXPECT_FALSE(_tree->contains("R"));
+    this->_tree.erase("R");
+    EXPECT_FALSE(this->_tree.contains("R"));
 }
 
-TEST_P(TreeTest, RankTest)
+TYPED_TEST(TreeTest, RankTest)
 {
-    EXPECT_EQ(_tree->rank("M"), 12);
+    EXPECT_EQ(this->_tree.rank("M"), 12);
 }
 
-TEST_P(TreeTest, FloorTest)
+TYPED_TEST(TreeTest, FloorTest)
 {
-    _tree->erase("F");
-    auto key = _tree->floor("F");
+    this->_tree.erase("F");
+    auto key = this->_tree.floor("F");
     ASSERT_TRUE(key.has_value());
-    EXPECT_EQ(_tree->get(key.value()), "E");
+    EXPECT_EQ(this->_tree.get(key.value()), "E");
 }
 
-TEST_P(TreeTest, CeilingTest)
+TYPED_TEST(TreeTest, CeilingTest)
 {
-    _tree->erase("B");
-    auto key = _tree->ceiling("B");
+    this->_tree.erase("B");
+    auto key = this->_tree.ceiling("B");
     ASSERT_TRUE(key.has_value());
-    EXPECT_EQ(_tree->get(key.value()), "C");
+    EXPECT_EQ(this->_tree.get(key.value()), "C");
 }
 
-TEST_P(TreeTest, AllKeysTest)
+TYPED_TEST(TreeTest, AllKeysTest)
 {
-    static const DataTree::KeysType EXPECTED{
+    static const typename TypeParam::KeysType EXPECTED{
         "A", "B", "C", "D", "E", "F", "G",
         "H", "I", "J", "K", "L", "M", "N",
         "O", "P", "Q", "R", "S", "T", "U",
         "V", "W", "X", "Y", "Z"};
 
-    auto keys = _tree->keys();
+    auto keys = this->_tree.keys();
 
     EXPECT_EQ(keys, EXPECTED);
 }
 
-TEST_P(TreeTest, KeysTest)
+TYPED_TEST(TreeTest, KeysTest)
 {
-    auto keys = _tree->keys("A", "H");
-    DataTree::KeysType expected{"A", "B", "C", "D", "E", "F", "G", "H"};
+    auto keys = this->_tree.keys("A", "H");
+    typename TypeParam::KeysType expected{"A", "B", "C", "D", "E", "F", "G", "H"};
     EXPECT_EQ(keys, expected);
 }
 
-TEST_P(TreeTest, DepthPreOrderTraverseTest)
+TYPED_TEST(TreeTest, DepthPreOrderTraverseTest)
 {
-    static const DataTree::KeysType EXPECTED(TEST_DATA.cbegin(), TEST_DATA.cend());
+    static const typename TypeParam::KeysType EXPECTED(TEST_DATA.cbegin(), TEST_DATA.cend());
 
-    DataTree::KeysType keys;
-    _tree->traverse(DataTree::TraverseOrder::DepthPreOrder, [&](const auto& key, auto&) {
+    typename TypeParam::KeysType keys;
+    this->_tree.traverse(TraverseOrder::DepthPreOrder, [&keys](const auto& key, auto&) {
         keys.push_back(key);
     });
 
     EXPECT_EQ(keys, EXPECTED);
 }
 
-TEST_P(TreeTest, DepthInOrderTraverseTest)
+TYPED_TEST(TreeTest, DepthInOrderTraverseTest)
 {
-    static const DataTree::KeysType EXPECTED{
-        "H", "D", "B", "A", "C", "F", "E",
-        "G", "L", "J", "I", "K", "N", "M",
-        "O", "P", "T", "R", "Q", "S", "X",
-        "V", "U", "W", "Z", "Y"};
+    static const typename TypeParam::KeysType EXPECTED{
+        "A", "B", "C", "D", "E", "F", "G",
+        "H", "I", "J", "K", "L", "M", "N",
+        "O", "P", "Q", "R", "S", "T", "U",
+        "V", "W", "X", "Y", "Z"};
 
-    DataTree::KeysType keys;
-    _tree->traverse(DataTree::TraverseOrder::DepthInOrder, [&](const auto& key, auto&) {
+    typename TypeParam::KeysType keys;
+    this->_tree.traverse(TraverseOrder::DepthInOrder, [&keys](const auto& key, auto&) {
         keys.push_back(key);
     });
 
     EXPECT_EQ(keys, EXPECTED);
 }
 
-TEST_P(TreeTest, DepthPostOrderTraverseTest)
+TYPED_TEST(TreeTest, DepthPostOrderTraverseTest)
 {
-    static const DataTree::KeysType EXPECTED{
-        "H", "D", "B", "A", "C", "F", "E",
-        "G", "L", "J", "I", "K", "N", "M",
-        "O", "T", "R", "Q", "S", "X", "V",
-        "U", "W", "Z", "Y", "P"};
+    static const typename TypeParam::KeysType EXPECTED{
+        "A", "C", "B", "E", "G", "F", "D",
+        "I", "K", "J", "M", "O", "N", "L",
+        "H", "Q", "S", "R", "U", "W", "V",
+        "Y", "Z", "X", "T", "P"};
 
-    DataTree::KeysType keys;
-    _tree->traverse(DataTree::TraverseOrder::DepthPostOrder, [&](const auto& key, auto&) {
+    typename TypeParam::KeysType keys;
+    this->_tree.traverse(TraverseOrder::DepthPostOrder, [&keys](const auto& key, auto&) {
         keys.push_back(key);
     });
 
     EXPECT_EQ(keys, EXPECTED);
 }
 
-TEST_P(TreeTest, BreadthOrderTraverseTest)
+TYPED_TEST(TreeTest, BreadthOrderTraverseTest)
 {
-    static const DataTree::KeysType EXPECTED{
+    static const typename TypeParam::KeysType EXPECTED{
         "P", "H", "T", "D", "L", "R", "X",
         "B", "F", "J", "N", "Q", "S", "V",
         "Z", "A", "C", "E", "G", "I", "K",
         "M", "O", "U", "W", "Y"};
 
-    DataTree::KeysType keys;
-    _tree->traverse(DataTree::TraverseOrder::Breadth, [&](const auto& key, auto&) {
+    typename TypeParam::KeysType keys;
+    this->_tree.traverse(TraverseOrder::BreadthOrder, [&](const auto& key, auto&) {
         keys.push_back(key);
     });
 
     EXPECT_EQ(keys, EXPECTED);
 }
-
-//----------------------------------------------------------------------------------------------------------------------
-
-INSTANTIATE_TEST_SUITE_P(TreeTestMain, TreeTest, ::testing::Values(&getBinaryTree, &getRedBlackTree));

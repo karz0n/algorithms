@@ -10,8 +10,13 @@ add_library(${TARGET_NAME} INTERFACE)
 
 target_sources(${TARGET_NAME}
     INTERFACE
+        ${BASE_PATH}/include/traverse/BreadthOrderTraverse.hpp
+        ${BASE_PATH}/include/traverse/DepthInOrderTraverse.hpp
+        ${BASE_PATH}/include/traverse/DepthPostOrderTraverse.hpp
+        ${BASE_PATH}/include/traverse/DepthPreOrderTraverse.hpp
         ${BASE_PATH}/include/BinaryTree.hpp
         ${BASE_PATH}/include/RedBlackTree.hpp
+        ${BASE_PATH}/include/Traverse.hpp
 )
 
 target_include_directories(${TARGET_NAME}
@@ -45,8 +50,6 @@ target_include_directories(${TARGET_NAME}
 
 target_sources(${TARGET_NAME}
     PRIVATE
-        ${BASE_PATH}/test/TreeTestData.hpp
-        ${BASE_PATH}/test/TreeTestData.cpp
         ${BASE_PATH}/test/TreeTest.cpp
 )
 
