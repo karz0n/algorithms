@@ -49,7 +49,7 @@ protected:
         Point bestPoint;
         float bestDistance = std::numeric_limits<float>::max();
         for (const auto& p : points) {
-            float d = queryPoint.distanceTo(p);
+            float d = getDistance(queryPoint, p);
             if (d < bestDistance) {
                 bestDistance = d;
                 bestPoint = p;

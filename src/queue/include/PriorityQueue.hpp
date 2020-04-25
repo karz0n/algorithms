@@ -40,7 +40,8 @@ public:
         }
     }
 
-    void push(const T& value)
+    void
+    push(const T& value)
     {
         /** Increase the size */
         if (_size == _capacity - 1) {
@@ -51,7 +52,8 @@ public:
         swim(_size);
     }
 
-    T pop()
+    T
+    pop()
     {
 #ifndef NDEBUG
         if (empty()) {
@@ -71,7 +73,14 @@ public:
         return value;
     }
 
-    const T& top() const
+    void
+    clear()
+    {
+        resize(DEFAULT_CAPACITY);
+    }
+
+    const T&
+    top() const
     {
 #ifndef NDEBUG
         if (empty()) {
@@ -81,7 +90,8 @@ public:
         return _data[1].value();
     }
 
-    const T& bottom() const
+    const T&
+    bottom() const
     {
 #ifndef NDEBUG
         if (empty()) {
@@ -91,18 +101,21 @@ public:
         return _data[_size].value();
     }
 
-    bool empty() const
+    bool
+    empty() const
     {
         return (_size == 0);
     }
 
-    std::size_t size() const
+    std::size_t
+    size() const
     {
         return _size;
     }
 
 private:
-    void swim(std::size_t k, Comparator cmp = {})
+    void
+    swim(std::size_t k, Comparator cmp = {})
     {
         while (k > 1 && cmp(_data[k / 2].value(), _data[k].value())) {
             std::swap(_data[k / 2], _data[k]);
@@ -110,7 +123,8 @@ private:
         }
     }
 
-    void sink(std::size_t k, Comparator cmp = {})
+    void
+    sink(std::size_t k, Comparator cmp = {})
     {
         while (2 * k <= _size) {
             std::size_t j = 2 * k;
@@ -125,7 +139,8 @@ private:
         }
     }
 
-    void resize(std::size_t capacity)
+    void
+    resize(std::size_t capacity)
     {
         if (capacity == _capacity) {
             return;

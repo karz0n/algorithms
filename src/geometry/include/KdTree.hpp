@@ -2,14 +2,14 @@
 
 #include <tuple>
 
-#include "Point.hpp"
+#include "Points.hpp"
 
 namespace algorithms {
 
 /**
  * Basic canonical k-d tree implementation
  */
-class KdTree final {
+class KdTree {
 public:
     static const int K = 2; /** The number of dimensions to work with */
 

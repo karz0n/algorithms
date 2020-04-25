@@ -17,11 +17,12 @@ set_target_properties(${TARGET_NAME}
 )
 
 target_sources(${TARGET_NAME}
-    PRIVATE
+    PUBLIC
         ${BASE_PATH}/include/Sequence.hpp
+        ${BASE_PATH}/include/CsvFileReader.hpp
+    PRIVATE    
         ${BASE_PATH}/include/CsvFileHandler.hpp
         ${BASE_PATH}/src/CsvFileHandler.cpp
-        ${BASE_PATH}/include/CsvFileReader.hpp
         ${BASE_PATH}/src/CsvFileReader.cpp
 )
 

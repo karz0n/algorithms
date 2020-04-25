@@ -26,6 +26,11 @@ target_include_directories(${TARGET_NAME}
         ${BASE_PATH}/include
 )
 
+target_link_libraries(${TARGET_NAME}
+    INTERFACE
+        "Tools-Library"
+)
+
 #------------------------------------------------------------------------------------------
 
 set(TARGET_NAME "Sort-Test")
@@ -39,14 +44,9 @@ set_target_properties(${TARGET_NAME}
 )
 
 target_link_libraries(${TARGET_NAME}
-    "Tools-Library"
+    "Sort-Library"
     GTest::gtest
     GTest::gtest_main
-)
-
-target_include_directories(${TARGET_NAME}
-    PRIVATE
-        ${BASE_PATH}/include
 )
 
 target_sources(${TARGET_NAME}
