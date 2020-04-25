@@ -25,6 +25,10 @@ target_sources(${TARGET_NAME}
         ${BASE_PATH}/include/KdTree.hpp
         ${BASE_PATH}/include/KdTreeEx.hpp
         ${BASE_PATH}/include/LineCrossFinder.hpp
+        ${BASE_PATH}/include/IntervalSearchTree.hpp
+        ${BASE_PATH}/include/Rect.hpp
+        ${BASE_PATH}/include/Rects.hpp
+        ${BASE_PATH}/include/RectCrossFinder.hpp
     PRIVATE
         ${BASE_PATH}/src/KdTree.cpp
         ${BASE_PATH}/src/KdTreeEx.cpp
@@ -33,6 +37,8 @@ target_sources(${TARGET_NAME}
         ${BASE_PATH}/src/Point.cpp
         ${BASE_PATH}/src/Points.cpp
         ${BASE_PATH}/src/LineCrossFinder.cpp
+        ${BASE_PATH}/src/Rect.cpp
+        ${BASE_PATH}/src/RectCrossFinder.cpp
 )
 
 target_include_directories(${TARGET_NAME}
@@ -64,6 +70,8 @@ target_link_libraries(${TARGET_NAME}
     "Tools-Library"
     GTest::gtest
     GTest::gtest_main
+    GTest::gmock
+    GTest::gmock_main
 )
 
 target_sources(${TARGET_NAME}
@@ -74,6 +82,8 @@ target_sources(${TARGET_NAME}
         ${BASE_PATH}/test/LineSegmentsTest
         ${BASE_PATH}/test/KdTreeTest.cpp
         ${BASE_PATH}/test/LineCrossFinderTest.cpp
+        ${BASE_PATH}/test/IntervalSearchTreeTest.cpp
+        ${BASE_PATH}/test/RectCrossFinderTest.cpp
 )
 
 gtest_discover_tests(${TARGET_NAME}
