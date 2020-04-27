@@ -9,6 +9,16 @@
 /**
  * Red-black tree implementation (LLRB).
  *
+ * Properties:
+ *  - Worst-case performance:
+ *      - search - 2 x N
+ *      - insert - 2 x N
+ *      - delete - 2 x N
+ *  - Average performance:
+ *      - search - 1.00 x lgN
+ *      - insert - 1.00 x lgN
+ *      - delete - 1.00 x lgN
+ *
  * Rules:
  *  - Every node is red or black
  *  - Root is always black

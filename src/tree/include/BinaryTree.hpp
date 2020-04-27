@@ -10,6 +10,20 @@ namespace algorithms {
 
 /**
  * Ordinary binary search tree implementation.
+ *
+ * Properties:
+ *   - Worst-case performance:
+ *      - search - N
+ *      - insert - N
+ *      - delete - N
+ *   - Average performance:
+ *      - search - 1.38 x lgN
+ *      - insert - 1.38 x lgN
+ *      - delete - ?
+ *
+ * Important: Properties totally depends on randomness of input. For example: If input looks like sorted list in
+ *            reverse order, after inserting them to the tree, we will receive ordinary linked list instead of tree.
+ *            In this case we will have worst-case performance. Thus we should use LLRB tree modification.
  */
 template<typename Key, typename Value, typename Compare = std::less<Key>>
 class BinaryTree {

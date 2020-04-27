@@ -6,7 +6,7 @@
 namespace algorithms {
 
 /**
- *
+ * Interval search tree implemenetation.
  */
 template<typename Key, typename Value, typename Compare = std::less<Key>>
 class IntervalSearchTree {
