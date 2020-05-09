@@ -12,11 +12,11 @@ namespace algorithms {
 using Route = std::vector<std::size_t>;
 
 /**
- * The basic class of graph router.
+ * The basic class of graph routes.
  */
-class Router {
+class Routes {
 public:
-    virtual ~Router() = default;
+    virtual ~Routes() = default;
 
     /**
      * Checks if given vertex reachable from start vertex.
@@ -38,19 +38,8 @@ public:
     Route
     routeTo(std::size_t v) const;
 
-    /**
-     * Traverse given graph and find all possible routes from given vertex.
-     *
-     * @param graph - The graph to traverse
-     * @param s - The start vertex
-     */
-    virtual void
-    calculate(const Graph& graph, std::size_t s)
-        = 0;
-
 protected:
-    void
-    init(const Graph& graph, std::size_t s);
+    Routes(const Graph& graph, std::size_t s);
 
 protected:
     std::vector<bool> marked;

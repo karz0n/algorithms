@@ -1,11 +1,10 @@
-#include "DepthFirstRouter.hpp"
+#include "DepthFirstRoutes.hpp"
 
 namespace algorithms {
 
-void
-DepthFirstRoutes::calculate(const Graph& graph, std::size_t s)
+DepthFirstRoutes::DepthFirstRoutes(const Graph& graph, std::size_t s)
+    : Routes{graph, s}
 {
-    init(graph, s);
     traverse(graph, s);
 }
 
@@ -13,6 +12,7 @@ void
 DepthFirstRoutes::traverse(const Graph& graph, std::size_t s)
 {
     marked[s] = true;
+
     for (std::size_t w : graph.adjacency(s)) {
         if (!marked[w]) {
             traverse(graph, w);

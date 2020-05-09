@@ -1,17 +1,17 @@
-#include "Router.hpp"
+#include "Routes.hpp"
 
 #include <limits>
 
 namespace algorithms {
 
 bool
-Router::hasRouteTo(std::size_t v) const
+Routes::hasRouteTo(std::size_t v) const
 {
     return marked[v];
 }
 
 Route
-Router::routeTo(std::size_t v) const
+Routes::routeTo(std::size_t v) const
 {
     if (!hasRouteTo(v)) {
         return Route{};
@@ -27,18 +27,14 @@ Router::routeTo(std::size_t v) const
         n = edgeTo[n];
     }
 
-    /** Reverse of steps */
+    /** Flip over steps */
     return Route(steps.crbegin(), steps.crend());
 }
 
-void
-Router::init(const Graph& graph, std::size_t s)
+Routes::Routes(const Graph& graph, std::size_t s)
+    : marked(graph.vertices(), false)
+    , edgeTo(graph.vertices(), std::numeric_limits<std::size_t>::max())
 {
-    std::size_t count = graph.vertices();
-
-    marked.resize(count, false);
-    edgeTo.resize(count, std::numeric_limits<std::size_t>::max());
-
     marked[s] = true;
     edgeTo[s] = s;
 }

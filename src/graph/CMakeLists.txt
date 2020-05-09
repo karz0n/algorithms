@@ -11,14 +11,16 @@ add_library(${TARGET_NAME})
 target_sources(${TARGET_NAME}
     PUBLIC
         ${BASE_PATH}/include/Graph.hpp
-        ${BASE_PATH}/include/Router.hpp
-        ${BASE_PATH}/include/DepthFirstRouter.hpp
-        ${BASE_PATH}/include/BreadthFirstSearchRouter.hpp
+        ${BASE_PATH}/include/Routes.hpp
+        ${BASE_PATH}/include/DepthFirstRoutes.hpp
+        ${BASE_PATH}/include/BreadthFirstSearchRoutes.hpp
+        ${BASE_PATH}/include/Connector.hpp
     PRIVATE
         ${BASE_PATH}/src/Graph.cpp
-        ${BASE_PATH}/src/Router.cpp
-        ${BASE_PATH}/src/DepthFirstRouter.cpp
-        ${BASE_PATH}/src/BreadthFirstSearchRouter.cpp
+        ${BASE_PATH}/src/Routes.cpp
+        ${BASE_PATH}/src/DepthFirstRoutes.cpp
+        ${BASE_PATH}/src/BreadthFirstSearchRoutes.cpp
+        ${BASE_PATH}/src/Connector.cpp
 )
 
 target_include_directories(${TARGET_NAME}
@@ -56,7 +58,8 @@ target_sources(${TARGET_NAME}
         ${BASE_PATH}/test/include/Common.hpp
         ${BASE_PATH}/test/src/Common.cpp
         ${BASE_PATH}/test/src/GraphTest.cpp
-        ${BASE_PATH}/test/src/RouterTest.cpp
+        ${BASE_PATH}/test/src/RoutesTest.cpp
+        ${BASE_PATH}/test/src/ConnectorTest.cpp
 )
 
 add_test(

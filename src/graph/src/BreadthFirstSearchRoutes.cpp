@@ -1,13 +1,12 @@
-#include <BreadthFirstSearchRouter.hpp>
+#include <BreadthFirstSearchRoutes.hpp>
 
 #include <queue>
 
 namespace algorithms {
 
-void
-BreadthFirstSearchRoutes::calculate(const Graph& graph, std::size_t s)
+BreadthFirstSearchRoutes::BreadthFirstSearchRoutes(const Graph& graph, std::size_t s)
+    : Routes{graph, s}
 {
-    init(graph, s);
     traverse(graph, s);
 }
 
@@ -16,10 +15,12 @@ BreadthFirstSearchRoutes::traverse(const Graph& graph, std::size_t s)
 {
     std::queue<std::size_t> vs;
     vs.push(s);
+
     marked[s] = true;
     while (!vs.empty()) {
         s = vs.front();
         vs.pop();
+
         for (std::size_t w : graph.adjacency(s)) {
             if (!marked[w]) {
                 vs.push(w);
