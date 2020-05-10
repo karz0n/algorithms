@@ -3,6 +3,7 @@
 
 #include "Common.hpp"
 
+#include <DirectedGraph.hpp>
 #include <BreadthFirstSearchRoutes.hpp>
 #include <DepthFirstRoutes.hpp>
 
@@ -10,26 +11,28 @@ using namespace algorithms;
 
 using ::testing::SizeIs;
 using ::testing::Ge;
+using ::testing::Eq;
 using ::testing::Contains;
 using ::testing::AllOf;
+using ::testing::AnyOf;
 
 template<typename T>
-class RoutesTest : public ::testing::Test {
+class DirectedRoutesTest : public ::testing::Test {
 protected:
     void
     SetUp() override
     {
-        graph = read("assets/graph/tinyG.txt");
+        read("assets/graph/tinyG.txt", graph);
     }
 
 protected:
-    Graph graph;
+    DirectedGraph graph;
 };
 
 using TestTypes = ::testing::Types<DepthFirstRoutes, BreadthFirstSearchRoutes>;
-TYPED_TEST_SUITE(RoutesTest, TestTypes);
+TYPED_TEST_SUITE(DirectedRoutesTest, TestTypes);
 
-TYPED_TEST(RoutesTest, HasRouteTo)
+TYPED_TEST(DirectedRoutesTest, HasRouteTo)
 {
     TypeParam r1{this->graph, 0};
     EXPECT_TRUE(r1.hasRouteTo(4));
@@ -40,15 +43,15 @@ TYPED_TEST(RoutesTest, HasRouteTo)
     EXPECT_FALSE(r2.hasRouteTo(4));
 }
 
-TYPED_TEST(RoutesTest, RouteTo)
+TYPED_TEST(DirectedRoutesTest, RouteTo)
 {
     TypeParam r1{this->graph, 0};
     auto route = r1.routeTo(4);
     EXPECT_THAT(route, SizeIs(Ge(2)));
-    EXPECT_THAT(route, AllOf(Contains(0), Contains(4)));
+    EXPECT_THAT(route, AllOf(Contains(0), AnyOf(Contains(5), Contains(6)), Contains(4)));
 
     TypeParam r2{this->graph, 9};
     route = r2.routeTo(11);
-    EXPECT_THAT(route, SizeIs(Ge(2)));
+    EXPECT_THAT(route, SizeIs(Eq(2)));
     EXPECT_THAT(route, AllOf(Contains(9), Contains(11)));
 }

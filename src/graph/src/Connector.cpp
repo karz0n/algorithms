@@ -5,8 +5,8 @@
 namespace algorithms {
 
 Connector::Connector(const Graph& graph)
-    : _marked(graph.vertices(), false)
-    , _compTo(graph.vertices(), std::numeric_limits<std::size_t>::max())
+    : _marked(graph.verticesCount(), false)
+    , _compTo(graph.verticesCount(), std::numeric_limits<std::size_t>::max())
 {
     process(graph);
 }
@@ -33,7 +33,7 @@ void
 Connector::process(const Graph& graph)
 {
     _count = 0;
-    for (std::size_t v = 0; v < graph.vertices(); ++v) {
+    for (std::size_t v = 0; v < graph.verticesCount(); ++v) {
         if (!_marked[v]) {
             traverse(graph, v, _count++);
         }

@@ -11,12 +11,16 @@ add_library(${TARGET_NAME})
 target_sources(${TARGET_NAME}
     PUBLIC
         ${BASE_PATH}/include/Graph.hpp
+        ${BASE_PATH}/include/DirectedGraph.hpp
+        ${BASE_PATH}/include/UndirectedGraph.hpp
         ${BASE_PATH}/include/Routes.hpp
         ${BASE_PATH}/include/DepthFirstRoutes.hpp
         ${BASE_PATH}/include/BreadthFirstSearchRoutes.hpp
         ${BASE_PATH}/include/Connector.hpp
     PRIVATE
         ${BASE_PATH}/src/Graph.cpp
+        ${BASE_PATH}/src/DirectedGraph.cpp
+        ${BASE_PATH}/src/UndirectedGraph.cpp
         ${BASE_PATH}/src/Routes.cpp
         ${BASE_PATH}/src/DepthFirstRoutes.cpp
         ${BASE_PATH}/src/BreadthFirstSearchRoutes.cpp
@@ -57,9 +61,11 @@ target_sources(${TARGET_NAME}
     PRIVATE
         ${BASE_PATH}/test/include/Common.hpp
         ${BASE_PATH}/test/src/Common.cpp
-        ${BASE_PATH}/test/src/GraphTest.cpp
-        ${BASE_PATH}/test/src/RoutesTest.cpp
         ${BASE_PATH}/test/src/ConnectorTest.cpp
+        ${BASE_PATH}/test/src/DirectedGraphTest.cpp
+        ${BASE_PATH}/test/src/DirectedRoutesTest.cpp
+        ${BASE_PATH}/test/src/UndirectedGraphTest.cpp
+        ${BASE_PATH}/test/src/UndirectedRoutesTest.cpp
 )
 
 add_test(

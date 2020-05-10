@@ -5,7 +5,7 @@
 namespace algorithms {
 
 /**
- * BFS algorithm for graph implementation
+ * BFS algorithm graph implementation
  */
 class BreadthFirstSearchRoutes final : public Routes {
 public:

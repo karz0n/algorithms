@@ -1,12 +1,12 @@
 #include "Common.hpp"
 
-#include <stdexcept>
 #include <fstream>
+#include <stdexcept>
 
 using namespace algorithms;
 
-Graph
-read(const fs::path& path)
+void
+read(const fs::path& path, Graph& graph)
 {
     std::ifstream s{path};
     if (!s) {
@@ -25,7 +25,7 @@ read(const fs::path& path)
         throw std::runtime_error{"Failed to reader number of edges or it's invalid"};
     }
 
-    Graph graph{vertices};
+    graph.reset(vertices);
     std::size_t v1{0};
     std::size_t v2{0};
     while (s) {
@@ -35,5 +35,4 @@ read(const fs::path& path)
         }
         graph.connect(v1, v2);
     }
-    return graph;
 }

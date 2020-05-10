@@ -32,8 +32,8 @@ Routes::routeTo(std::size_t v) const
 }
 
 Routes::Routes(const Graph& graph, std::size_t s)
-    : marked(graph.vertices(), false)
-    , edgeTo(graph.vertices(), std::numeric_limits<std::size_t>::max())
+    : marked(graph.verticesCount(), false)
+    , edgeTo(graph.verticesCount(), std::numeric_limits<std::size_t>::max())
 {
     marked[s] = true;
     edgeTo[s] = s;

@@ -3,14 +3,30 @@
 #include "Common.hpp"
 
 #include <Connector.hpp>
+#include <DirectedGraph.hpp>
+#include <UndirectedGraph.hpp>
 
 using namespace algorithms;
 
-TEST(ConnectorTest, IsConnected)
-{
-    auto graph = read("assets/graph/tinyG.txt");
+template<typename T>
+class ConnectorTest : public ::testing::Test {
+protected:
+    void
+    SetUp() override
+    {
+        read("assets/graph/tinyG.txt", graph);
+    }
 
-    Connector c{graph};
+protected:
+    T graph;
+};
+
+using TestTypes = ::testing::Types<DirectedGraph, UndirectedGraph>;
+TYPED_TEST_SUITE(ConnectorTest, TestTypes);
+
+TYPED_TEST(ConnectorTest, IsConnected)
+{
+    Connector c{this->graph};
 
     EXPECT_TRUE(c.connected(0, 2));
     EXPECT_TRUE(c.connected(5, 3));
@@ -21,11 +37,9 @@ TEST(ConnectorTest, IsConnected)
     EXPECT_FALSE(c.connected(2, 12));
 }
 
-TEST(ConnectorTest, BelongsToComponent)
+TYPED_TEST(ConnectorTest, BelongsToComponent)
 {
-    auto graph = read("assets/graph/tinyG.txt");
-
-    Connector c{graph};
+    Connector c{this->graph};
 
     auto id1 = c.id(4);
     auto id2 = c.id(7);

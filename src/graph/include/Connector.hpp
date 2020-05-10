@@ -17,7 +17,7 @@ public:
      * @param v The vertex one
      * @param w The vertex two
      *
-     * @return \c true two vertex are connected. \c false otherwise.
+     * @return @c true two vertex are connected, @c false otherwise.
      */
     bool
     connected(std::size_t v, std::size_t w) const;

@@ -5,33 +5,76 @@
 
 namespace algorithms {
 
+/**
+ * The base graph class.
+ */
 class Graph {
 public:
     using Adjacency = std::forward_list<std::size_t>;
     using Vertices = std::vector<Adjacency>;
 
-    Graph();
+    /**
+     * Init empty graph.
+     */
+    Graph() = default;
 
-    Graph(std::size_t vertices);
+    /**
+     * Initi grap wit given number of vertices.
+     *
+     * @param numberOfVertices The number of vertices.
+     */
+    Graph(std::size_t numberOfVertices);
 
-    void
-    connect(std::size_t v1, std::size_t v2);
+    /**
+     * Connect two vertices.
+     *
+     * @see DirectedGraph
+     * @see UndirectedGraph
+     *
+     * @param v1 The vertix number one
+     * @param v2 The vertex number two
+     */
+    virtual void
+    connect(std::size_t v1, std::size_t v2)
+        = 0;
 
+    /**
+     * Returns vertices which are adjacent to given vertex.
+     *
+     * @param v The target vertex.
+     *
+     * @return The list of adjacent vertices.
+     */
     const Adjacency
     adjacency(std::size_t v) const;
 
+    /**
+     * Returns total number of vertices.
+     *
+     * @return The number of vertices.
+     */
     std::size_t
-    vertices() const;
+    verticesCount() const;
 
+    /**
+     * Returns total number of edges.
+     *
+     * @return The number of edges.
+     */
     std::size_t
-    edges() const;
+    edgesCount() const;
 
+    /**
+     * Reinit graph using given number of vertices.
+     *
+     * @param numberOfVertices The number of vertices
+     */
     void
-    reset(std::size_t vertices);
+    reset(std::size_t numberOfVertices);
 
-private:
-    std::size_t _edges;
-    Vertices _vertices;
+protected:
+    std::size_t edges;
+    Vertices vertices;
 };
 
 } // namespace algorithms

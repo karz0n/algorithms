@@ -5,7 +5,7 @@
 namespace algorithms {
 
 /**
- * DFS algorithm for graph implementation
+ * DFS algorithm graph implementation
  */
 class DepthFirstRoutes final : public Routes {
 public:
