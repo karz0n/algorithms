@@ -12,9 +12,6 @@ TEST(HashTest, String)
     std::string v1{"Hello world!"};
     std::string v2{"Hello World!"};
 
-    auto h1 = stringHasher("Aa");
-    auto h2 = stringHasher("BB");
-
     EXPECT_EQ(stringHasher(v1), stringHasher(v1));
     EXPECT_NE(stringHasher(v1), stringHasher(v2));
 }

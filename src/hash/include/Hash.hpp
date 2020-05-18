@@ -80,20 +80,19 @@ private:
 };
 
 template<typename T>
-std::size_t
-combine(const T& var)
+void
+combine(std::size_t& seed, const T& value)
 {
-    return hash<T>{}(var);
+    seed = 31 * seed + hash<T>{}(value);
 }
 
-template<typename T, typename... Args>
+template<typename... Args>
 std::size_t
-combine(const T& var, const Args&... args)
+combine(const Args&... args)
 {
-    std::size_t output{17};
-    output = 31 * output + combine(var);
-    output = 31 * output + combine(args...);
-    return output;
+    std::size_t seed{17};
+    (... , combine(seed, args));
+    return seed;
 }
 
 } // namespace algorithms
