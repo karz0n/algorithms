@@ -1,145 +1,24 @@
-#------------------------------------------------------------------------------------------
+set(TARGET "UnionFind-Library")
 
-set(BASE_PATH ${PROJECT_SOURCE_DIR}/src/union-find)
+add_library(${TARGET})
+add_library("UnionFind::Library" ALIAS ${TARGET})
 
-#------------------------------------------------------------------------------
-
-set(TARGET_NAME "UF-QuickFind-Main")
-
-add_executable(${TARGET_NAME} "")
-
-set_target_properties(${TARGET_NAME}
-    PROPERTIES
-        CXX_STANDARD 17
-        CXX_STANDARD_REQUIRED YES
+target_sources(${TARGET}
+PUBLIC
+    "${CMAKE_CURRENT_SOURCE_DIR}/include/QuickFind.hpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/include/QuickUnion.hpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/include/UnionFind.hpp"
+PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/QuickFind.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/QuickUnion.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/UnionFind.cpp"
 )
 
-target_link_libraries(${TARGET_NAME}
-    GTest::gtest
-    GTest::gtest_main
+target_include_directories(${TARGET}
+PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-target_sources(${TARGET_NAME}
-    PRIVATE
-        "Common.hpp"
-        "Common.cpp"
-        "QuickFind.hpp"
-        "QuickFind.cpp"
-        "QuickFindMain.cpp"
-)
-
-add_test(
-    NAME
-        ${TARGET_NAME}
-    COMMAND
-        ${TARGET_NAME}
-    WORKING_DIRECTORY
-        ${PROJECT_OUTPUT_DIR}
-)
-
-#------------------------------------------------------------------------------
-
-set(TARGET_NAME "UF-QuickUnion-Main")
-
-add_executable(${TARGET_NAME} "")
-
-set_target_properties(${TARGET_NAME}
-    PROPERTIES
-        CXX_STANDARD 17
-        CXX_STANDARD_REQUIRED YES
-)
-
-target_link_libraries(${TARGET_NAME}
-    GTest::gtest
-    GTest::gtest_main
-)
-
-target_sources(${TARGET_NAME}
-    PRIVATE
-        "Common.hpp"
-        "Common.cpp"
-        "QuickUnion.hpp"
-        "QuickUnion.cpp"
-        "QuickUnionMain.cpp"
-)
-
-add_test(
-    NAME
-        ${TARGET_NAME}
-    COMMAND
-        ${TARGET_NAME}
-    WORKING_DIRECTORY
-        ${PROJECT_OUTPUT_DIR}
-)
-
-#------------------------------------------------------------------------------
-
-set(TARGET_NAME "UF-UnionFind-Main")
-
-add_executable(${TARGET_NAME} "")
-
-set_target_properties(${TARGET_NAME}
-    PROPERTIES
-        CXX_STANDARD 17
-        CXX_STANDARD_REQUIRED YES
-)
-
-target_link_libraries(${TARGET_NAME}
-    GTest::gtest
-    GTest::gtest_main
-)
-
-target_sources(${TARGET_NAME}
-    PRIVATE
-        "Common.hpp"
-        "Common.cpp"
-        "UnionFind.hpp"
-        "UnionFind.cpp"
-        "UnionFindMain.cpp"
-)
-
-add_test(
-    NAME
-        ${TARGET_NAME}
-    COMMAND
-        ${TARGET_NAME}
-    WORKING_DIRECTORY
-        ${PROJECT_OUTPUT_DIR}
-)
-
-#------------------------------------------------------------------------------
-
-set(TARGET_NAME "Percolation-Main")
-
-add_executable(${TARGET_NAME} "")
-
-set_target_properties(${TARGET_NAME}
-    PROPERTIES
-        CXX_STANDARD 17
-        CXX_STANDARD_REQUIRED YES
-)
-
-target_link_libraries(${TARGET_NAME}
-    GTest::gtest
-    GTest::gtest_main
-)
-
-target_sources(${TARGET_NAME}
-    PRIVATE
-        "Common.hpp"
-        "Common.cpp"
-        "UnionFind.hpp"
-        "UnionFind.cpp"
-        "Percolation.hpp"
-        "Percolation.cpp"
-        "PercolationMain.cpp"
-)
-
-add_test(
-    NAME
-        ${TARGET_NAME}
-    COMMAND
-        ${TARGET_NAME}
-    WORKING_DIRECTORY
-        ${PROJECT_OUTPUT_DIR}
-)
+if(ALG_ENABLE_TESTS)
+    add_subdirectory(test)
+endif()

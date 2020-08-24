@@ -7,7 +7,7 @@
 
 using namespace algorithms::uf;
 
-UnionFind createFromFile(const fs::path& path)
+static UnionFind createFromFile(const fs::path& path)
 {
     UnionFind unionFind;
 

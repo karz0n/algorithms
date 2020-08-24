@@ -1,42 +1,9 @@
-cmake_minimum_required(VERSION 3.5)
-
-#-------------------------------------------------------------------------------
-# Project Configuration
-#-------------------------------------------------------------------------------
+cmake_minimum_required(VERSION 3.8)
 
 project(algorithms)
 
-include(CTest)
-
-set(PROJECT_OUTPUT_DIR ${PROJECT_BINARY_DIR}/out)
-
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_OUTPUT_DIR})
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_OUTPUT_DIR})
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_OUTPUT_DIR})
-
-enable_testing()
-
-list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/modules")
-
-#-------------------------------------------------------------------------------
-# Resources Configuration
-#-------------------------------------------------------------------------------
-
-file(COPY
-        ${PROJECT_SOURCE_DIR}/assets
-     DESTINATION
-        ${PROJECT_OUTPUT_DIR}
-     USE_SOURCE_PERMISSIONS)
-
-#-------------------------------------------------------------------------------
-# External Dependencies Configuration
-#-------------------------------------------------------------------------------
-
-include(${PROJECT_SOURCE_DIR}/cmake/external/GoogleTest.cmake)
-
-#-------------------------------------------------------------------------------
-# Structure Configuration
-#-------------------------------------------------------------------------------
+include(${PROJECT_SOURCE_DIR}/cmake/ProjectOptions.cmake)
+include(${PROJECT_SOURCE_DIR}/cmake/ProjectConfigs.cmake)
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/union-find)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/stack)
@@ -45,8 +12,10 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/src/selection)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/list)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/sort)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/tools)
-add_subdirectory(${PROJECT_SOURCE_DIR}/src/event-driven)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/tree)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/geometry)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/hash)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/graph)
+if(ALG_ENABLE_EVENT_DRIVEN)
+    add_subdirectory(${PROJECT_SOURCE_DIR}/src/event-driven)
+endif()

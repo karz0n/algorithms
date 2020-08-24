@@ -1,55 +1,38 @@
-#[[
+set(TARGET "EventDriven-Library")
 
-Dependencies:
-    $ sudo apt-get update
-    $ sudo apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev
-
-]]#
-
-#------------------------------------------------------------------------------------------
-
-set(BASE_PATH ${PROJECT_SOURCE_DIR}/src/event-driven)
-
-#------------------------------------------------------------------------------------------
-
-set(TARGET_NAME "EventDriven-Main")
-
-set(OpenGL_GL_PREFERENCE GLVND)
+add_library(${TARGET})
+add_library("EventDriven::Library" ALIAS ${TARGET})
 
 find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
 
-add_executable(${TARGET_NAME} "")
-
-set_target_properties(${TARGET_NAME}
-    PROPERTIES
-        CXX_STANDARD 17
-        CXX_STANDARD_REQUIRED YES
+target_sources(${TARGET}
+PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/CollisionSystem.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/DrawArea.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/DrawObject.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Event.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Particle.hpp
+PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/CollisionSystem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/DrawArea.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/DrawObject.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Event.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Particle.cpp
 )
 
-target_link_libraries(${TARGET_NAME}
-    "Queue-Library"
-    ${OPENGL_LIBRARIES}
-    ${GLUT_LIBRARIES}
+target_link_libraries(${TARGET}
+PUBLIC
+    Queue::Library
+    OpenGL::GLU
+    GLUT::GLUT
 )
 
-target_include_directories(${TARGET_NAME}
-    PRIVATE
-        ${OPENGL_INCLUDE_DIR}
-        ${GLUT_INCLUDE_DIR}
+target_include_directories(${TARGET}
+PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-target_sources(${TARGET_NAME}
-    PRIVATE
-        ${BASE_PATH}/CollisionSystem.cpp
-        ${BASE_PATH}/CollisionSystem.hpp
-        ${BASE_PATH}/DrawArea.cpp
-        ${BASE_PATH}/DrawArea.hpp
-        ${BASE_PATH}/DrawObject.cpp
-        ${BASE_PATH}/DrawObject.hpp
-        ${BASE_PATH}/Event.cpp
-        ${BASE_PATH}/Event.hpp
-        ${BASE_PATH}/Particle.cpp
-        ${BASE_PATH}/Particle.hpp
-        ${BASE_PATH}/EventDrivenMain.cpp
-)
+if(ALG_ENABLE_TESTS)
+    add_subdirectory(test)
+endif()

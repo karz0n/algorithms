@@ -1,58 +1,21 @@
-include(GoogleTest)
+set(TARGET "Queue-Library")
 
-#------------------------------------------------------------------------------------------
+add_library(${TARGET} INTERFACE)
+add_library("Queue::Library" ALIAS ${TARGET})
 
-set(BASE_PATH ${PROJECT_SOURCE_DIR}/src/queue)
-
-#------------------------------------------------------------------------------------------
-
-set(TARGET_NAME "Queue-Library")
-
-add_library(${TARGET_NAME} INTERFACE)
-
-target_sources(${TARGET_NAME}
-    INTERFACE
-        ${BASE_PATH}/include/Queue.hpp
-        ${BASE_PATH}/include/LinkedQueue.hpp
-        ${BASE_PATH}/include/ResizableArrayQueue.hpp
-        ${BASE_PATH}/include/PriorityQueue.hpp
+target_sources(${TARGET}
+INTERFACE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Queue.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/LinkedQueue.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/ResizableArrayQueue.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/PriorityQueue.hpp
 )
 
-target_include_directories(${TARGET_NAME}
-    INTERFACE
-        ${BASE_PATH}/include
+target_include_directories(${TARGET}
+INTERFACE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-#------------------------------------------------------------------------------------------
-
-set(TARGET_NAME "Queue-Test")
-
-add_executable(${TARGET_NAME} "")
-
-set_target_properties(${TARGET_NAME}
-    PROPERTIES
-        CXX_STANDARD 17
-        CXX_STANDARD_REQUIRED YES
-)
-
-target_link_libraries(${TARGET_NAME}
-    "Queue-Library"
-    GTest::gtest
-    GTest::gtest_main
-)
-
-target_include_directories(${TARGET_NAME}
-    PRIVATE
-        ${BASE_PATH}/include
-)
-
-target_sources(${TARGET_NAME}
-    PRIVATE
-        ${BASE_PATH}/test/QueueTest.cpp
-        ${BASE_PATH}/test/PriorityQueueTest.cpp
-)
-
-gtest_discover_tests(${TARGET_NAME}
-    WORKING_DIRECTORY
-        ${PROJECT_OUTPUT_DIR}
-)
+if(ALG_ENABLE_TESTS)
+    add_subdirectory(test)
+endif()

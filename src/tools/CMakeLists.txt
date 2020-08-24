@@ -1,64 +1,23 @@
-include(GoogleTest)
+set(TARGET "Tools-Library")
 
-#------------------------------------------------------------------------------------------
+add_library(${TARGET})
+add_library("Tools::Library" ALIAS ${TARGET})
 
-set(BASE_PATH ${PROJECT_SOURCE_DIR}/src/tools)
-
-#------------------------------------------------------------------------------------------
-
-set(TARGET_NAME "Tools-Library")
-
-add_library(${TARGET_NAME})
-
-set_target_properties(${TARGET_NAME}
-    PROPERTIES
-        CXX_STANDARD 17
-        CXX_STANDARD_REQUIRED YES
+target_sources(${TARGET}
+PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Sequence.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/CsvFileReader.hpp
+PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/CsvFileHandler.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/CsvFileHandler.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/CsvFileReader.cpp
 )
 
-target_sources(${TARGET_NAME}
-    PUBLIC
-        ${BASE_PATH}/include/Sequence.hpp
-        ${BASE_PATH}/include/CsvFileReader.hpp
-    PRIVATE    
-        ${BASE_PATH}/include/CsvFileHandler.hpp
-        ${BASE_PATH}/src/CsvFileHandler.cpp
-        ${BASE_PATH}/src/CsvFileReader.cpp
+target_include_directories(${TARGET}
+PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-target_include_directories(${TARGET_NAME}
-    PUBLIC
-        ${BASE_PATH}/include
-)
-
-#------------------------------------------------------------------------------------------
-
-set(TARGET_NAME "Tools-Test")
-
-add_executable(${TARGET_NAME} "")
-
-set_target_properties(${TARGET_NAME}
-    PROPERTIES
-        CXX_STANDARD 17
-        CXX_STANDARD_REQUIRED YES
-)
-
-target_link_libraries(${TARGET_NAME}
-    "Tools-Library"
-    GTest::gtest
-    GTest::gtest_main
-    GTest::gmock
-    GTest::gmock_main
-)
-
-target_sources(${TARGET_NAME}
-    PRIVATE
-        ${BASE_PATH}/test/CsvFileReaderTest.cpp
-        ${BASE_PATH}/test/SequenceTest.cpp
-        ${BASE_PATH}/test/PartitionTest.cpp
-)
-
-gtest_discover_tests(${TARGET_NAME}
-    WORKING_DIRECTORY
-        ${PROJECT_OUTPUT_DIR}
-)
+if(ALG_ENABLE_TESTS)
+    add_subdirectory(test)
+endif()

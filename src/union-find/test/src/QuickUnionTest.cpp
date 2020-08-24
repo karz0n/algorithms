@@ -7,7 +7,7 @@
 
 using namespace algorithms::uf;
 
-QuickUnion createFromFile(const fs::path& path)
+static QuickUnion createFromFile(const fs::path& path)
 {
     QuickUnion quickUnion;
 
