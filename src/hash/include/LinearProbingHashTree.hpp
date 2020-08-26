@@ -8,7 +8,7 @@
 namespace algorithms {
 
 /**
- * Basic hash tree implementation with linear probing resolve colission method.
+ * Basic hash tree implementation with linear probing resolve collision method.
  */
 template<typename Key, typename Value, std::size_t N = 1000 /* magick number */>
 class LinearProbingHashTree {

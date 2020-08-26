@@ -1,5 +1,4 @@
-#ifndef THREEWAYQUICK_HPP
-#define THREEWAYQUICK_HPP
+#pragma once
 
 #include <iterator>
 #include <functional>
@@ -25,7 +24,8 @@ namespace algorithms {
 class ThreeWayQuick {
 public:
     template<typename RandomIt>
-    static void sort(RandomIt first, RandomIt last)
+    static void
+    sort(RandomIt first, RandomIt last)
     {
         using T = typename std::iterator_traits<RandomIt>::value_type;
 
@@ -33,7 +33,8 @@ public:
     }
 
     template<typename RandomIt, typename Less>
-    static void sort(RandomIt first, RandomIt last, Less less)
+    static void
+    sort(RandomIt first, RandomIt last, Less less)
     {
         if (first >= last) {
             return;
@@ -45,7 +46,8 @@ public:
 
 private:
     template<typename RandomIt, typename Less>
-    static void sort(RandomIt input, Less less, std::size_t lo, std::size_t hi)
+    static void
+    sort(RandomIt input, Less less, std::size_t lo, std::size_t hi)
     {
         if (hi <= lo) {
             return;
@@ -62,7 +64,8 @@ private:
     }
 
     template<typename RandomIt, typename Less>
-    static std::tuple<std::size_t, std::size_t> partition(RandomIt input, Less less, std::size_t lo, std::size_t hi)
+    static std::tuple<std::size_t, std::size_t>
+    partition(RandomIt input, Less less, std::size_t lo, std::size_t hi)
     {
         std::size_t lt = lo;
         std::size_t gt = hi;
@@ -85,7 +88,8 @@ private:
     }
 
     template<typename RandomIt, typename Less>
-    static int compareTo(RandomIt e1, RandomIt e2, Less less)
+    static int
+    compareTo(RandomIt e1, RandomIt e2, Less less)
     {
         if (less(*e1, *e2))
             return -1;
@@ -96,5 +100,3 @@ private:
 };
 
 } // namespace algorithms
-
-#endif // THREEWAYQUICK_HPP

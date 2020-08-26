@@ -38,8 +38,8 @@ struct hash<std::string> {
     operator()(const std::string& input) const
     {
         std::size_t output{0};
-        for (std::size_t i = 0; i < input.size(); ++i) {
-            output = input[i] + (31 * output);
+        for (char ch : input) {
+            output = ch + (31 * output);
         }
         return output;
     }
@@ -56,7 +56,7 @@ struct hash<double> {
     operator()(double input) const
     {
         std::uint64_t bits = doubleToBits(input);
-        return std::size_t(bits ^ (bits >> 32));
+        return std::size_t(bits ^ (bits >> 32u));
     }
 
 private:
@@ -91,7 +91,7 @@ std::size_t
 combine(const Args&... args)
 {
     std::size_t seed{17};
-    (... , combine(seed, args));
+    (..., combine(seed, args));
     return seed;
 }
 

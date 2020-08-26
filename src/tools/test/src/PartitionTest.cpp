@@ -26,9 +26,7 @@ TEST_P(PartitionTest, SequencePartition)
 {
     const float MEDIAN = GetParam();
 
-    auto comparator = [&](int v) -> int {
-        return (v < MEDIAN) ? -1 : (v > MEDIAN) ? +1 : 0;
-    };
+    auto comparator = [&](float v) -> int { return (v < MEDIAN) ? -1 : (v > MEDIAN) ? +1 : 0; };
     auto [it1, it2] = Sequence::partition(_sequence.begin(), _sequence.end(), comparator);
 
     Numbers<int> lt(_sequence.begin(), it1);
@@ -40,6 +38,4 @@ TEST_P(PartitionTest, SequencePartition)
     EXPECT_THAT(gt, Each(Gt(MEDIAN)));
 }
 
-INSTANTIATE_TEST_SUITE_P(Partition,
-                         PartitionTest,
-                         testing::Values(2.5, 4.f, 6.f, 1.5f, 10.f));
+INSTANTIATE_TEST_SUITE_P(Partition, PartitionTest, testing::Values(2.5f, 4.f, 6.f, 1.5f, 10.f));

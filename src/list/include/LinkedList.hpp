@@ -1,5 +1,4 @@
-#ifndef LINKEDLIST_HPP
-#define LINKEDLIST_HPP
+#pragma once
 
 #include <stdexcept>
 
@@ -9,7 +8,7 @@
 
 namespace algorithms {
 
-template <typename T>
+template<typename T>
 class LinkedList : public List<T> {
 public:
     using NodeType = Node<T>;
@@ -22,69 +21,75 @@ public:
     {
     }
 
-    ~LinkedList()
+    ~LinkedList() override
     {
-        NodeType* n = nullptr;
         while (_front) {
-            n = _front->next;
+            auto* n = _front->next;
             delete _front;
             _front = n;
         }
     }
 
-    LinkedListIterator<T> begin() const
+    LinkedListIterator<T>
+    begin() const
     {
         return Iterator{_front};
     }
 
-    LinkedListIterator<T> end() const
+    LinkedListIterator<T>
+    end() const
     {
         return Iterator{};
     }
 
-    T& front() override
+    T&
+    front() override
     {
 #ifndef NDEBUG
         if (empty()) {
-            throw std::runtime_error("Queue is empty");
+            throw std::runtime_error{"Queue is empty"};
         }
 #endif
         return _front->item;
     }
 
-    const T& front() const override
+    const T&
+    front() const override
     {
 #ifndef NDEBUG
         if (empty()) {
-            throw std::runtime_error("List is empty");
+            throw std::runtime_error{"List is empty"};
         }
 #endif
         return _front->item;
     }
 
-    T& back() override
+    T&
+    back() override
     {
 #ifndef NDEBUG
         if (empty()) {
-            throw std::runtime_error("List is empty");
+            throw std::runtime_error{"List is empty"};
         }
 #endif
         return _back->item;
     }
 
-    const T& back() const override
+    const T&
+    back() const override
     {
 #ifndef NDEBUG
         if (empty()) {
-            throw std::runtime_error("List is empty");
+            throw std::runtime_error{"List is empty"};
         }
 #endif
         return _back->item;
     }
 
-    void pushFront(const T& item) override
+    void
+    pushFront(const T& item) override
     {
-        NodeType* n = new NodeType{item};
+        auto* n = new NodeType{item};
         n->next = _front;
         if (_front) {
             _front->prev = n;
@@ -95,16 +100,17 @@ public:
         _front = n;
     }
 
-    T popFront() override
+    T
+    popFront() override
     {
 #ifndef NDEBUG
         if (empty()) {
-            throw std::runtime_error("List is empty");
+            throw std::runtime_error{"List is empty"};
         }
 #endif
         T item = _front->item;
 
-        NodeType* n = _front;
+        auto* n = _front;
         _front = _front->next;
         delete n;
 
@@ -118,9 +124,10 @@ public:
         return item;
     }
 
-    void pushBack(const T& item) override
+    void
+    pushBack(const T& item) override
     {
-        NodeType* n = new NodeType{item};
+        auto* n = new NodeType{item};
         n->prev = _back;
         if (_back) {
             _back->next = n;
@@ -131,16 +138,17 @@ public:
         _back = n;
     }
 
-    T popBack() override
+    T
+    popBack() override
     {
 #ifndef NDEBUG
         if (empty()) {
-            throw std::runtime_error("List is empty");
+            throw std::runtime_error{"List is empty"};
         }
 #endif
         T item = _back->item;
 
-        NodeType* n = _back;
+        auto* n = _back;
         _back = _back->prev;
         delete n;
 
@@ -154,7 +162,8 @@ public:
         return item;
     }
 
-    bool empty() const override
+    [[nodiscard]] bool
+    empty() const override
     {
         return (_front == nullptr);
     }
@@ -165,5 +174,3 @@ private:
 };
 
 } // namespace algorithms
-
-#endif // LINKEDLIST_HPP

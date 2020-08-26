@@ -1,5 +1,4 @@
-﻿#ifndef RESIZABLEARRAYQUEUE_HPP
-#define RESIZABLEARRAYQUEUE_HPP
+﻿#pragma once
 
 #include <stdexcept>
 
@@ -8,9 +7,9 @@
 namespace algorithms {
 
 /** Default capacity for the empty queue */
-constexpr std::size_t DEFAULT_CAPACITY = 15;
+constexpr std::size_t DefaultCapacity = 15;
 
-template <typename T>
+template<typename T>
 class ResizableArrayQueue : public Queue<T> {
 public:
     ResizableArrayQueue()
@@ -19,7 +18,7 @@ public:
         , _dpos{0}
         , _data{nullptr}
     {
-        resize(DEFAULT_CAPACITY);
+        resize(DefaultCapacity);
     }
 
     ~ResizableArrayQueue() override
@@ -29,7 +28,8 @@ public:
         }
     }
 
-    void push(const T& item) override
+    void
+    push(const T& item) override
     {
         if (_epos == _size) {
             resize(_size * 2);
@@ -37,11 +37,12 @@ public:
         _data[_epos++] = item;
     }
 
-    T pop() override
+    T
+    pop() override
     {
 #ifndef NDEBUG
         if (empty()) {
-            throw std::runtime_error("Queue is empty");
+            throw std::runtime_error{"Queue is empty"};
         }
 #endif
         if (_epos - _dpos == _size / 4) {
@@ -56,58 +57,65 @@ public:
         return item;
     }
 
-    T& front()
+    T&
+    front()
     {
 #ifndef NDEBUG
         if (empty()) {
-            throw std::runtime_error("Queue is empty");
+            throw std::runtime_error{"Queue is empty"};
         }
 #endif
         return _data[_dpos];
     }
 
-    const T& front() const
+    const T&
+    front() const
     {
 #ifndef NDEBUG
         if (empty()) {
-            throw std::runtime_error("Queue is empty");
+            throw std::runtime_error{"Queue is empty"};
         }
 #endif
         return _data[_dpos];
     }
 
-    T& back()
+    T&
+    back()
     {
 #ifndef NDEBUG
         if (empty()) {
-            throw std::runtime_error("Queue is empty");
+            throw std::runtime_error{"Queue is empty"};
         }
 #endif
         return _data[_epos - 1];
     }
 
-    const T& back() const
+    const T&
+    back() const
     {
 #ifndef NDEBUG
         if (empty()) {
-            throw std::runtime_error("Queue is empty");
+            throw std::runtime_error{"Queue is empty"};
         }
 #endif
         return _data[_epos - 1];
     }
 
-    bool empty() const override
+    [[nodiscard]] bool
+    empty() const override
     {
         return (_epos == _dpos);
     }
 
-    std::size_t size() const
+    [[nodiscard]] std::size_t
+    size() const
     {
         return (_epos > _dpos) ? _epos - _dpos : 0;
     }
 
 private:
-    void resize(std::size_t size)
+    void
+    resize(std::size_t size)
     {
         T* data = new T[size];
         std::move(_data + _dpos, _data + _epos, data);
@@ -126,5 +134,3 @@ private:
 };
 
 } // namespace algorithms
-
-#endif // RESIZABLEARRAYQUEUE_HPP

@@ -2,10 +2,10 @@
 
 namespace algorithms {
 
-const double TIME_TO_PAUSE = 30;
-const double HZ = 0.5; /** number of redraw events per clock tick */
+/*  Default time to postpone */
+static const int DefaultInterval = 30;
 
-const double CollisionSystem::UNLIMITED = std::numeric_limits<double>::infinity();
+const double CollisionSystem::Unlimited = std::numeric_limits<double>::infinity();
 
 CollisionSystem::CollisionSystem(std::size_t count, double limit /*= UNLIMITED*/)
     : _time{0.0}
@@ -16,7 +16,8 @@ CollisionSystem::CollisionSystem(std::size_t count, double limit /*= UNLIMITED*/
     }
 }
 
-void CollisionSystem::init()
+void
+CollisionSystem::init()
 {
     for (auto& particle : _particles) {
         predict(particle);
@@ -25,10 +26,10 @@ void CollisionSystem::init()
     _events.push(Event{0.0, Particle::OptionalRef{}, Particle::OptionalRef{}});
 }
 
-void CollisionSystem::draw()
+void
+CollisionSystem::draw()
 {
-    while (!_events.empty())
-    {
+    while (!_events.empty()) {
         auto event = _events.pop();
         if (!event.isValid()) {
             continue;
@@ -51,7 +52,7 @@ void CollisionSystem::draw()
         }
         else {
             redraw();
-            postpone(TIME_TO_PAUSE);
+            postpone(DefaultInterval);
             return;
         }
 
@@ -64,12 +65,14 @@ void CollisionSystem::draw()
     }
 }
 
-void CollisionSystem::predict(Particle& target)
+void
+CollisionSystem::predict(Particle& target)
 {
     for (auto& particle : _particles) {
         double dt = target.timeToHit(particle);
         if (_time + dt <= _limit) {
-            _events.push(Event{_time + dt, Particle::OptionalRef{target}, Particle::OptionalRef{particle}});
+            _events.push(
+                Event{_time + dt, Particle::OptionalRef{target}, Particle::OptionalRef{particle}});
         }
     }
 
@@ -79,12 +82,13 @@ void CollisionSystem::predict(Particle& target)
     }
 
     double dtY = target.timeToHitHorizontalWall();
-    if (_time + dtY) {
+    if (_time + dtY <= _limit) {
         _events.push(Event{_time + dtY, Particle::OptionalRef{}, Particle::OptionalRef{target}});
     }
 }
 
-void CollisionSystem::redraw()
+void
+CollisionSystem::redraw()
 {
     clear();
 

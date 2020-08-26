@@ -1,5 +1,4 @@
-#ifndef MERGE_HPP
-#define MERGE_HPP
+#pragma once
 
 #include <functional>
 #include <vector>
@@ -18,7 +17,8 @@ namespace algorithms {
 class Merge {
 public:
     template<typename RandomIt>
-    static void sort(RandomIt first, RandomIt last)
+    static void
+    sort(RandomIt first, RandomIt last)
     {
         using T = typename std::iterator_traits<RandomIt>::value_type;
 
@@ -26,7 +26,8 @@ public:
     }
 
     template<typename RandomIt, typename Less>
-    static void sort(RandomIt first, RandomIt last, Less less)
+    static void
+    sort(RandomIt first, RandomIt last, Less less)
     {
         using T = typename std::iterator_traits<RandomIt>::value_type;
 
@@ -41,7 +42,8 @@ public:
 
 private:
     template<typename RandomIt, typename Less>
-    static void sort(RandomIt input, RandomIt output, Less less, std::size_t lo, std::size_t hi)
+    static void
+    sort(RandomIt input, RandomIt output, Less less, std::size_t lo, std::size_t hi)
     {
         if (hi <= lo) {
             return;
@@ -59,7 +61,9 @@ private:
     }
 
     template<typename RandomIt, typename Less>
-    static void merge(RandomIt input, RandomIt output, Less less, std::size_t lo, std::size_t mid, std::size_t hi)
+    static void
+    merge(RandomIt input, RandomIt output, Less less, std::size_t lo, std::size_t mid,
+          std::size_t hi)
     {
         // copy elements to buffer
         for (std::size_t k = lo; k <= hi; ++k) {
@@ -87,5 +91,3 @@ private:
 };
 
 } // namespace algorithms
-
-#endif // MERGE_HPP

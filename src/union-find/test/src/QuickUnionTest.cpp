@@ -1,29 +1,9 @@
-#include <string>
-
 #include <gtest/gtest.h>
 
 #include "Common.hpp"
 #include "QuickUnion.hpp"
 
-using namespace algorithms::uf;
-
-static QuickUnion createFromFile(const fs::path& path)
-{
-    QuickUnion quickUnion;
-
-    Unions unions = readUnionsFromFile(path);
-    auto time = measure([&] () {
-        quickUnion.reset(unions.size());
-        for (const auto& u : unions) {
-            if (!quickUnion.connected(u.first, u.second)) {
-                quickUnion.associate(u.first, u.second);
-            }
-        }
-    });
-    printMeasure(path, unions.size(), time);
-
-    return quickUnion;
-}
+using namespace algorithms;
 
 /**
  * Tests quick union algorithm on little amount of unions.
@@ -32,11 +12,11 @@ static QuickUnion createFromFile(const fs::path& path)
  */
 TEST(QuickUnion, tinyUnionFind)
 {
-    QuickUnion quickUnion = createFromFile(TINY_UNIONS_PATH);
+    auto set = makeSet<QuickUnion>("TinyUnions", getTinyUnions());
 
-    ASSERT_TRUE(quickUnion.connected(4, 3));
-    ASSERT_TRUE(quickUnion.connected(9, 4));
-    ASSERT_TRUE(quickUnion.connected(6, 7));
+    ASSERT_TRUE(set.connected(4, 3));
+    ASSERT_TRUE(set.connected(9, 4));
+    ASSERT_TRUE(set.connected(6, 7));
 }
 
 /**
@@ -46,11 +26,11 @@ TEST(QuickUnion, tinyUnionFind)
  */
 TEST(QuickUnion, mediumUnionFind)
 {
-    QuickUnion quickUnion = createFromFile(MEDIUM_UNIONS_PATH);
+    auto set = makeSet<QuickUnion>("MediumUnions", getMediumUnions());
 
-    ASSERT_TRUE(quickUnion.connected(44, 43));
-    ASSERT_TRUE(quickUnion.connected(474, 473));
-    ASSERT_TRUE(quickUnion.connected(342, 341));
+    ASSERT_TRUE(set.connected(44, 43));
+    ASSERT_TRUE(set.connected(474, 473));
+    ASSERT_TRUE(set.connected(342, 341));
 }
 
 /**
@@ -63,9 +43,9 @@ TEST(QuickUnion, mediumUnionFind)
  */
 TEST(QuickUnion, DISABLED_largeUnionFind)
 {
-    QuickUnion quickUnion = createFromFile(LARGE_UNIONS_PATH);
+    auto set = makeSet<QuickUnion>("LargeUnions", getLargeUnions());
 
-    ASSERT_TRUE(quickUnion.connected(686513, 37739));
-    ASSERT_TRUE(quickUnion.connected(612504, 808506));
-    ASSERT_TRUE(quickUnion.connected(254379, 187449));
+    ASSERT_TRUE(set.connected(686513, 37739));
+    ASSERT_TRUE(set.connected(612504, 808506));
+    ASSERT_TRUE(set.connected(254379, 187449));
 }

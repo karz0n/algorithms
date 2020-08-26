@@ -4,6 +4,7 @@ project(algorithms)
 
 include(${PROJECT_SOURCE_DIR}/cmake/ProjectOptions.cmake)
 include(${PROJECT_SOURCE_DIR}/cmake/ProjectConfigs.cmake)
+include(${PROJECT_SOURCE_DIR}/cmake/ProjectResources.cmake)
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/union-find)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/stack)

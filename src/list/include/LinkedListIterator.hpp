@@ -1,5 +1,4 @@
-#ifndef LINKEDLISTITERATOR_HPP
-#define LINKEDLISTITERATOR_HPP
+#pragma once
 
 #include <iterator>
 
@@ -10,7 +9,7 @@ namespace algorithms {
 /**
  * Simple linked list iterator.
  */
-template <typename T>
+template<typename T>
 class LinkedListIterator {
 public:
     using value_type = T;
@@ -25,16 +24,13 @@ public:
     {
     }
 
-    ~LinkedListIterator() noexcept
-    {
-    }
-
     explicit LinkedListIterator(Node<T>* front)
         : _p{front}
     {
     }
 
-    LinkedListIterator<T>& operator=(const LinkedListIterator<T>& other)
+    LinkedListIterator<T>&
+    operator=(const LinkedListIterator<T>& other)
     {
         if (this != &other) {
             _p = other._p;
@@ -42,7 +38,8 @@ public:
         return *this;
     }
 
-    LinkedListIterator<T>& operator=(LinkedListIterator<T>&& other)
+    LinkedListIterator<T>&
+    operator=(LinkedListIterator<T>&& other) noexcept
     {
         if (this != &other) {
             _p = other._p;
@@ -51,7 +48,8 @@ public:
         return *this;
     }
 
-    bool operator==(const LinkedListIterator<T>& other)
+    bool
+    operator==(const LinkedListIterator<T>& other)
     {
         if (this != &other) {
             return (_p == other._p);
@@ -59,43 +57,50 @@ public:
         return true;
     }
 
-    bool operator!=(const LinkedListIterator<T>& other)
+    bool
+    operator!=(const LinkedListIterator<T>& other)
     {
-        return !(*this == other);
+        return (*this != other);
     }
 
-    T operator--(int)
+    T
+    operator--(int)
     {
         T item = _p->item;
         _p = _p->prev;
         return item;
     }
 
-    LinkedListIterator& operator--()
+    LinkedListIterator&
+    operator--()
     {
         _p = _p->prev;
         return *this;
     }
 
-    T operator++(int)
+    T
+    operator++(int)
     {
         T item = _p->item;
         _p = _p->next;
         return item;
     }
 
-    LinkedListIterator<T>& operator++()
+    LinkedListIterator<T>&
+    operator++()
     {
         _p = _p->next;
         return *this;
     }
 
-    T& operator*()
+    T&
+    operator*()
     {
         return _p->item;
     }
 
-    const T& operator*() const
+    const T&
+    operator*() const
     {
         return _p->item;
     }
@@ -105,5 +110,3 @@ private:
 };
 
 } // namespace algorithms
-
-#endif // LINKEDLISTITERATOR_HPP

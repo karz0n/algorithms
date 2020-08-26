@@ -1,5 +1,4 @@
-#ifndef INSERTION_HPP
-#define INSERTION_HPP
+#pragma once
 
 #include <iterator>
 #include <algorithm>
@@ -22,7 +21,8 @@ namespace algorithms {
 class Insertion {
 public:
     template<typename BidirectionalIt>
-    static void sort(BidirectionalIt first, BidirectionalIt last)
+    static void
+    sort(BidirectionalIt first, BidirectionalIt last)
     {
         using T = typename std::iterator_traits<BidirectionalIt>::value_type;
 
@@ -30,7 +30,8 @@ public:
     }
 
     template<typename BidirectionalIt, typename Less>
-    static void sort(BidirectionalIt first, BidirectionalIt last, Less less)
+    static void
+    sort(BidirectionalIt first, BidirectionalIt last, Less less)
     {
         if (first >= last) {
             return;
@@ -52,5 +53,3 @@ public:
 };
 
 } // namespace algorithms
-
-#endif // INSERTION_HPP

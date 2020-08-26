@@ -10,11 +10,6 @@
 
 namespace algorithms {
 
-enum class TraverseOrder {
-    DepthPreOrder,
-    DepthInOrder,
-    DepthPostOrder,
-    BreadthOrder
-};
+enum class TraverseOrder { DepthPreOrder, DepthInOrder, DepthPostOrder, BreadthOrder };
 
 } // namespace algorithms

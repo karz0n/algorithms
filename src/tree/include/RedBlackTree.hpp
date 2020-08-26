@@ -207,7 +207,7 @@ public:
      *
      * @return \c true If empty, \c false otherwise
      */
-    bool
+    [[nodiscard]] bool
     empty() const
     {
         return !_root;
@@ -218,7 +218,7 @@ public:
      *
      * @return The number of elements
      */
-    std::size_t
+    [[nodiscard]] std::size_t
     size() const
     {
         return size(_root);
@@ -354,21 +354,18 @@ public:
     traverse(TraverseOrder order, CallbackType callback, bool recursion = true)
     {
         if (order == TraverseOrder::DepthPreOrder) {
-            recursion
-                ? DepthPreOrderTraverser<Node>{_root}.traverse(std::move(callback))
-                : DepthPreOrderNoRecTraverser<Node>{_root}.traverse(std::move(callback));
+            recursion ? DepthPreOrderTraverser<Node>{_root}.traverse(std::move(callback))
+                      : DepthPreOrderNoRecTraverser<Node>{_root}.traverse(std::move(callback));
             return;
         }
         if (order == TraverseOrder::DepthInOrder) {
-            recursion
-                ? DepthInOrderTraverser<Node>{_root}.traverse(std::move(callback))
-                : DepthInOrderNoRecTraverser<Node>{_root}.traverse(std::move(callback));
+            recursion ? DepthInOrderTraverser<Node>{_root}.traverse(std::move(callback))
+                      : DepthInOrderNoRecTraverser<Node>{_root}.traverse(std::move(callback));
             return;
         }
         if (order == TraverseOrder::DepthPostOrder) {
-            recursion
-                ? DepthPostOrderTraverser<Node>{_root}.traverse(std::move(callback))
-                : DepthPostOrderNoRecTraverser<Node>{_root}.traverse(std::move(callback));
+            recursion ? DepthPostOrderTraverser<Node>{_root}.traverse(std::move(callback))
+                      : DepthPostOrderNoRecTraverser<Node>{_root}.traverse(std::move(callback));
             return;
         }
         if (order == TraverseOrder::BreadthOrder) {
@@ -380,8 +377,7 @@ public:
 
 private:
     struct Node {
-        enum class Colors { red = true,
-                            black = false };
+        enum class Colors { red = true, black = false };
 
         using KeyType = Key;
         using ValueType = Value;
@@ -733,7 +729,7 @@ private:
     static bool
     isRed(Node* node)
     {
-        return node ? (node->color == Node::Colors::red) : false;
+        return node && (node->color == Node::Colors::red);
     }
 
     static typename Node::Colors

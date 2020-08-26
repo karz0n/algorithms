@@ -4,21 +4,20 @@
 #include <utility>
 #include <stdexcept>
 
-namespace algorithms
-{
-namespace uf
-{
+namespace algorithms {
 
 UnionFind::UnionFind()
     : _count{0}
-{ }
+{
+}
 
 UnionFind::UnionFind(std::size_t count)
+    : _count{0}
 {
     reset(count);
 }
 
-UnionFind::UnionFind(UnionFind&& other)
+UnionFind::UnionFind(UnionFind&& other) noexcept
     : _container{std::move(other._container)}
     , _size{std::move(other._size)}
     , _count{other._count}
@@ -26,7 +25,8 @@ UnionFind::UnionFind(UnionFind&& other)
     other._count = 0;
 }
 
-UnionFind& UnionFind::operator=(UnionFind&& other)
+UnionFind&
+UnionFind::operator=(UnionFind&& other)
 {
     if (this != &other) {
         std::swap(_container, other._container);
@@ -36,7 +36,8 @@ UnionFind& UnionFind::operator=(UnionFind&& other)
     return *this;
 }
 
-std::size_t UnionFind::find(std::size_t p)
+std::size_t
+UnionFind::find(std::size_t p)
 {
 #ifndef NDEBUG
     validate(p);
@@ -58,12 +59,14 @@ std::size_t UnionFind::find(std::size_t p)
     return root;
 }
 
-std::size_t UnionFind::count() const
+std::size_t
+UnionFind::count() const
 {
     return _count;
 }
 
-void UnionFind::reset(std::size_t count)
+void
+UnionFind::reset(std::size_t count)
 {
     _container.resize(count);
     _size.resize(count);
@@ -73,12 +76,14 @@ void UnionFind::reset(std::size_t count)
     }
 }
 
-bool UnionFind::connected(std::size_t p, std::size_t q)
+bool
+UnionFind::connected(std::size_t p, std::size_t q)
 {
     return find(p) == find(q);
 }
 
-void UnionFind::associate(std::size_t p, std::size_t q)
+void
+UnionFind::associate(std::size_t p, std::size_t q)
 {
     std::size_t proot = find(p);
     std::size_t qroot = find(q);
@@ -100,15 +105,15 @@ void UnionFind::associate(std::size_t p, std::size_t q)
 }
 
 #ifndef NDEBUG
-void UnionFind::validate(std::size_t p) const
+void
+UnionFind::validate(std::size_t p) const
 {
     std::size_t size = _container.size();
     if (p >= size) {
-        throw std::out_of_range(
-                    "index " + std::to_string(p) + " is not between 0 and " + std::to_string(size - 1));
+        throw std::out_of_range("index " + std::to_string(p) + " is not between 0 and "
+                                + std::to_string(size - 1));
     }
 }
 #endif
 
-} // namespace uf
 } // namespace algorithms

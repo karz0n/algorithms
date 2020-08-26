@@ -29,7 +29,7 @@ getDistance(const Point& p1, const Point& p2);
  * @param p2 - the point two
  * @param p3 - the point three
  *
- * @return 0 - Colinear
+ * @return 0 - Collinear
  *         1 - ClockWise
  *         2 - CounterClockWise
  */

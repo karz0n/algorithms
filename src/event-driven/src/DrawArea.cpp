@@ -6,14 +6,14 @@
 
 namespace algorithms {
 
-const int DEFAULT_WIDTH = 640;
-const int DEFAULT_HEIGHT = 480;
-const int DEFAULT_INTERVAL = 30;
+static const int DefaultWidth = 640;
+static const int DefaultHeight = 480;
+static const int DefaultInterval = 30;
 
 DrawArea::Ptr DrawArea::_instance;
 
 DrawArea::DrawArea()
-    : DrawArea{DEFAULT_WIDTH, DEFAULT_HEIGHT}
+    : DrawArea{DefaultWidth, DefaultHeight}
 {
 }
 
@@ -26,77 +26,91 @@ DrawArea::DrawArea(int width, int height)
     , _clipAreaXRight{1.0}
     , _clipAreaYBottom{-1.0}
     , _clipAreaYTop{1.0}
-    , _interval{DEFAULT_INTERVAL}
+    , _interval{DefaultInterval}
 {
 }
 
-void DrawArea::setInstance(Ptr value)
+void
+DrawArea::setInstance(const Ptr& value)
 {
     _instance = value;
 }
 
-DrawArea::Ptr DrawArea::getInstance()
+DrawArea::Ptr
+DrawArea::getInstance()
 {
     return _instance;
 }
 
-void DrawArea::setTitle(const std::string& value)
+void
+DrawArea::setTitle(const std::string& value)
 {
     _title = value;
 }
 
-void DrawArea::setPostition(int x, int y)
+void
+DrawArea::setPosition(int x, int y)
 {
     _positionX = x;
     _positionY = y;
 }
 
-void DrawArea::setInterval(unsigned int value)
+void
+DrawArea::setInterval(unsigned int value)
 {
     _interval = value;
 }
 
-double DrawArea::getClipAreaXLeft() const
+double
+DrawArea::getClipAreaXLeft() const
 {
     return _clipAreaXLeft;
 }
 
-double DrawArea::getClipAreaXRight() const
+double
+DrawArea::getClipAreaXRight() const
 {
     return _clipAreaXRight;
 }
 
-double DrawArea::getClipAreaYBottom() const
+double
+DrawArea::getClipAreaYBottom() const
 {
     return _clipAreaYBottom;
 }
 
-double DrawArea::getClipAreaYTop() const
+double
+DrawArea::getClipAreaYTop() const
 {
     return _clipAreaYTop;
 }
 
-void DrawArea::swapBuffers()
+void
+DrawArea::swapBuffers()
 {
     glutSwapBuffers();
 }
 
-void DrawArea::clear()
+void
+DrawArea::clear()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void DrawArea::flush()
+void
+DrawArea::flush()
 {
     glFlush();
 }
 
-void DrawArea::postpone(unsigned int delay)
+void
+DrawArea::postpone(unsigned int delay)
 {
     glutTimerFunc(delay, refreshWrapper, 0);
 }
 
-void DrawArea::show(int argc, char *argv[])
+void
+DrawArea::show(int argc, char* argv[])
 {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
@@ -110,7 +124,8 @@ void DrawArea::show(int argc, char *argv[])
     glutMainLoop();
 }
 
-void DrawArea::drawCircle(double rx, double ry, double radius)
+void
+DrawArea::drawCircle(double rx, double ry, double radius)
 {
     static constexpr int SEGMENTS_COUNT = 128;
 
@@ -128,15 +143,18 @@ void DrawArea::drawCircle(double rx, double ry, double radius)
     glEnd();
 }
 
-void DrawArea::init()
+void
+DrawArea::init()
 {
 }
 
-void DrawArea::draw()
+void
+DrawArea::draw()
 {
 }
 
-void DrawArea::reshape(int width, int height)
+void
+DrawArea::reshape(int width, int height)
 {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -154,36 +172,41 @@ void DrawArea::reshape(int width, int height)
         _clipAreaYTop = 1.0;
     }
     else {
-        _clipAreaXLeft   = -1.0;
-        _clipAreaXRight  = 1.0;
+        _clipAreaXLeft = -1.0;
+        _clipAreaXRight = 1.0;
         _clipAreaYBottom = -1.0 / aspect;
-        _clipAreaYTop    = 1.0 / aspect;
+        _clipAreaYTop = 1.0 / aspect;
     }
 
     gluOrtho2D(_clipAreaXLeft, _clipAreaXRight, _clipAreaYBottom, _clipAreaYTop);
 }
 
-void DrawArea::refresh(int)
+void
+DrawArea::refresh(int)
 {
     glutPostRedisplay();
 }
 
-void DrawArea::initWrapper()
+void
+DrawArea::initWrapper()
 {
     getInstance()->init();
 }
 
-void DrawArea::drawWrapper()
+void
+DrawArea::drawWrapper()
 {
     getInstance()->draw();
 }
 
-void DrawArea::reshapeWrapper(int width, int height)
+void
+DrawArea::reshapeWrapper(int width, int height)
 {
     getInstance()->reshape(width, height);
 }
 
-void DrawArea::refreshWrapper(int data)
+void
+DrawArea::refreshWrapper(int data)
 {
     getInstance()->refresh(data);
 }

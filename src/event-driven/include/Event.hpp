@@ -1,33 +1,42 @@
-#ifndef EVENT_HPP
-#define EVENT_HPP
+#pragma once
 
 #include "Particle.hpp"
 
 namespace algorithms {
 
-class Event
-{
+class Event {
 public:
     Event(double time, Particle::OptionalRef p1, Particle::OptionalRef p2);
 
-    bool operator<(const Event&) const;
+    bool
+    operator<(const Event&) const;
 
-    bool operator>(const Event&) const;
+    bool
+    operator>(const Event&) const;
 
-    int compare(const Event& other) const;
+    [[nodiscard]] int
+    compare(const Event& other) const;
 
-    bool hasA() const;
-    bool hasB() const;
+    [[nodiscard]] bool
+    hasA() const;
+    [[nodiscard]] bool
+    hasB() const;
 
-    Particle& getA();
-    const Particle& getA() const;
+    Particle&
+    getA();
+    [[nodiscard]] const Particle&
+    getA() const;
 
-    Particle& getB();
-    const Particle& getB() const;
+    Particle&
+    getB();
+    [[nodiscard]] const Particle&
+    getB() const;
 
-    double getTime() const;
+    [[nodiscard]] double
+    getTime() const;
 
-    bool isValid() const;
+    [[nodiscard]] bool
+    isValid() const;
 
 private:
     double _time;
@@ -38,5 +47,3 @@ private:
 };
 
 } // namespace algorithms
-
-#endif // EVENT_HPP

@@ -1,5 +1,4 @@
-#ifndef PARTICLE_HPP
-#define PARTICLE_HPP
+#pragma once
 
 #include <optional>
 #include <functional>
@@ -8,49 +7,59 @@
 
 namespace algorithms {
 
-class Particle : public DrawObject
-{
+class Particle : public DrawObject {
 public:
     using Ref = std::reference_wrapper<Particle>;
 
     using OptionalRef = std::optional<Ref>;
 
-    Particle(DrawArea &area);
+    explicit Particle(DrawArea& area);
 
-    Particle(DrawArea& area,
-             double radius,
-             double mass,
-             double vx, double vy,
-             double rx, double ry);
+    Particle(DrawArea& area, double radius, double mass, double vx, double vy, double rx,
+             double ry);
 
-    void move(double dt);
+    void
+    move(double dt);
 
-    void draw();
+    void
+    draw() override;
 
-    double timeToHit(const Particle& other);
+    double
+    timeToHit(const Particle& other);
 
-    double timeToHitVerticalWall();
+    double
+    timeToHitVerticalWall();
 
-    double timeToHitHorizontalWall();
+    double
+    timeToHitHorizontalWall();
 
-    void bounceOff(Particle& other);
+    void
+    bounceOff(Particle& other);
 
-    void bounceOffVerticalWall();
+    void
+    bounceOffVerticalWall();
 
-    void bounceOffHorizontalWall();
+    void
+    bounceOffHorizontalWall();
 
-    double kineticEnergy() const;
+    [[nodiscard]] double
+    kineticEnergy() const;
 
-    int count() const;
+    [[nodiscard]] int
+    count() const;
 
 private:
-    double getXMax();
+    double
+    getXMax();
 
-    double getXMin();
+    double
+    getXMin();
 
-    double getYMax();
+    double
+    getYMax();
 
-    double getYMin();
+    double
+    getYMin();
 
 private:
     double _radius;
@@ -63,5 +72,3 @@ private:
 };
 
 } // namespace algorithms
-
-#endif // PARTICLE_HPP

@@ -12,13 +12,13 @@ struct LineSegment {
 
     LineSegment(const Point& p1, const Point& p2);
 
-    bool
+    [[nodiscard]] bool
     isVertical() const;
 
-    bool
+    [[nodiscard]] bool
     isHorizontal() const;
 
-    bool
+    [[nodiscard]] bool
     isOrthogonal() const;
 
     bool

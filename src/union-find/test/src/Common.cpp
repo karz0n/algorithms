@@ -5,31 +5,22 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
-#include <sstream>
 
 using namespace std::chrono;
 
-namespace
-{
-template <typename Container, typename Fun>
-void tuple_for_each(const Container& c, Fun fun)
+namespace {
+template<typename Container, typename Fun>
+void
+tupleForEach(const Container& c, Fun fun)
 {
     for (auto& e : c) {
         fun(std::get<0>(e), std::get<1>(e), std::get<2>(e));
     }
 }
-}
+} // namespace
 
-namespace algorithms
-{
-namespace uf
-{
-
-fs::path TINY_UNIONS_PATH{"resources/union-find/tinyUF.txt"};
-fs::path MEDIUM_UNIONS_PATH{"resources/union-find/mediumUF.txt"};
-fs::path LARGE_UNIONS_PATH{"resources/union-find/largeUF.txt"};
-
-Unions readUnionsFromFile(const fs::path& path)
+Unions
+readUnionsFromFile(const fs::path& path)
 {
     std::ifstream fs(path);
     if (!fs.is_open()) {
@@ -44,7 +35,7 @@ Unions readUnionsFromFile(const fs::path& path)
         }
         std::size_t size = std::stoul(buffer);
         unions.reserve(size);
-        while(std::getline(fs, buffer)) {
+        while (std::getline(fs, buffer)) {
             std::istringstream iss(buffer);
             std::size_t p = 0, q = 0;
             iss >> p >> q;
@@ -52,13 +43,36 @@ Unions readUnionsFromFile(const fs::path& path)
         }
         fs.close();
         return unions;
-    } catch (...) {
+    }
+    catch (...) {
         fs.close();
         std::throw_with_nested(std::runtime_error("Read unions from '" + path.string() + "' file"));
     }
 }
 
-nanoseconds measure(std::function<void()> callable)
+const Unions&
+getTinyUnions()
+{
+    static Unions output = readUnionsFromFile("assets/union-find/tinyUF.txt");
+    return output;
+}
+
+const Unions&
+getMediumUnions()
+{
+    static Unions output = readUnionsFromFile("assets/union-find/mediumUF.txt");
+    return output;
+}
+
+const Unions&
+getLargeUnions()
+{
+    static Unions output = readUnionsFromFile("assets/union-find/largeUF.txt");
+    return output;
+}
+
+nanoseconds
+measure(const std::function<void()>& callable)
 {
     auto t1 = std::chrono::steady_clock::now();
     callable();
@@ -66,38 +80,29 @@ nanoseconds measure(std::function<void()> callable)
     return t2 - t1;
 }
 
-void printMeasure(const fs::path& path, std::size_t count, const std::chrono::nanoseconds& time)
+void
+printMeasure(const fs::path& prefix, std::size_t count, const std::chrono::nanoseconds& time)
 {
     std::cout << std::endl;
-    std::cout << "Processing " << path << ":" << std::endl
+    std::cout << "Processing " << prefix << ":" << std::endl
               << "   elements: " << count << std::endl
               << "   time: " << formatTime(time) << std::endl;
     std::cout << std::endl;
 }
 
-std::string formatTime(nanoseconds time)
+std::string
+formatTime(nanoseconds time)
 {
-    using T = std::tuple<nanoseconds, int, const char *>;
+    using T = std::tuple<nanoseconds, int, const char*>;
 
-    static constexpr T formats[] = {
-        T{hours(1), 2, ""},
-        T{minutes(1), 2, ":"},
-        T{seconds(1), 2, ":"},
-        T{milliseconds(1), 3, "."},
-        T{microseconds(1), 3, "."}
-    };
+    static constexpr T formats[]
+        = {T{hours(1), 2, ""}, T{minutes(1), 2, ":"}, T{seconds(1), 2, ":"},
+           T{milliseconds(1), 3, "."}, T{microseconds(1), 3, "."}};
 
     std::ostringstream oss;
-    tuple_for_each(formats, [&] (auto d, auto w, auto s) {
+    tupleForEach(formats, [&](auto d, auto w, auto s) {
         oss << s << std::setw(w) << std::setfill('0') << (time / d);
         time %= d;
     });
     return oss.str();
 }
-
-} // namespace uf
-} // namespace algorithms
-
-
-
-

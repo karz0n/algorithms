@@ -22,7 +22,7 @@ KdTree::create(Points points)
     if (!empty()) {
         clear();
     }
-    _root = create(points, 0 /* Start from vertical splitting */);
+    _root = create(std::move(points), 0 /* Start from vertical splitting */);
 }
 
 KdTree::BestPointAndDistance
@@ -55,10 +55,7 @@ KdTree::nearestTo(Node* node, const Point& queryPoint, Point& bestPoint, float& 
 
     findBestPoint(queryPoint, node->points, bestPoint, bestDistance);
 
-    const float value
-        = (node->direction == Directions::vertical)
-              ? queryPoint.x
-              : queryPoint.y;
+    const float value = (node->direction == Directions::vertical) ? queryPoint.x : queryPoint.y;
 
     const bool isLeftFirst = (value <= node->value);
     if (isLeftFirst) {
@@ -105,9 +102,7 @@ KdTree::create(Points points, int depth)
     if (points.size() == 1 /* Leaf case */) {
         Node* node = new Node;
         node->direction = direction;
-        node->value = (direction == Directions::vertical)
-                          ? points[0].x
-                          : points[0].y;
+        node->value = (direction == Directions::vertical) ? points[0].x : points[0].y;
         node->points = std::move(points);
         return node;
     }
@@ -141,9 +136,7 @@ KdTree::getMedian(const Points& points, Directions direction)
     if (isOdd) {
         /* Median equals of middle value of sequence */
         const std::size_t index = (count + 1) / 2;
-        return (direction == Directions::vertical)
-                   ? points[index - 1].x
-                   : points[index - 1].y;
+        return (direction == Directions::vertical) ? points[index - 1].x : points[index - 1].y;
     }
     else {
         /* Median equals of average value of two middle elements of sequence */
@@ -165,14 +158,12 @@ void
 KdTree::sortBy(Points& points, Directions direction)
 {
     if (direction == Directions::vertical) {
-        ThreeWayQuick::sort(points.begin(), points.end(), [](const Point& lh, const Point& rh) {
-            return lh.x < rh.x;
-        });
+        ThreeWayQuick::sort(points.begin(), points.end(),
+                            [](const Point& lh, const Point& rh) { return lh.x < rh.x; });
     }
     else {
-        ThreeWayQuick::sort(points.begin(), points.end(), [](const Point& lh, const Point& rh) {
-            return lh.y < rh.y;
-        });
+        ThreeWayQuick::sort(points.begin(), points.end(),
+                            [](const Point& lh, const Point& rh) { return lh.y < rh.y; });
     }
 }
 
@@ -181,21 +172,20 @@ KdTree::partitionBy(float median, Points& points, Directions direction)
 {
     /** Find first greater or equal element than given median value */
     const auto lit = std::find_if(points.cbegin(), points.cend(), [&](const Point& p) {
-        return (direction == Directions::vertical) ? p.x >= median
-                                                   : p.y >= median;
+        return (direction == Directions::vertical) ? p.x >= median : p.y >= median;
     });
 
     /** Find first greater element than given median value */
     const auto git = std::find_if(lit, points.cend(), [&](const Point& p) {
-        return (direction == Directions::vertical) ? p.x > median
-                                                   : p.y > median;
+        return (direction == Directions::vertical) ? p.x > median : p.y > median;
     });
 
     return std::make_tuple(lit, git);
 }
 
 void
-KdTree::findBestPoint(const Point& queryPoint, const Points& points, Point& bestPoint, float& bestDistance)
+KdTree::findBestPoint(const Point& queryPoint, const Points& points, Point& bestPoint,
+                      float& bestDistance)
 {
     for (const auto& p : points) {
         float d = getDistance(queryPoint, p);

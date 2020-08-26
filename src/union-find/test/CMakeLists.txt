@@ -15,9 +15,7 @@ PRIVATE
 target_sources(${TARGET}
 PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/include/Common.hpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/Percolation.hpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/Common.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/Percolation.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/PercolationTest.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/QuickFindTest.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/QuickUnionTest.cpp"

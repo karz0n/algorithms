@@ -1,5 +1,4 @@
-#ifndef SELECT_HPP
-#define SELECT_HPP
+#pragma once
 
 #include <iterator>
 #include <algorithm>
@@ -12,13 +11,15 @@ namespace algorithms {
 class Select {
 public:
     template<typename T, typename RandomIt>
-    static T get(RandomIt first, RandomIt last, std::size_t k)
+    static T
+    get(RandomIt first, RandomIt last, std::size_t k)
     {
         return get<T>(first, last, std::less<T>{}, k);
     }
 
     template<typename T, typename RandomIt, typename Less>
-    static T get(RandomIt first, RandomIt last, Less less, std::size_t k)
+    static T
+    get(RandomIt first, RandomIt last, Less less, std::size_t k)
     {
         if (first >= last) {
             throw std::invalid_argument("Invalid iterator arguments");
@@ -52,7 +53,8 @@ public:
 
 private:
     template<typename RandomIt, typename Less>
-    static std::size_t partition(RandomIt input, Less less, std::size_t lo, std::size_t hi)
+    static std::size_t
+    partition(RandomIt input, Less less, std::size_t lo, std::size_t hi)
     {
         std::size_t i = lo;
         std::size_t j = hi + 1;
@@ -80,5 +82,3 @@ private:
 };
 
 } // namespace algorithms
-
-#endif // SELECT_HPP

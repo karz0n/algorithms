@@ -1,5 +1,4 @@
-#ifndef EVENTDRIVENAREA_HPP
-#define EVENTDRIVENAREA_HPP
+#pragma once
 
 #include <vector>
 #include <limits>
@@ -12,21 +11,24 @@
 
 namespace algorithms {
 
-class CollisionSystem : public DrawArea
-{
+class CollisionSystem : public DrawArea {
 public:
-    static const double UNLIMITED;
+    static const double Unlimited;
 
-    CollisionSystem(std::size_t count, double limit = UNLIMITED);
+    explicit CollisionSystem(std::size_t count, double limit = Unlimited);
 
-    void init() override;
+    void
+    init() override;
 
-    void draw() override;
+    void
+    draw() override;
 
 private:
-    void predict(Particle& target);
+    void
+    predict(Particle& target);
 
-    void redraw();
+    void
+    redraw();
 
 private:
     double _time;
@@ -36,5 +38,3 @@ private:
 };
 
 } // namespace algorithms
-
-#endif // EVENTDRIVENAREA_HPP

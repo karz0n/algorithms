@@ -1,8 +1,11 @@
 #include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
 #include <Points.hpp>
 
 using namespace algorithms;
+
+using ::testing::FloatNear;
 
 TEST(PointsTest, GetOrientation)
 {
@@ -16,5 +19,5 @@ TEST(PointsTest, GetOrientation)
 TEST(PointsTest, GetDistance)
 {
     Point p1{0.0, 0.0}, p2{2.0, 2.0};
-    EXPECT_FLOAT_EQ(getDistance(p1, p2), 2.82842);
+    EXPECT_THAT(getDistance(p1, p2), FloatNear(2.8284, 0.001));
 }

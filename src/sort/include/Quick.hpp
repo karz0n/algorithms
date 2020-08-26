@@ -1,5 +1,4 @@
-#ifndef QUICK_HPP
-#define QUICK_HPP
+#pragma once
 
 #include <iterator>
 #include <algorithm>
@@ -29,7 +28,8 @@ namespace algorithms {
 class Quick {
 public:
     template<typename RandomIt>
-    static void sort(RandomIt first, RandomIt last)
+    static void
+    sort(RandomIt first, RandomIt last)
     {
         using T = typename std::iterator_traits<RandomIt>::value_type;
 
@@ -37,7 +37,8 @@ public:
     }
 
     template<typename RandomIt, typename Less>
-    static void sort(RandomIt first, RandomIt last, Less less)
+    static void
+    sort(RandomIt first, RandomIt last, Less less)
     {
         if (first >= last) {
             return;
@@ -52,7 +53,8 @@ public:
 
 private:
     template<typename RandomIt, typename Less>
-    static void sort(RandomIt input, Less less, std::size_t lo, std::size_t hi)
+    static void
+    sort(RandomIt input, Less less, std::size_t lo, std::size_t hi)
     {
         if (hi <= lo) {
             return;
@@ -68,7 +70,8 @@ private:
     }
 
     template<typename RandomIt, typename Less>
-    static std::size_t partition(RandomIt input, Less less, std::size_t lo, std::size_t hi)
+    static std::size_t
+    partition(RandomIt input, Less less, std::size_t lo, std::size_t hi)
     {
         std::size_t i = lo;
         std::size_t j = hi + 1;
@@ -103,5 +106,3 @@ private:
 };
 
 } // namespace algorithms
-
-#endif // QUICK_HPP

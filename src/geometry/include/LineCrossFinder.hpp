@@ -32,13 +32,13 @@ private:
         {
         }
 
-        bool
+        [[nodiscard]] bool
         isLeft() const
         {
             return std::abs(time - segment.p1.x) < std::numeric_limits<float>::epsilon();
         }
 
-        bool
+        [[nodiscard]] bool
         isRight() const
         {
             return std::abs(time - segment.p2.x) < std::numeric_limits<float>::epsilon();

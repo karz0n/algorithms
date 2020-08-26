@@ -1,5 +1,4 @@
-#ifndef PRIORITYQUEUE_HPP
-#define PRIORITYQUEUE_HPP
+#pragma once
 
 #include <functional>
 #include <optional>
@@ -7,7 +6,7 @@
 namespace algorithms {
 
 /** Default capacity for the empty queue */
-constexpr std::size_t DEFAULT_CAPACITY = 15;
+constexpr std::size_t DefaultCapacity = 15;
 
 /**
  * Priority queue class implementation based on binary tree and binary heap ordering.
@@ -30,7 +29,7 @@ public:
         , _capacity{0}
         , _data{nullptr}
     {
-        resize(DEFAULT_CAPACITY);
+        resize(DefaultCapacity);
     }
 
     ~PriorityQueue()
@@ -57,7 +56,7 @@ public:
     {
 #ifndef NDEBUG
         if (empty()) {
-            throw std::runtime_error("Queue is empty");
+            throw std::runtime_error{"Queue is empty"};
         }
 #endif
         auto value = _data[1].value();
@@ -76,7 +75,7 @@ public:
     void
     clear()
     {
-        resize(DEFAULT_CAPACITY);
+        resize(DefaultCapacity);
     }
 
     const T&
@@ -84,7 +83,7 @@ public:
     {
 #ifndef NDEBUG
         if (empty()) {
-            throw std::runtime_error("Queue is empty");
+            throw std::runtime_error{"Queue is empty"};
         }
 #endif
         return _data[1].value();
@@ -95,19 +94,19 @@ public:
     {
 #ifndef NDEBUG
         if (empty()) {
-            throw std::runtime_error("Queue is empty");
+            throw std::runtime_error{"Queue is empty"};
         }
 #endif
         return _data[_size].value();
     }
 
-    bool
+    [[nodiscard]] bool
     empty() const
     {
         return (_size == 0);
     }
 
-    std::size_t
+    [[nodiscard]] std::size_t
     size() const
     {
         return _size;
@@ -146,7 +145,7 @@ private:
             return;
         }
 
-        Value* data = new Value[capacity];
+        auto* data = new Value[capacity];
         if (!empty()) {
             std::move(_data + 1, _data + _size + 1, data + 1);
         }
@@ -177,5 +176,3 @@ template<typename T, typename C = std::less<T>>
 using MaxPriorityQueue = PriorityQueue<T, C>;
 
 } // namespace algorithms
-
-#endif // PRIORITYQUEUE_HPP

@@ -8,11 +8,9 @@
 
 using namespace algorithms;
 
-static const std::vector<std::string> TEST_DATA{
-    "P", "H", "D", "B", "A", "C", "F",
-    "E", "G", "L", "J", "I", "K", "N",
-    "M", "O", "T", "R", "Q", "S", "X",
-    "V", "U", "W", "Z", "Y"};
+static const std::vector<std::string> TEST_DATA{"P", "H", "D", "B", "A", "C", "F", "E", "G",
+                                                "L", "J", "I", "K", "N", "M", "O", "T", "R",
+                                                "Q", "S", "X", "V", "U", "W", "Z", "Y"};
 
 template<typename T>
 class TreeTest : public ::testing::Test {
@@ -27,11 +25,8 @@ protected:
     void
     fillByTestData()
     {
-        std::for_each(TEST_DATA.cbegin(),
-                      TEST_DATA.cend(),
-                      [&](const auto& d) {
-                          _tree.put(d, d);
-                      });
+        std::for_each(TEST_DATA.cbegin(), TEST_DATA.cend(),
+                      [&](const auto& d) { _tree.put(d, d); });
     }
 
 protected:
@@ -130,11 +125,9 @@ TYPED_TEST(TreeTest, CeilingTest)
 
 TYPED_TEST(TreeTest, AllKeysTest)
 {
-    static const typename TypeParam::KeysType EXPECTED{
-        "A", "B", "C", "D", "E", "F", "G",
-        "H", "I", "J", "K", "L", "M", "N",
-        "O", "P", "Q", "R", "S", "T", "U",
-        "V", "W", "X", "Y", "Z"};
+    static const typename TypeParam::KeysType EXPECTED{"A", "B", "C", "D", "E", "F", "G", "H", "I",
+                                                       "J", "K", "L", "M", "N", "O", "P", "Q", "R",
+                                                       "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
     auto keys = this->_tree.keys();
 
@@ -154,83 +147,64 @@ TYPED_TEST(TreeTest, DepthPreOrderTraverseTest)
 
     typename TypeParam::KeysType keys;
     this->_tree.traverse(
-        TraverseOrder::DepthPreOrder, [&keys](const auto& key, auto&) {
-            keys.push_back(key);
-        },
+        TraverseOrder::DepthPreOrder, [&keys](const auto& key, auto&) { keys.push_back(key); },
         true);
     EXPECT_EQ(keys, EXPECTED);
 
     keys.clear();
     this->_tree.traverse(
-        TraverseOrder::DepthPreOrder, [&keys](const auto& key, auto&) {
-            keys.push_back(key);
-        },
+        TraverseOrder::DepthPreOrder, [&keys](const auto& key, auto&) { keys.push_back(key); },
         false);
     EXPECT_EQ(keys, EXPECTED);
 }
 
 TYPED_TEST(TreeTest, DepthInOrderTraverseTest)
 {
-    static const typename TypeParam::KeysType EXPECTED{
-        "A", "B", "C", "D", "E", "F", "G",
-        "H", "I", "J", "K", "L", "M", "N",
-        "O", "P", "Q", "R", "S", "T", "U",
-        "V", "W", "X", "Y", "Z"};
+    static const typename TypeParam::KeysType EXPECTED{"A", "B", "C", "D", "E", "F", "G", "H", "I",
+                                                       "J", "K", "L", "M", "N", "O", "P", "Q", "R",
+                                                       "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
     typename TypeParam::KeysType keys;
     this->_tree.traverse(
-        TraverseOrder::DepthInOrder, [&keys](const auto& key, auto&) {
-            keys.push_back(key);
-        },
+        TraverseOrder::DepthInOrder, [&keys](const auto& key, auto&) { keys.push_back(key); },
         true);
     EXPECT_EQ(keys, EXPECTED);
 
     keys.clear();
     this->_tree.traverse(
-        TraverseOrder::DepthInOrder, [&keys](const auto& key, auto&) {
-            keys.push_back(key);
-        },
+        TraverseOrder::DepthInOrder, [&keys](const auto& key, auto&) { keys.push_back(key); },
         false);
     EXPECT_EQ(keys, EXPECTED);
 }
 
 TYPED_TEST(TreeTest, DepthPostOrderTraverseTest)
 {
-    static const typename TypeParam::KeysType EXPECTED{
-        "A", "C", "B", "E", "G", "F", "D",
-        "I", "K", "J", "M", "O", "N", "L",
-        "H", "Q", "S", "R", "U", "W", "V",
-        "Y", "Z", "X", "T", "P"};
+    static const typename TypeParam::KeysType EXPECTED{"A", "C", "B", "E", "G", "F", "D", "I", "K",
+                                                       "J", "M", "O", "N", "L", "H", "Q", "S", "R",
+                                                       "U", "W", "V", "Y", "Z", "X", "T", "P"};
 
     typename TypeParam::KeysType keys;
     this->_tree.traverse(
-        TraverseOrder::DepthPostOrder, [&keys](const auto& key, auto&) {
-            keys.push_back(key);
-        },
+        TraverseOrder::DepthPostOrder, [&keys](const auto& key, auto&) { keys.push_back(key); },
         true);
     EXPECT_EQ(keys, EXPECTED);
 
     keys.clear();
     this->_tree.traverse(
-        TraverseOrder::DepthPostOrder, [&keys](const auto& key, auto&) {
-            keys.push_back(key);
-        },
+        TraverseOrder::DepthPostOrder, [&keys](const auto& key, auto&) { keys.push_back(key); },
         false);
     EXPECT_EQ(keys, EXPECTED);
 }
 
 TYPED_TEST(TreeTest, BreadthOrderTraverseTest)
 {
-    static const typename TypeParam::KeysType EXPECTED{
-        "P", "H", "T", "D", "L", "R", "X",
-        "B", "F", "J", "N", "Q", "S", "V",
-        "Z", "A", "C", "E", "G", "I", "K",
-        "M", "O", "U", "W", "Y"};
+    static const typename TypeParam::KeysType EXPECTED{"P", "H", "T", "D", "L", "R", "X", "B", "F",
+                                                       "J", "N", "Q", "S", "V", "Z", "A", "C", "E",
+                                                       "G", "I", "K", "M", "O", "U", "W", "Y"};
 
     typename TypeParam::KeysType keys;
-    this->_tree.traverse(TraverseOrder::BreadthOrder, [&](const auto& key, auto&) {
-        keys.push_back(key);
-    });
+    this->_tree.traverse(TraverseOrder::BreadthOrder,
+                         [&](const auto& key, auto&) { keys.push_back(key); });
 
     EXPECT_EQ(keys, EXPECTED);
 }

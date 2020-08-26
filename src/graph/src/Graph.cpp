@@ -2,13 +2,18 @@
 
 namespace algorithms {
 
+Graph::Graph()
+    : edges{0}
+{
+}
+
 Graph::Graph(std::size_t numberOfVertices)
     : edges{0}
     , vertices{numberOfVertices}
 {
 }
 
-const Graph::Adjacency
+Graph::Adjacency
 Graph::adjacency(std::size_t v) const
 {
     return vertices[v];

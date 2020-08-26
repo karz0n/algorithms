@@ -11,17 +11,20 @@ Event::Event(double time, Particle::OptionalRef p1, Particle::OptionalRef p2)
 {
 }
 
-bool Event::operator<(const Event& other) const
+bool
+Event::operator<(const Event& other) const
 {
     return (_time < other._time);
 }
 
-bool Event::operator>(const Event& other) const
+bool
+Event::operator>(const Event& other) const
 {
     return (_time > other._time);
 }
 
-int Event::compare(const Event &other) const
+int
+Event::compare(const Event& other) const
 {
     if (*this < other) {
         return -1;
@@ -32,46 +35,56 @@ int Event::compare(const Event &other) const
     return 0;
 }
 
-bool Event::hasA() const
+bool
+Event::hasA() const
 {
     return _pA.has_value();
 }
 
-bool Event::hasB() const
+bool
+Event::hasB() const
 {
     return _pB.has_value();
 }
 
-Particle &Event::getA()
+Particle&
+Event::getA()
 {
     return _pA.value().get();
 }
 
-const Particle &Event::getA() const
+const Particle&
+Event::getA() const
 {
     return _pA.value().get();
 }
 
-Particle &Event::getB()
+Particle&
+Event::getB()
 {
     return _pB.value().get();
 }
 
-const Particle &Event::getB() const
+const Particle&
+Event::getB() const
 {
     return _pB.value().get();
 }
 
-double Event::getTime() const
+double
+Event::getTime() const
 {
     return _time;
 }
 
-bool Event::isValid() const
+bool
+Event::isValid() const
 {
     /** Checks if one of particle collide with third party particles or walls */
-    if (_pA.has_value() && _pA->get().count() != _countA) return false;
-    if (_pB.has_value() && _pB->get().count() != _countB) return false;
+    if (_pA.has_value() && _pA->get().count() != _countA)
+        return false;
+    if (_pB.has_value() && _pB->get().count() != _countB)
+        return false;
     return true;
 }
 

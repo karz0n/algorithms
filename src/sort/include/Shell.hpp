@@ -1,5 +1,4 @@
-#ifndef SHELL_HPP
-#define SHELL_HPP
+#pragma once
 
 #include <iterator>
 #include <algorithm>
@@ -17,12 +16,13 @@ namespace algorithms {
  *   - Average performance: ?
  *   - Best-case performance: N (best known gap sequence)
  *
- * Remark: Tight code, subquadratic.
+ * Remark: Tight code, sub-quadratic.
  */
 class Shell {
 public:
     template<typename RandomIt>
-    static void sort(RandomIt first, RandomIt last)
+    static void
+    sort(RandomIt first, RandomIt last)
     {
         using T = typename std::iterator_traits<RandomIt>::value_type;
 
@@ -30,7 +30,8 @@ public:
     }
 
     template<typename RandomIt, typename Less>
-    static void sort(RandomIt first, RandomIt last, Less less)
+    static void
+    sort(RandomIt first, RandomIt last, Less less)
     {
         // Get number of elements.
         //
@@ -68,5 +69,3 @@ public:
 };
 
 } // namespace algorithms
-
-#endif // SHELL_HPP

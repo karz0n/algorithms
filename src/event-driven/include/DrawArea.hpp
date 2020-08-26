@@ -1,13 +1,11 @@
-#ifndef DRAWAREA_HPP
-#define DRAWAREA_HPP
+#pragma once
 
 #include <string>
 #include <memory>
 
 namespace algorithms {
 
-class DrawArea
-{
+class DrawArea {
 public:
     using Ptr = std::shared_ptr<DrawArea>;
 
@@ -17,51 +15,71 @@ public:
 
     virtual ~DrawArea() = default;
 
-    static void setInstance(Ptr value);
+    static void
+    setInstance(const Ptr& value);
 
-    static Ptr getInstance();
+    static Ptr
+    getInstance();
 
-    void setTitle(const std::string& value);
+    void
+    setTitle(const std::string& value);
 
-    void setPostition(int x, int y);
+    void
+    setPosition(int x, int y);
 
-    void setInterval(unsigned int value);
+    void
+    setInterval(unsigned int value);
 
-    void setStatic(bool value);
+    [[nodiscard]] double
+    getClipAreaXLeft() const;
 
-    double getClipAreaXLeft() const;
+    [[nodiscard]] double
+    getClipAreaXRight() const;
 
-    double getClipAreaXRight() const;
+    [[nodiscard]] double
+    getClipAreaYBottom() const;
 
-    double getClipAreaYBottom() const;
+    [[nodiscard]] double
+    getClipAreaYTop() const;
 
-    double getClipAreaYTop() const;
+    void
+    swapBuffers();
 
-    void swapBuffers();
+    void
+    clear();
 
-    void clear();
+    void
+    flush();
 
-    void flush();
+    void
+    postpone(unsigned int delay);
 
-    void postpone(unsigned int delay);
-
-    void show(int argc, char *argv[]);
+    void
+    show(int argc, char* argv[]);
 
 public:
-
-    static void drawCircle(double rx, double ry, double radius);
+    static void
+    drawCircle(double rx, double ry, double radius);
 
 protected:
-    virtual void init();
-    virtual void draw();
-    virtual void reshape(int width, int height);
-    virtual void refresh(int data);
+    virtual void
+    init();
+    virtual void
+    draw();
+    virtual void
+    reshape(int width, int height);
+    virtual void
+    refresh(int data);
 
 private:
-    static void initWrapper();
-    static void drawWrapper();
-    static void reshapeWrapper(int width, int height);
-    static void refreshWrapper(int data);
+    static void
+    initWrapper();
+    static void
+    drawWrapper();
+    static void
+    reshapeWrapper(int width, int height);
+    static void
+    refreshWrapper(int data);
 
 private:
     static Ptr _instance;
@@ -80,5 +98,3 @@ private:
 };
 
 } // namespace algorithms
-
-#endif // DRAWAREA_HPP

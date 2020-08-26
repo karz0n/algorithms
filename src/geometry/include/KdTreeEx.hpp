@@ -24,13 +24,13 @@ public:
     void
     create(Points points);
 
-    BestPointAndDistance
+    [[nodiscard]] BestPointAndDistance
     nearestTo(const Point& queryPoint);
 
     void
     clear();
 
-    bool
+    [[nodiscard]] bool
     empty() const;
 
 public:
@@ -74,8 +74,9 @@ private:
     static std::tuple<Points::iterator, Points::iterator>
     partitionBy(float median, Points& points, Directions direction);
 
-    void
-    findBestPoint(const Point& queryPoint, const Points& points, Point& bestPoint, float& bestDistance);
+    static void
+    findBestPoint(const Point& queryPoint, const Points& points, Point& bestPoint,
+                  float& bestDistance);
 
 private:
     Node* _root;

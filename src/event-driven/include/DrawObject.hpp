@@ -1,30 +1,27 @@
-#ifndef DRAWOBJECT_HPP
-#define DRAWOBJECT_HPP
+#pragma once
 
 #include "DrawArea.hpp"
 
 namespace algorithms {
 
-/**
- *
- */
-class DrawObject
-{
+class DrawObject {
 public:
-    DrawObject(DrawArea& area);
+    explicit DrawObject(DrawArea& area);
 
     virtual ~DrawObject() = default;
 
-    virtual void draw() = 0;
+    virtual void
+    draw()
+        = 0;
 
-    DrawArea& getArea();
+    DrawArea&
+    getArea();
 
-    const DrawArea& getArea() const;
+    [[nodiscard]] const DrawArea&
+    getArea() const;
 
 private:
     DrawArea& _area;
 };
 
 } // namespace algorithms
-
-#endif // DRAWOBJECT_HPP

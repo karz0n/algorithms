@@ -1,5 +1,4 @@
-#ifndef ARITHMETICEVALUATOR_HPP
-#define ARITHMETICEVALUATOR_HPP
+#pragma once
 
 #include <string>
 
@@ -10,9 +9,8 @@ namespace algorithms {
  */
 class ArithmeticEvaluator {
 public:
-    static double evaluate(const std::string& expression);
+    static double
+    evaluate(const std::string& expression);
 };
 
 } // namespace algorithms
-
-#endif // ARITHMETICEVALUATOR_HPP

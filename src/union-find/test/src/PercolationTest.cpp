@@ -6,12 +6,12 @@
 
 #include "Percolation.hpp"
 
-using namespace algorithms::uf;
+using namespace algorithms;
 
 /**
  * The number of samples to get of percolation threshold.
  */
-const std::size_t NUMBER_OF_SAMPLES = 100;
+const std::size_t NumberOfSamples = 100;
 
 /**
  * Simulate on model with given width and randomly opened sites.
@@ -26,7 +26,8 @@ const std::size_t NUMBER_OF_SAMPLES = 100;
  *
  * @return The percolation threshold.
  */
-double simulate(Percolation& model)
+double
+simulate(Percolation& model)
 {
     std::random_device device;
     std::mt19937 engine(device());
@@ -54,10 +55,11 @@ double simulate(Percolation& model)
  *
  * @return The percolation threshold.
  */
-double calculate(Percolation& model)
+double
+calculate(Percolation& model)
 {
-    std::vector<double> values(NUMBER_OF_SAMPLES);
-    for (std::size_t i = 0; i < NUMBER_OF_SAMPLES; ++i) {
+    std::vector<double> values(NumberOfSamples);
+    for (std::size_t i = 0; i < NumberOfSamples; ++i) {
         values[i] = simulate(model);
     }
     double sum = std::accumulate(values.cbegin(), values.cend(), 0.0);

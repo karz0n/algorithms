@@ -9,7 +9,7 @@ namespace algorithms {
  */
 class Connector {
 public:
-    Connector(const Graph& graph);
+    explicit Connector(const Graph& graph);
 
     /**
      * Checks if two vertex are connected on constant time.
@@ -19,7 +19,7 @@ public:
      *
      * @return @c true two vertex are connected, @c false otherwise.
      */
-    bool
+    [[nodiscard]] bool
     connected(std::size_t v, std::size_t w) const;
 
     /**
@@ -27,7 +27,7 @@ public:
      *
      * @return The total number of components.
      */
-    std::size_t
+    [[nodiscard]] std::size_t
     count() const;
 
     /**
@@ -37,7 +37,7 @@ public:
      *
      * @return The component's id of given vertex.
      */
-    std::size_t
+    [[nodiscard]] std::size_t
     id(std::size_t v) const;
 
 private:

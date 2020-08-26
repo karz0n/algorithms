@@ -1,12 +1,8 @@
-#ifndef UNIONFIND_HPP
-#define UNIONFIND_HPP
+#pragma once
 
 #include <vector>
 
-namespace algorithms
-{
-namespace uf
-{
+namespace algorithms {
 
 /**
  * The {@code UnionFind} class represents a
@@ -24,12 +20,8 @@ namespace uf
  *
  * Worst-case time: N + M x lg* N (M union-find operations on a set of
  * N objects) and lg* is iterated logarithm.
- *
- * Materials has obtained from:
- *  "Algorithms: 24-part Lecture Series by Robert Sedgewick and Kevin Wayne"
  */
-class UnionFind
-{
+class UnionFind {
 public:
     /**
      * Default ctor.
@@ -43,17 +35,18 @@ public:
      *
      * @see reset
      */
-    UnionFind(std::size_t count);
+    explicit UnionFind(std::size_t count);
 
     /**
      * Move ctor.
      */
-    UnionFind(UnionFind&&);
+    UnionFind(UnionFind&&) noexcept;
 
     /**
      * Move assign operator.
      */
-    UnionFind& operator=(UnionFind&&);
+    UnionFind&
+    operator=(UnionFind&&);
 
     /**
      * Initialize with given count of sites.
@@ -63,7 +56,8 @@ public:
      *
      * @param count the number of sites.
      */
-    void reset(std::size_t count);
+    void
+    reset(std::size_t count);
 
     /**
      * Finds @em p and returns the component
@@ -79,7 +73,8 @@ public:
      *
      * @return the component identifier of the component containing @em p.
      */
-    std::size_t find(std::size_t p);
+    [[nodiscard]] std::size_t
+    find(std::size_t p);
 
     /**
      * Returns the number of components.
@@ -88,7 +83,8 @@ public:
      *
      * @return the number of components.
      */
-    std::size_t count() const;
+    [[nodiscard]] std::size_t
+    count() const;
 
     /**
      * Returns \c true if both @em p and @em q
@@ -103,7 +99,8 @@ public:
      * @return \c true iif the two sites @em p and @em q are in the
      *         same component, \c false otherwise.
      */
-    bool connected(std::size_t p, std::size_t q);
+    [[nodiscard]] bool
+    connected(std::size_t p, std::size_t q);
 
     /**
      * Adds a connection between the two sites @em p and @em q.
@@ -117,11 +114,13 @@ public:
      * @param p the integer representing one site.
      * @param q the integer representing another site.
      */
-    void associate(std::size_t p, std::size_t q);
+    void
+    associate(std::size_t p, std::size_t q);
 
 #ifndef NDEBUG
 private:
-    void validate(std::size_t p) const;
+    void
+    validate(std::size_t p) const;
 #endif
 private:
     std::vector<std::size_t> _container;
@@ -129,7 +128,4 @@ private:
     std::size_t _count;
 };
 
-} // namespace uf
 } // namespace algorithms
-
-#endif // UNIONFIND_HPP

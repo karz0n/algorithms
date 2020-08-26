@@ -1,5 +1,4 @@
-#ifndef HEAPSORT_HPP
-#define HEAPSORT_HPP
+#pragma once
 
 #include <iterator>
 #include <functional>
@@ -22,7 +21,8 @@ namespace algorithms {
 class HeapSort {
 public:
     template<typename RandomIt>
-    static void sort(RandomIt first, RandomIt last)
+    static void
+    sort(RandomIt first, RandomIt last)
     {
         using T = typename std::iterator_traits<RandomIt>::value_type;
 
@@ -30,7 +30,8 @@ public:
     }
 
     template<typename RandomIt, typename Less>
-    static void sort(RandomIt first, RandomIt last, Less less)
+    static void
+    sort(RandomIt first, RandomIt last, Less less)
     {
         if (first >= last) {
             return;
@@ -50,7 +51,8 @@ public:
 
 private:
     template<typename RandomIt, typename Less>
-    static void sink(RandomIt input, std::size_t k, std::size_t size, Less less)
+    static void
+    sink(RandomIt input, std::size_t k, std::size_t size, Less less)
     {
         while (2 * k <= size) {
             std::size_t j = 2 * k;
@@ -68,5 +70,3 @@ private:
 };
 
 } // namespace algorithms
-
-#endif // HEAPSORT_HPP

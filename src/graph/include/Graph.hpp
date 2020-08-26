@@ -16,14 +16,14 @@ public:
     /**
      * Init empty graph.
      */
-    Graph() = default;
+    Graph();
 
     /**
-     * Initi grap wit given number of vertices.
+     * Init graph with given number of vertices.
      *
      * @param numberOfVertices The number of vertices.
      */
-    Graph(std::size_t numberOfVertices);
+    explicit Graph(std::size_t numberOfVertices);
 
     /**
      * Connect two vertices.
@@ -31,7 +31,7 @@ public:
      * @see DirectedGraph
      * @see UndirectedGraph
      *
-     * @param v1 The vertix number one
+     * @param v1 The vertex number one
      * @param v2 The vertex number two
      */
     virtual void
@@ -45,7 +45,7 @@ public:
      *
      * @return The list of adjacent vertices.
      */
-    const Adjacency
+    [[nodiscard]] Adjacency
     adjacency(std::size_t v) const;
 
     /**
@@ -53,7 +53,7 @@ public:
      *
      * @return The number of vertices.
      */
-    std::size_t
+    [[nodiscard]] std::size_t
     verticesCount() const;
 
     /**
@@ -61,11 +61,11 @@ public:
      *
      * @return The number of edges.
      */
-    std::size_t
+    [[nodiscard]] std::size_t
     edgesCount() const;
 
     /**
-     * Reinit graph using given number of vertices.
+     * Re-init graph using given number of vertices.
      *
      * @param numberOfVertices The number of vertices
      */

@@ -5,7 +5,8 @@
 namespace algorithms {
 
 Connector::Connector(const Graph& graph)
-    : _marked(graph.verticesCount(), false)
+    : _count{0}
+    , _marked(graph.verticesCount(), false)
     , _compTo(graph.verticesCount(), std::numeric_limits<std::size_t>::max())
 {
     process(graph);
@@ -14,6 +15,9 @@ Connector::Connector(const Graph& graph)
 bool
 Connector::connected(std::size_t v, std::size_t w) const
 {
+    if (v == w) {
+        return true;
+    }
     return (_compTo[v] == _compTo[w]);
 }
 

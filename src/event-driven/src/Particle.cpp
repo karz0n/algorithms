@@ -6,12 +6,12 @@
 
 namespace algorithms {
 
-constexpr double DEFAULT_MIN_VX = -0.01;
-constexpr double DEFAULT_MAX_VX = 0.01;
-constexpr double DEFAULT_MIN_VY = -0.01;
-constexpr double DEFAULT_MAX_VY = 0.01;
-constexpr double DEFAULT_RADIUS = 0.05;
-constexpr double DEFAULT_MASS = 0.5;
+constexpr double DefaultMinVx = -0.01;
+constexpr double DefaultMaxVx = 0.01;
+constexpr double DefaultMinVy = -0.01;
+constexpr double DefaultMaxVy = 0.01;
+constexpr double DefaultRadius = 0.05;
+constexpr double DefaultMass = 0.5;
 
 Particle::Particle(DrawArea& area)
     : DrawObject{area}
@@ -21,18 +21,15 @@ Particle::Particle(DrawArea& area)
 
     _rx = std::uniform_real_distribution<>{getXMin(), getXMax()}(gen);
     _ry = std::uniform_real_distribution<>{getYMin(), getYMax()}(gen);
-    _vx = std::uniform_real_distribution<>{DEFAULT_MIN_VX, DEFAULT_MAX_VX}(gen);
-    _vy = std::uniform_real_distribution<>{DEFAULT_MIN_VY, DEFAULT_MAX_VY}(gen);
-    _radius = DEFAULT_RADIUS;
-    _mass = DEFAULT_MASS;
+    _vx = std::uniform_real_distribution<>{DefaultMinVx, DefaultMaxVx}(gen);
+    _vy = std::uniform_real_distribution<>{DefaultMinVy, DefaultMaxVy}(gen);
+    _radius = DefaultRadius;
+    _mass = DefaultMass;
     _count = 0;
 }
 
-Particle::Particle(DrawArea &area,
-                   double radius,
-                   double mass,
-                   double vx, double vy,
-                   double rx, double ry)
+Particle::Particle(DrawArea& area, double radius, double mass, double vx, double vy, double rx,
+                   double ry)
     : DrawObject{area}
     , _radius{radius}
     , _mass{mass}
@@ -44,18 +41,21 @@ Particle::Particle(DrawArea &area,
 {
 }
 
-void Particle::move(double dt)
+void
+Particle::move(double dt)
 {
     _rx += _vx * dt;
     _ry += _vy * dt;
 }
 
-void Particle::draw()
+void
+Particle::draw()
 {
     DrawArea::drawCircle(_rx, _ry, _radius);
 }
 
-double Particle::timeToHit(const Particle &other)
+double
+Particle::timeToHit(const Particle& other)
 {
     if (this == &other) {
         return std::numeric_limits<double>::infinity();
@@ -86,7 +86,8 @@ double Particle::timeToHit(const Particle &other)
     return -(dvdr + std::sqrt(d)) / dvdv;
 }
 
-double Particle::timeToHitVerticalWall()
+double
+Particle::timeToHitVerticalWall()
 {
     if (_vx > 0) {
         return (getXMax() - _rx) / _vx;
@@ -99,7 +100,8 @@ double Particle::timeToHitVerticalWall()
     }
 }
 
-double Particle::timeToHitHorizontalWall()
+double
+Particle::timeToHitHorizontalWall()
 {
     if (_vy > 0) {
         return (getYMax() - _ry) / _vy;
@@ -112,7 +114,8 @@ double Particle::timeToHitHorizontalWall()
     }
 }
 
-void Particle::bounceOff(Particle& other)
+void
+Particle::bounceOff(Particle& other)
 {
     double dx = other._rx - _rx;
     double dy = other._ry - _ry;
@@ -141,44 +144,52 @@ void Particle::bounceOff(Particle& other)
     other._count++;
 }
 
-void Particle::bounceOffVerticalWall()
+void
+Particle::bounceOffVerticalWall()
 {
     _vx = -_vx;
     _count++;
 }
 
-void Particle::bounceOffHorizontalWall()
+void
+Particle::bounceOffHorizontalWall()
 {
     _vy = -_vy;
     _count++;
 }
 
-double Particle::kineticEnergy() const
+double
+Particle::kineticEnergy() const
 {
     return (0.5 * _mass * (_vx * _vx + _vy * _vy));
 }
 
-int Particle::count() const
+int
+Particle::count() const
 {
     return _count;
 }
 
-double Particle::getXMax()
+double
+Particle::getXMax()
 {
     return getArea().getClipAreaXRight() - double(_radius);
 }
 
-double Particle::getXMin()
+double
+Particle::getXMin()
 {
     return getArea().getClipAreaXLeft() + double(_radius);
 }
 
-double Particle::getYMax()
+double
+Particle::getYMax()
 {
     return getArea().getClipAreaYTop() - double(_radius);
 }
 
-double Particle::getYMin()
+double
+Particle::getYMin()
 {
     return getArea().getClipAreaYBottom() + double(_radius);
 }

@@ -2,10 +2,7 @@
 
 #include <stdexcept>
 
-namespace algorithms
-{
-namespace uf
-{
+namespace algorithms {
 
 Percolation::Percolation(std::size_t number)
     : _width{0}
@@ -14,7 +11,8 @@ Percolation::Percolation(std::size_t number)
     reset(number);
 }
 
-void Percolation::reset(std::size_t number)
+void
+Percolation::reset(std::size_t number)
 {
     _width = number;
     _count = number * number;
@@ -38,7 +36,8 @@ void Percolation::reset(std::size_t number)
     }
 }
 
-void Percolation::open(std::size_t site)
+void
+Percolation::open(std::size_t site)
 {
 #ifndef NDEBUG
     validate(site);
@@ -48,33 +47,35 @@ void Percolation::open(std::size_t site)
     connect(site, site - _width);
     connect(site, site + _width);
 
-    if (site % _width != 0)
-    {
+    if (site % _width != 0) {
         connect(site, site - 1);
     }
 
-    if (site % _width != _width - 1)
-    {
+    if (site % _width != _width - 1) {
         connect(site, site + 1);
     }
 }
 
-bool Percolation::isOpened(std::size_t site)
+bool
+Percolation::isOpened(std::size_t site)
 {
     return _percolateModel[site];
 }
 
-std::size_t Percolation::width() const
+std::size_t
+Percolation::width() const
 {
     return _width;
 }
 
-std::size_t Percolation::totalCount() const
+std::size_t
+Percolation::totalCount() const
 {
     return _count;
 }
 
-std::size_t Percolation::countOfOpened() const
+std::size_t
+Percolation::countOfOpened() const
 {
     std::size_t opened = 0;
     for (std::size_t i = 0; i < _count; ++i) {
@@ -85,26 +86,31 @@ std::size_t Percolation::countOfOpened() const
     return opened;
 }
 
-bool Percolation::isPercolated()
+bool
+Percolation::isPercolated()
 {
     return _connectivityModel.connected(0, _count - 1);
 }
 
 #ifndef NDEBUG
-void Percolation::validate(std::size_t site) const
+void
+Percolation::validate(std::size_t site) const
 {
     std::size_t size = _percolateModel.size();
     if (site >= size) {
-        throw std::out_of_range(
-                    "Index " + std::to_string(site) + " is not between 0 and " + std::to_string(size - 1));
+        throw std::out_of_range("Index " + std::to_string(site) + " is not between 0 and "
+                                + std::to_string(size - 1));
     }
 }
 #endif
 
-void Percolation::connect(int p, int q)
+void
+Percolation::connect(std::size_t p, std::size_t q)
 {
-    if (p < 0 || p >= _percolateModel.size()) return;
-    if (q < 0 || q >= _percolateModel.size()) return;
+    if (p < 0 || p >= _percolateModel.size())
+        return;
+    if (q < 0 || q >= _percolateModel.size())
+        return;
 
     if (_percolateModel[p] && _percolateModel[q]) {
         if (!_connectivityModel.connected(p, q)) {
@@ -113,5 +119,4 @@ void Percolation::connect(int p, int q)
     }
 }
 
-}
-}
+} // namespace algorithms

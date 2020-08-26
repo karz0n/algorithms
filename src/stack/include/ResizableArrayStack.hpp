@@ -1,5 +1,4 @@
-#ifndef RESIZABLEARRAYSTACK_HPP
-#define RESIZABLEARRAYSTACK_HPP
+#pragma once
 
 #include <algorithm>
 #include <stdexcept>
@@ -11,17 +10,17 @@ namespace algorithms {
 /**
  * Resizable stack implementation.
  */
-template <typename T>
+template<typename T>
 class ResizableArrayStack : public Stack<T> {
 public:
-    ResizableArrayStack(std::size_t size = 1)
+    explicit ResizableArrayStack(std::size_t size = 1)
         : _dpos{0}
         , _size{size}
         , _data{nullptr}
     {
 #ifndef NDEBUG
         if (size == 0) {
-            throw std::invalid_argument("Capacity is invalid");
+            throw std::invalid_argument{"Capacity is invalid"};
         }
 #endif
         _data = new T[_size = size];
@@ -34,7 +33,8 @@ public:
         }
     }
 
-    void push(const T& item) override
+    void
+    push(const T& item) override
     {
         if (_dpos == _size) {
             resize(_size * 2);
@@ -42,11 +42,12 @@ public:
         _data[_dpos++] = item;
     }
 
-    T pop() override
+    T
+    pop() override
     {
 #ifndef NDEBUG
         if (empty()) {
-            throw std::underflow_error("Stack is empty");
+            throw std::underflow_error{"Stack is empty"};
         }
 #endif
         if (_dpos == _size / 4) {
@@ -55,13 +56,15 @@ public:
         return _data[--_dpos];
     }
 
-    bool empty() const override
+    [[nodiscard]] bool
+    empty() const override
     {
         return (_dpos == 0);
     }
 
 private:
-    void resize(std::size_t size)
+    void
+    resize(std::size_t size)
     {
         T* data = new T[size];
         std::move(_data, _data + _dpos, data);
@@ -77,5 +80,3 @@ private:
 };
 
 } // namespace algorithms
-
-#endif // RESIZABLEARRAYSTACK_HPP

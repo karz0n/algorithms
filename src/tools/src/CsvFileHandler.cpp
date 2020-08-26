@@ -1,7 +1,7 @@
 #include "CsvFileHandler.hpp"
 
 namespace algorithms {
-const char CsvFileHandler::DEFAULT_DELIMITER = ',';
+const char CsvFileHandler::DefaultDelimiter = ',';
 
 void
 CsvFileHandler::fileStart()
@@ -13,14 +13,12 @@ CsvFileHandler::fileEnd()
 {
 }
 
-bool
-CsvFileHandler::lineStart(std::size_t)
+bool CsvFileHandler::lineStart(std::size_t)
 {
     return true;
 }
 
-void
-CsvFileHandler::lineEnd(std::size_t)
+void CsvFileHandler::lineEnd(std::size_t)
 {
 }
 
@@ -33,6 +31,6 @@ CsvFileHandler::cell(std::size_t, const std::string&, bool)
 char
 CsvFileHandler::delimiter() const
 {
-    return DEFAULT_DELIMITER;
+    return DefaultDelimiter;
 }
 } // namespace algorithms

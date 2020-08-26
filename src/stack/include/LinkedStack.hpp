@@ -1,5 +1,4 @@
-#ifndef LINKEDSTACK_HPP
-#define LINKEDSTACK_HPP
+#pragma once
 
 #include <stdexcept>
 
@@ -10,7 +9,7 @@ namespace algorithms {
 /**
  * Linked list stack implementation.
  */
-template <typename T>
+template<typename T>
 class LinkedStack : public Stack<T> {
 public:
     LinkedStack()
@@ -21,31 +20,35 @@ public:
     ~LinkedStack() override
     {
         while (_first) {
-            Node* next = _first->next;
+            auto* n = _first->next;
             delete _first;
-            _first = next;
+            _first = n;
         }
     }
 
-    void push(const T& item) override
+    void
+    push(const T& item) override
     {
         _first = new Node{item, _first};
     }
 
-    T pop() override
+    T
+    pop() override
     {
 #ifndef NDEBUG
         if (empty()) {
-            throw std::underflow_error("Stack is empty");
+            throw std::underflow_error{"Stack is empty"};
         }
 #endif
         T item = _first->item;
+        auto* n = _first->next;
         delete _first;
-        _first = _first->next;
+        _first = n;
         return item;
     }
 
-    bool empty() const override
+    [[nodiscard]] bool
+    empty() const override
     {
         return (_first == nullptr);
     }
@@ -67,5 +70,3 @@ private:
 };
 
 } // namespace algorithms
-
-#endif // LINKEDSTACK_HPP

@@ -5,7 +5,7 @@
 
 namespace {
 bool
-getline(std::istream& s, std::string& value)
+getLine(std::istream& s, std::string& value)
 {
     static const char RC = '\r';
     static const char NL = '\n';
@@ -24,7 +24,7 @@ getline(std::istream& s, std::string& value)
 }
 
 bool
-getcell(std::istream& s, std::string& value, char delimiter)
+getCell(std::istream& s, std::string& value, char delimiter)
 {
     static const char DOUBLE_QUOTE = '"';
     value.clear();
@@ -75,7 +75,7 @@ CsvFileReader::read(std::istream& s, CsvFileHandler& handler)
     handler.fileStart();
     std::string line;
     std::size_t lineNo = 0;
-    while (getline(s, line)) {
+    while (getLine(s, line)) {
         if (line.empty()) {
             continue;
         }
@@ -85,7 +85,7 @@ CsvFileReader::read(std::istream& s, CsvFileHandler& handler)
         std::istringstream ss{line};
         std::string cell;
         std::size_t cellNo = 0;
-        while (getcell(ss, cell, handler.delimiter())) {
+        while (getCell(ss, cell, handler.delimiter())) {
             const bool isLast = ss.eof();
             if (!handler.cell(++cellNo, cell, isLast)) {
                 break;

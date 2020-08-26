@@ -1,5 +1,4 @@
-#ifndef FIXEDARRAYSTACK_HPP
-#define FIXEDARRAYSTACK_HPP
+#pragma once
 
 #include <stdexcept>
 
@@ -7,21 +6,21 @@
 
 namespace algorithms {
 
-static constexpr std::size_t DEFAULT_CAPACITY = 10;
+static constexpr std::size_t DefaultCapacity = 10;
 
 /**
  * Fixed size stack implementation.
  */
-template <typename T>
+template<typename T>
 class FixedArrayStack : public Stack<T> {
 public:
-    FixedArrayStack(std::size_t size = DEFAULT_CAPACITY)
+    explicit FixedArrayStack(std::size_t size = DefaultCapacity)
         : _n{0}
         , _s{size}
     {
 #ifndef NDEBUG
         if (size == 0) {
-            throw std::invalid_argument("Capacity is invalid");
+            throw std::invalid_argument{"Capacity is invalid"};
         }
 #endif
         _data = new T[size];
@@ -32,27 +31,30 @@ public:
         delete[] _data;
     }
 
-    void push(const T& item) override
+    void
+    push(const T& item) override
     {
 #ifndef NDEBUG
         if (_n == _s) {
-            throw std::overflow_error("Stack is overflow");
+            throw std::overflow_error{"Stack is overflow"};
         }
 #endif
         _data[_n++] = item;
     }
 
-    T pop() override
+    T
+    pop() override
     {
 #ifndef NDEBUG
         if (empty()) {
-            throw std::underflow_error("Stack is empty");
+            throw std::underflow_error{"Stack is empty"};
         }
 #endif
         return _data[--_n];
     }
 
-    bool empty() const override
+    [[nodiscard]] bool
+    empty() const override
     {
         return (_n == 0);
     }
@@ -64,5 +66,3 @@ private:
 };
 
 } // namespace algorithms
-
-#endif // FIXEDARRAYSTACK_HPP

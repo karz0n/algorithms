@@ -7,14 +7,10 @@
 
 namespace {
 
-enum class Operators {
-    add,
-    sub,
-    mul,
-    div
-};
+enum class Operators { add, sub, mul, div };
 
-double calculate(double operands1, double operands2, Operators oper)
+double
+calculate(double operands1, double operands2, Operators oper)
 {
     double r = 0.0;
     switch (oper) {
@@ -31,7 +27,7 @@ double calculate(double operands1, double operands2, Operators oper)
         r = operands2 / operands1;
         break;
     default:
-        throw std::runtime_error("Unknown operator");
+        throw std::runtime_error{"Unknown operator"};
     }
     return r;
 }
@@ -40,7 +36,8 @@ double calculate(double operands1, double operands2, Operators oper)
 
 namespace algorithms {
 
-double ArithmeticEvaluator::evaluate(const std::string& expression)
+double
+ArithmeticEvaluator::evaluate(const std::string& expression)
 {
     LinkedStack<double> operands;
     LinkedStack<Operators> operators;

@@ -1,5 +1,4 @@
-#ifndef COMMON_HPP
-#define COMMON_HPP
+#pragma once
 
 #include <chrono>
 #include <vector>
@@ -9,60 +8,43 @@
 
 namespace fs = std::filesystem;
 
-namespace algorithms
-{
-namespace uf
-{
-
-/** Path to */
-extern fs::path TINY_UNIONS_PATH;
-
-/** Path to */
-extern fs::path MEDIUM_UNIONS_PATH;
-
-/** Path to */
-extern fs::path LARGE_UNIONS_PATH;
-
-/**
- *
- */
 using Union = std::pair<std::size_t, std::size_t>;
-
-/**
- *
- */
 using Unions = std::vector<Union>;
 
-/**
- * Reads unions from file.
- *
- * @param path The path to the particular file.
- *
- * @return An array of readed unions.
- */
-Unions readUnionsFromFile(const fs::path& path);
+Unions
+readUnionsFromFile(const fs::path& path);
 
-/**
- *
- * @param callable
- */
-std::chrono::nanoseconds measure(std::function<void()> callable);
+const Unions&
+getTinyUnions();
 
-/**
- *
- * @param path
- */
-void printMeasure(const fs::path& path, std::size_t count, const std::chrono::nanoseconds& time);
+const Unions&
+getMediumUnions();
 
-/**
- *
- * @param us
- *
- * @return
- */
-std::string formatTime(std::chrono::nanoseconds time);
+const Unions&
+getLargeUnions();
 
-} // namespace uf
-} // namespace algorithms
+std::chrono::nanoseconds
+measure(const std::function<void()>& callable);
 
-#endif // COMMON_HPP
+void
+printMeasure(const fs::path& prefix, std::size_t count, const std::chrono::nanoseconds& time);
+
+std::string
+formatTime(std::chrono::nanoseconds time);
+
+template<typename T>
+static T
+makeSet(const std::string& prefix, const Unions& unions)
+{
+    T output;
+    auto time = measure([&]() {
+        output.reset(unions.size());
+        for (const auto& u : unions) {
+            if (!output.connected(u.first, u.second)) {
+                output.associate(u.first, u.second);
+            }
+        }
+    });
+    printMeasure(prefix, unions.size(), time);
+    return output;
+}

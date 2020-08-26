@@ -1,4 +1,4 @@
- #include "QuickFind.hpp"
+#include "QuickFind.hpp"
 
 #include <numeric>
 #include <algorithm>
@@ -6,28 +6,28 @@
 #include <utility>
 #include <stdexcept>
 
-namespace algorithms
-{
-namespace uf
-{
+namespace algorithms {
 
 QuickFind::QuickFind()
     : _count{0}
-{ }
+{
+}
 
 QuickFind::QuickFind(std::size_t size)
+    : _count{0}
 {
     reset(size);
 }
 
-QuickFind::QuickFind(QuickFind&& other)
+QuickFind::QuickFind(QuickFind&& other) noexcept
     : _container{std::move(other._container)}
     , _count{other._count}
 {
     other._count = 0;
 }
 
-QuickFind& QuickFind::operator=(QuickFind&& other)
+QuickFind&
+QuickFind::operator=(QuickFind&& other)
 {
     if (this != &other) {
         std::swap(_container, other._container);
@@ -36,7 +36,8 @@ QuickFind& QuickFind::operator=(QuickFind&& other)
     return *this;
 }
 
-std::size_t QuickFind::find(std::size_t p) const
+std::size_t
+QuickFind::find(std::size_t p) const
 {
 #ifndef NDEBUG
     validate(p);
@@ -44,18 +45,21 @@ std::size_t QuickFind::find(std::size_t p) const
     return _container[p];
 }
 
-std::size_t QuickFind::count() const
+std::size_t
+QuickFind::count() const
 {
     return _count;
 }
 
-void QuickFind::reset(std::size_t count)
+void
+QuickFind::reset(std::size_t count)
 {
     _container.resize(_count = count);
     std::iota(_container.begin(), _container.end(), 0);
 }
 
-bool QuickFind::connected(std::size_t p, std::size_t q) const
+bool
+QuickFind::connected(std::size_t p, std::size_t q) const
 {
 #ifndef NDEBUG
     validate(p);
@@ -64,7 +68,8 @@ bool QuickFind::connected(std::size_t p, std::size_t q) const
     return _container[p] == _container[q];
 }
 
-void QuickFind::associate(std::size_t p, std::size_t q)
+void
+QuickFind::associate(std::size_t p, std::size_t q)
 {
 #ifndef NDEBUG
     validate(p);
@@ -80,15 +85,15 @@ void QuickFind::associate(std::size_t p, std::size_t q)
 }
 
 #ifndef NDEBUG
-void QuickFind::validate(std::size_t n) const
+void
+QuickFind::validate(std::size_t n) const
 {
     std::size_t size = _container.size();
     if (n >= size) {
-        throw std::out_of_range(
-                    "Index " + std::to_string(n) + " is not between 0 and " + std::to_string(size - 1));
+        throw std::out_of_range("Index " + std::to_string(n) + " is not between 0 and "
+                                + std::to_string(size - 1));
     }
 }
 #endif
 
-} // namespace uf
 } // namespace algorithms

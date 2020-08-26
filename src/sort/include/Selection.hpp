@@ -1,5 +1,4 @@
-#ifndef SELECTION_HPP
-#define SELECTION_HPP
+#pragma once
 
 #include <iterator>
 #include <algorithm>
@@ -21,7 +20,8 @@ namespace algorithms {
 class Selection {
 public:
     template<typename ForwardIt>
-    static void sort(ForwardIt first, ForwardIt last)
+    static void
+    sort(ForwardIt first, ForwardIt last)
     {
         using T = typename std::iterator_traits<ForwardIt>::value_type;
 
@@ -29,7 +29,8 @@ public:
     }
 
     template<typename ForwardIt, typename Less>
-    static void sort(ForwardIt first, ForwardIt last, Less less)
+    static void
+    sort(ForwardIt first, ForwardIt last, Less less)
     {
         for (; first != last; ++first) {
             ForwardIt min = first;
@@ -44,5 +45,3 @@ public:
 };
 
 } // namespace algorithms
-
-#endif // SELECTION_HPP

@@ -31,7 +31,7 @@ public:
      *
      * @return @c true iff given vertex is reachable, @c false otherwise.
      */
-    bool
+    [[nodiscard]] bool
     hasRouteTo(std::size_t v) const;
 
     /**
@@ -41,7 +41,7 @@ public:
      *
      * @return The route from given vertex to the start vertex.
      */
-    Route
+    [[nodiscard]] Route
     routeTo(std::size_t v) const;
 
 protected:

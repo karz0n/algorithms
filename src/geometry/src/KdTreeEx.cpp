@@ -100,10 +100,7 @@ KdTreeEx::nearestTo(const Point& queryPoint)
             continue;
         }
 
-        const float value
-            = (node->direction == Directions::vertical)
-                  ? queryPoint.x
-                  : queryPoint.y;
+        const float value = (node->direction == Directions::vertical) ? queryPoint.x : queryPoint.y;
 
         const bool leftFirst = (value <= node->value);
         if (leftFirst) {
@@ -156,9 +153,7 @@ float
 KdTreeEx::getMedian(Points points, KdTreeEx::Directions direction)
 {
     const auto comparator = [direction](const Point& p1, const Point& p2) {
-        return (direction == Directions::vertical)
-                   ? p1.x < p2.x
-                   : p1.y < p2.y;
+        return (direction == Directions::vertical) ? p1.x < p2.x : p1.y < p2.y;
     };
 
     const std::size_t count = points.size();
@@ -167,9 +162,7 @@ KdTreeEx::getMedian(Points points, KdTreeEx::Directions direction)
         /* Median equals of middle value of sequence */
         const std::size_t index = (count + 1) / 2;
         auto point = Select::get<Point>(points.begin(), points.end(), comparator, index - 1);
-        return (direction == Directions::vertical)
-                   ? point.x
-                   : point.y;
+        return (direction == Directions::vertical) ? point.x : point.y;
     }
     else {
         /* Median equals of average value of two middle elements of sequence */
@@ -177,9 +170,8 @@ KdTreeEx::getMedian(Points points, KdTreeEx::Directions direction)
         const std::size_t index2 = (count + 2) / 2;
         auto point1 = Select::get<Point>(points.begin(), points.end(), comparator, index1 - 1);
         auto point2 = Select::get<Point>(points.begin(), points.end(), comparator, index2 - 1);
-        return (direction == Directions::vertical)
-                   ? (point1.x + point2.x) / 2
-                   : (point1.y + point2.y) / 2;
+        return (direction == Directions::vertical) ? (point1.x + point2.x) / 2
+                                                   : (point1.y + point2.y) / 2;
     }
 }
 
@@ -193,15 +185,14 @@ std::tuple<Points::iterator, Points::iterator>
 KdTreeEx::partitionBy(float median, Points& points, Directions direction)
 {
     return Sequence::partition(points.begin(), points.end(), [&](const Point& p) -> int {
-        auto v = (direction == Directions::vertical)
-                     ? p.x
-                     : p.y;
+        auto v = (direction == Directions::vertical) ? p.x : p.y;
         return (v > median) ? +1 : (v < median) ? -1 : 0;
     });
 }
 
 void
-KdTreeEx::findBestPoint(const Point& queryPoint, const Points& points, Point& bestPoint, float& bestDistance)
+KdTreeEx::findBestPoint(const Point& queryPoint, const Points& points, Point& bestPoint,
+                        float& bestDistance)
 {
     for (const auto& p : points) {
         float d = getDistance(queryPoint, p);

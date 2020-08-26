@@ -2,17 +2,19 @@
 
 namespace algorithms {
 
-DrawObject::DrawObject(DrawArea &area)
+DrawObject::DrawObject(DrawArea& area)
     : _area{area}
 {
 }
 
-DrawArea &DrawObject::getArea()
+DrawArea&
+DrawObject::getArea()
 {
     return _area;
 }
 
-const DrawArea &DrawObject::getArea() const
+const DrawArea&
+DrawObject::getArea() const
 {
     return _area;
 }

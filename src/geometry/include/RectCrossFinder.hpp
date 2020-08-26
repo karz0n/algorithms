@@ -8,9 +8,6 @@
 
 namespace algorithms {
 
-/**
- *
- */
 class RectCrossFinder {
 public:
     using RectPair = std::pair<Rect, Rect>;
@@ -27,10 +24,7 @@ public:
 
 private:
     struct Event {
-        enum class Types {
-            Left,
-            Right
-        };
+        enum class Types { Left, Right };
 
         Event(const Rect& rect, float time)
             : rect{rect}
@@ -38,13 +32,13 @@ private:
         {
         }
 
-        bool
+        [[nodiscard]] bool
         isLeft() const
         {
             return std::abs(time - rect.p1.x) < std::numeric_limits<float>::epsilon();
         }
 
-        bool
+        [[nodiscard]] bool
         isRight() const
         {
             return std::abs(time - rect.p3.x) < std::numeric_limits<float>::epsilon();

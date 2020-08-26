@@ -1,14 +1,10 @@
-#ifndef PERCOLATION_HPP
-#define PERCOLATION_HPP
+#pragma once
 
 #include <vector>
 
 #include "UnionFind.hpp"
 
-namespace algorithms
-{
-namespace uf
-{
+namespace algorithms {
 
 /**
  * Connectivity model type.
@@ -39,21 +35,23 @@ public:
      *
      * @param width The width of model.
      */
-    Percolation(std::size_t width);
+    explicit Percolation(std::size_t width);
 
     /**
      * Resets model wih given width.
      *
      * @param width The width of model.
      */
-    void reset(std::size_t width);
+    void
+    reset(std::size_t width);
 
     /**
      * Opens given site.
      *
      * @param site The site which need to be open.
      */
-    void open(std::size_t site);
+    void
+    open(std::size_t site);
 
     /**
      * Check is given site is open.
@@ -62,40 +60,48 @@ public:
      *
      * @return The open state of given site.
      */
-    bool isOpened(std::size_t site);
+    [[nodiscard]] bool
+    isOpened(std::size_t site);
 
     /**
      * Returns the width of percolation model.
      *
      * @return The width of percolation model.
      */
-    std::size_t width() const;
+    [[nodiscard]] std::size_t
+    width() const;
 
     /**
      * Returns the total number of sites.
      *
      * @return The total number of sites.
      */
-    std::size_t totalCount() const;
+    [[nodiscard]] std::size_t
+    totalCount() const;
 
     /**
      *
      * @return
      */
-    std::size_t countOfOpened() const;
+    [[nodiscard]] std::size_t
+    countOfOpened() const;
 
     /**
      * Returns the percolation status of model.
      *
      * @return The status of model.
      */
-    bool isPercolated();
+    bool
+    isPercolated();
 
 private:
 #ifndef NDEBUG
-    void validate(std::size_t n) const;
+    void
+    validate(std::size_t n) const;
 #endif
-    void connect(int p, int q);
+    void
+    connect(std::size_t p, std::size_t q);
+
 private:
     std::size_t _width;
     std::size_t _count;
@@ -103,7 +109,4 @@ private:
     ConnectivityModel _connectivityModel;
 };
 
-}
-}
-
-#endif // PERCOLATION_HPP
+} // namespace algorithms

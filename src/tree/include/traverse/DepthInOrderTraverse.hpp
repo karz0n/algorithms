@@ -21,7 +21,7 @@ class DepthInOrderTraverser {
 public:
     using Callback = std::function<void(const typename Node::KeyType&, typename Node::ValueType&)>;
 
-    DepthInOrderTraverser(Node* root)
+    explicit DepthInOrderTraverser(Node* root)
         : _root{root}
     {
     }
@@ -30,7 +30,7 @@ public:
     traverse(Callback callback)
     {
         if (!callback) {
-            std::runtime_error{"Invalid callback object"};
+            throw std::runtime_error{"Invalid callback object"};
         }
         traverse(_root, callback);
     }

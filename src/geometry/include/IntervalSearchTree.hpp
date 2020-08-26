@@ -6,7 +6,7 @@
 namespace algorithms {
 
 /**
- * Interval search tree implemenetation.
+ * Interval search tree implementation.
  */
 template<typename Key, typename Value, typename Compare = std::less<Key>>
 class IntervalSearchTree {
@@ -24,7 +24,7 @@ public:
         _root = put(_root, lo, hi, value);
     }
 
-    Value
+    [[nodiscard]] Value
     get(Key lo, Key hi) const
     {
         if (empty()) {
@@ -46,7 +46,7 @@ public:
         _root = erase(_root, lo);
     }
 
-    ValueOrNull
+    [[nodiscard]] ValueOrNull
     intersects(Key lo, Key hi) const
     {
         Node* node = _root;
@@ -67,7 +67,7 @@ public:
         return std::nullopt;
     }
 
-    bool
+    [[nodiscard]] bool
     empty() const
     {
         return !_root;

@@ -8,8 +8,8 @@
 
 using namespace algorithms;
 
-static constexpr int MIN = 0;
-static constexpr int MAX = 10;
+static constexpr int MinValue = 0;
+static constexpr int MaxValue = 10;
 
 using IntStack = Stack<int>;
 
@@ -19,7 +19,8 @@ using CreateStackFunctionPtr = IntStackPtr (*)();
 
 class StackTest : public ::testing::TestWithParam<CreateStackFunctionPtr> {
 public:
-    void SetUp() override;
+    void
+    SetUp() override;
 
     void TearDown() override;
 
@@ -45,11 +46,11 @@ TEST_P(StackTest, Empty)
 
 TEST_P(StackTest, Order)
 {
-    for (int n = MIN; n <= MAX; ++n) {
+    for (int n = MinValue; n <= MaxValue; ++n) {
         _stack->push(n);
     }
 
-    for (int n = MAX; n >= MIN; --n) {
+    for (int n = MaxValue; n >= MinValue; --n) {
         ASSERT_EQ(_stack->pop(), n);
     }
 }
@@ -57,7 +58,8 @@ TEST_P(StackTest, Order)
 IntStackPtr createFixedArrayStack()
 {
     using IntFixedArrayStack = FixedArrayStack<int>;
-    return std::make_unique<IntFixedArrayStack>(MAX - MIN + 1 /* Specify size of stack */);
+    return std::make_unique<IntFixedArrayStack>(MaxValue - MinValue
+                                                + 1 /* Specify size of stack */);
 }
 
 IntStackPtr createLinkedStack()

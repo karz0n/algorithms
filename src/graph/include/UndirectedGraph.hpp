@@ -11,7 +11,7 @@ class UndirectedGraph : public Graph {
 public:
     UndirectedGraph() = default;
 
-    UndirectedGraph(std::size_t numberOfVertices);
+    explicit UndirectedGraph(std::size_t numberOfVertices);
 
     void
     connect(std::size_t v1, std::size_t v2) override;
