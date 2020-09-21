@@ -1,23 +1,22 @@
-#include <gtest/gtest.h>
-
 #include "Common.hpp"
+#include "ComponentSpreader.hpp"
+#include "DirectedGraph.hpp"
+#include "UndirectedGraph.hpp"
 
-#include <Connector.hpp>
-#include <DirectedGraph.hpp>
-#include <UndirectedGraph.hpp>
+#include <gtest/gtest.h>
 
 using namespace algorithms;
 
 template<typename T>
 class ConnectorTest : public ::testing::Test {
-protected:
+public:
     void
     SetUp() override
     {
-        read("assets/graph/tinyG.txt", graph);
+        readGraph("assets/graph/tinyG.txt", graph);
     }
 
-protected:
+public:
     T graph;
 };
 
@@ -26,7 +25,7 @@ TYPED_TEST_SUITE(ConnectorTest, TestTypes);
 
 TYPED_TEST(ConnectorTest, IsConnected)
 {
-    Connector c{this->graph};
+    ComponentSpreader c{this->graph};
 
     EXPECT_TRUE(c.connected(0, 2));
     EXPECT_TRUE(c.connected(5, 3));
@@ -39,7 +38,7 @@ TYPED_TEST(ConnectorTest, IsConnected)
 
 TYPED_TEST(ConnectorTest, BelongsToComponent)
 {
-    Connector c{this->graph};
+    ComponentSpreader c{this->graph};
 
     auto id1 = c.id(4);
     auto id2 = c.id(7);

@@ -9,20 +9,20 @@ Graph::Graph()
 
 Graph::Graph(std::size_t numberOfVertices)
     : edges{0}
-    , vertices{numberOfVertices}
+    , forest{numberOfVertices}
 {
 }
 
-Graph::Adjacency
+const Graph::Adjacency&
 Graph::adjacency(std::size_t v) const
 {
-    return vertices[v];
+    return forest[v];
 }
 
 std::size_t
 Graph::verticesCount() const
 {
-    return vertices.size();
+    return forest.size();
 }
 
 std::size_t
@@ -35,7 +35,33 @@ void
 Graph::reset(std::size_t numberOfVertices)
 {
     edges = 0;
-    Vertices(numberOfVertices).swap(vertices);
+    Forest(numberOfVertices).swap(forest);
+}
+
+std::size_t
+Graph::degree(const Graph& graph, std::size_t s)
+{
+    const auto& adjacency = graph.adjacency(s);
+    return std::distance(adjacency.cbegin(), adjacency.cend());
+}
+
+std::size_t
+Graph::maxDegree(const Graph& graph)
+{
+    std::size_t max{0};
+    for (std::size_t v = 0; v < graph.verticesCount(); ++v) {
+        std::size_t degree = Graph::degree(graph, v);
+        if (max < degree) {
+            max = degree;
+        }
+    }
+    return max;
+}
+
+bool
+Graph::empty() const
+{
+    return forest.empty();
 }
 
 } // namespace algorithms

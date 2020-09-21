@@ -11,12 +11,12 @@ DepthFirstRoutes::DepthFirstRoutes(const Graph& graph, std::size_t s)
 void
 DepthFirstRoutes::traverse(const Graph& graph, std::size_t s)
 {
-    marked[s] = true;
-
+    marks[s] = true;
     for (std::size_t w : graph.adjacency(s)) {
-        if (!marked[w]) {
+        if (!marks[w]) {
+            source[w] = s;
+            /* Used recursion to go deeply of graph */
             traverse(graph, w);
-            edgeTo[w] = s;
         }
     }
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Types.hpp"
 #include "Graph.hpp"
 
 #include <vector>
@@ -18,7 +19,7 @@ using Route = std::vector<std::size_t>;
  * Particular implementation presents in derived classes.
  *
  * @see DepthFirstRoutes
- * @see BreadthFirstSearchRoutes
+ * @see BreadthFirstRoutes
  */
 class Routes {
 public:
@@ -48,8 +49,8 @@ protected:
     Routes(const Graph& graph, std::size_t s);
 
 protected:
-    std::vector<bool> marked;
-    std::vector<std::size_t> edgeTo;
+    Marks marks;
+    std::vector<std::size_t> source;
 };
 
 } // namespace algorithms

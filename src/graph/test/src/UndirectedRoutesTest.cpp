@@ -4,7 +4,7 @@
 #include "Common.hpp"
 
 #include <UndirectedGraph.hpp>
-#include <BreadthFirstSearchRoutes.hpp>
+#include <BreadthFirstRoutes.hpp>
 #include <DepthFirstRoutes.hpp>
 
 using namespace algorithms;
@@ -20,14 +20,14 @@ protected:
     void
     SetUp() override
     {
-        read("assets/graph/tinyG.txt", graph);
+        readGraph("assets/graph/tinyG.txt", graph);
     }
 
 protected:
     UndirectedGraph graph;
 };
 
-using TestTypes = ::testing::Types<DepthFirstRoutes, BreadthFirstSearchRoutes>;
+using TestTypes = ::testing::Types<DepthFirstRoutes, BreadthFirstRoutes>;
 TYPED_TEST_SUITE(UndirectedRoutesTest, TestTypes);
 
 TYPED_TEST(UndirectedRoutesTest, HasRouteTo)

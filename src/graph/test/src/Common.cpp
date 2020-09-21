@@ -6,7 +6,7 @@
 using namespace algorithms;
 
 void
-read(const fs::path& path, Graph& graph)
+readGraph(const fs::path& path, Graph& graph)
 {
     std::ifstream s{path};
     if (!s) {
@@ -18,7 +18,7 @@ read(const fs::path& path, Graph& graph)
 
     s >> vertices;
     if (!s || !vertices) {
-        throw std::runtime_error{"Failed to read number of verticies or it's invalid"};
+        throw std::runtime_error{"Failed to read number of vertices or it's invalid"};
     }
     s >> edges;
     if (!s || !edges) {
@@ -30,8 +30,11 @@ read(const fs::path& path, Graph& graph)
     std::size_t v2{0};
     while (s) {
         s >> v1 >> v2;
-        if (!s.good()) {
+        if (!s) {
             break;
+        }
+        if (v1 > vertices || v2 > vertices) {
+            throw std::runtime_error{"Invalid number of vertex"};
         }
         graph.connect(v1, v2);
     }

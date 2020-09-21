@@ -1,26 +1,32 @@
-set(TARGET "Graph-Library")
+set(TARGET "Graph-Library" "")
 
 add_library(${TARGET})
 add_library("Graph::Library" ALIAS ${TARGET})
 
 target_sources(${TARGET}
-PUBLIC
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/Graph.hpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/DirectedGraph.hpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/UndirectedGraph.hpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/Routes.hpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/DepthFirstRoutes.hpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/BreadthFirstSearchRoutes.hpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/Connector.hpp"
-PRIVATE
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/Graph.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/DirectedGraph.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/UndirectedGraph.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/Routes.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/DepthFirstRoutes.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/BreadthFirstSearchRoutes.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/Connector.cpp"
-)
+        PUBLIC
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/Graph.hpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/DirectedGraph.hpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/UndirectedGraph.hpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/Routes.hpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/DepthFirstRoutes.hpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/BreadthFirstRoutes.hpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/ComponentSpreader.hpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/StrongComponentSpreader.hpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/MultiSourceShortestPaths.hpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/DepthFirstOrder.hpp"
+        PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/Graph.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/DirectedGraph.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/UndirectedGraph.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/Routes.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/DepthFirstRoutes.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/BreadthFirstRoutes.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/ComponentSpreader.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/StrongComponentSpreader.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/MultiSourceShortestPaths.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/DepthFirstOrder.cpp"
+        )
 
 target_include_directories(${TARGET}
 PUBLIC

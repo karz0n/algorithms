@@ -7,11 +7,14 @@ namespace algorithms {
 
 /**
  * The base graph class.
+ *
+ * @see UndirectedGraph
+ * @see DirectedGraph
  */
 class Graph {
 public:
     using Adjacency = std::forward_list<std::size_t>;
-    using Vertices = std::vector<Adjacency>;
+    using Forest = std::vector<Adjacency>;
 
     /**
      * Init empty graph.
@@ -20,17 +23,14 @@ public:
 
     /**
      * Init graph with given number of vertices.
-     *
      * @param numberOfVertices The number of vertices.
      */
     explicit Graph(std::size_t numberOfVertices);
 
     /**
      * Connect two vertices.
-     *
      * @see DirectedGraph
      * @see UndirectedGraph
-     *
      * @param v1 The vertex number one
      * @param v2 The vertex number two
      */
@@ -40,17 +40,14 @@ public:
 
     /**
      * Returns vertices which are adjacent to given vertex.
-     *
      * @param v The target vertex.
-     *
      * @return The list of adjacent vertices.
      */
-    [[nodiscard]] Adjacency
+    [[nodiscard]] const Adjacency&
     adjacency(std::size_t v) const;
 
     /**
      * Returns total number of vertices.
-     *
      * @return The number of vertices.
      */
     [[nodiscard]] std::size_t
@@ -58,7 +55,6 @@ public:
 
     /**
      * Returns total number of edges.
-     *
      * @return The number of edges.
      */
     [[nodiscard]] std::size_t
@@ -66,15 +62,39 @@ public:
 
     /**
      * Re-init graph using given number of vertices.
-     *
      * @param numberOfVertices The number of vertices
      */
     void
     reset(std::size_t numberOfVertices);
 
+    /**
+     * Returns status of emptiness of graph.
+     * @return @c true iff graph is empty, @c false otherwise
+     */
+    [[nodiscard]] bool
+    empty() const;
+
+public:
+    /**
+     * Calculates degree of given vertex in graph.
+     * @param graph The given graph.
+     * @param s The given vertex.
+     * @return The degree.
+     */
+    [[nodiscard]] static std::size_t
+    degree(const Graph& graph, std::size_t s);
+
+    /**
+     * Calculates the max degree in provided graph.
+     * @param graph The given graph.
+     * @return The max degree.
+     */
+    [[nodiscard]] static std::size_t
+    maxDegree(const Graph& graph);
+
 protected:
     std::size_t edges;
-    Vertices vertices;
+    Forest forest;
 };
 
 } // namespace algorithms

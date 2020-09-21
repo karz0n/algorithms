@@ -7,7 +7,7 @@ namespace algorithms {
 bool
 Routes::hasRouteTo(std::size_t v) const
 {
-    return marked[v];
+    return marks[v];
 }
 
 Route
@@ -21,10 +21,10 @@ Routes::routeTo(std::size_t v) const
     steps.push_back(v);
 
     std::size_t p = v;
-    std::size_t n = edgeTo[v];
+    std::size_t n = source[v]; // Get source vertex (where did we come from to reach this vertex)
     while (p != n) {
         steps.push_back(p = n);
-        n = edgeTo[n];
+        n = source[n];
     }
 
     /** Flip over steps */
@@ -32,11 +32,11 @@ Routes::routeTo(std::size_t v) const
 }
 
 Routes::Routes(const Graph& graph, std::size_t s)
-    : marked(graph.verticesCount(), false)
-    , edgeTo(graph.verticesCount(), std::numeric_limits<std::size_t>::max())
+    : marks(graph.verticesCount(), false)
+    , source(graph.verticesCount(), std::numeric_limits<std::size_t>::max())
 {
-    marked[s] = true;
-    edgeTo[s] = s;
+    marks[s] = true;
+    source[s] = s;
 }
 
 } // namespace algorithms

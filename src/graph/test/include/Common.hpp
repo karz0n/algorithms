@@ -6,5 +6,5 @@
 
 namespace fs = std::filesystem;
 
-void
-read(const fs::path& path, algorithms::Graph& graph);
+extern void
+readGraph(const fs::path& path, algorithms::Graph& graph);

@@ -7,7 +7,7 @@ namespace algorithms {
 /**
  * The class of undirected graph.
  */
-class UndirectedGraph : public Graph {
+class UndirectedGraph final : public Graph {
 public:
     UndirectedGraph() = default;
 
@@ -15,6 +15,23 @@ public:
 
     void
     connect(std::size_t v1, std::size_t v2) override;
+
+public:
+    /**
+     * Counts the number of loops in graph.
+     * @param graph The given loop.
+     * @return The number of loops.
+     */
+    [[nodiscard]] static std::size_t
+    countOfSelfLoop(const Graph& graph);
+
+    /**
+     * Calculates the average number of degree in provided graph.
+     * @param graph The given graph.
+     * @return The average degree.
+     */
+    [[nodiscard]] static double
+    averageDegree(const Graph& graph);
 };
 
 } // namespace algorithms
