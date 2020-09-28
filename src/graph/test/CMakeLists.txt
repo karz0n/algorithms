@@ -24,6 +24,7 @@ target_sources(${TARGET}
         "${CMAKE_CURRENT_SOURCE_DIR}/src/DepthFirstOrderTest.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/ComponentSpreaderTest.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/StrongComponentSpreaderTest.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/KruskalMinSpanningTreeTest.cpp"
         )
 
 target_add_tests(TARGET ${TARGET})

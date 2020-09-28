@@ -15,6 +15,9 @@ target_sources(${TARGET}
         "${CMAKE_CURRENT_SOURCE_DIR}/include/StrongComponentSpreader.hpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/MultiSourceShortestPaths.hpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/DepthFirstOrder.hpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/Edge.hpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/EdgeWeightedGraph.hpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/KruskalMinSpanningTree.hpp"
         PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Graph.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/DirectedGraph.cpp"
@@ -26,12 +29,21 @@ target_sources(${TARGET}
         "${CMAKE_CURRENT_SOURCE_DIR}/src/StrongComponentSpreader.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/MultiSourceShortestPaths.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/DepthFirstOrder.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/Edge.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/EdgeWeightedGraph.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/KruskalMinSpanningTree.cpp"
         )
 
 target_include_directories(${TARGET}
 PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
+
+target_link_libraries(${TARGET}
+        PUBLIC
+        Queue::Library
+        UnionFind::Library
+        )
 
 if(ALG_ENABLE_TESTS)
     add_subdirectory(test)
