@@ -8,6 +8,10 @@ assets/geometry/Route7.gpx filter=lfs diff=lfs merge=lfs -text
 assets/graph/largeG.txt filter=lfs diff=lfs merge=lfs -text
 assets/graph/mediumG.txt filter=lfs diff=lfs merge=lfs -text
 assets/graph/tinyG.txt filter=lfs diff=lfs merge=lfs -text
+assets/graph/graphWithoutDirectedCycle.txt filter=lfs diff=lfs merge=lfs -text
+assets/graph/multiSourceShortestPaths.txt filter=lfs diff=lfs merge=lfs -text
+assets/graph/strongComponents.txt filter=lfs diff=lfs merge=lfs -text
+assets/graph/graphWithDirectedCycle.txt filter=lfs diff=lfs merge=lfs -text
 assets/tree/fortune.csv filter=lfs diff=lfs merge=lfs -text
 assets/union-find/largeUF.txt filter=lfs diff=lfs merge=lfs -text
 assets/union-find/mediumUF.txt filter=lfs diff=lfs merge=lfs -text
