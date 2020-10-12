@@ -12,8 +12,8 @@ namespace algorithms {
  */
 class EdgeWeightedGraph {
 public:
-    using Edges = std::forward_list<Edge>;
-    using Forest = std::vector<Edges>;
+    using EdgesList = std::forward_list<Edge>;
+    using Forest = std::vector<EdgesList>;
 
     /**
      * Init empty graph.
@@ -38,7 +38,7 @@ public:
      * @param v The target vertex.
      * @return The list of adjacent vertices.
      */
-    [[nodiscard]] const Edges&
+    [[nodiscard]] const EdgesList&
     adjacency(std::size_t v) const;
 
     /**

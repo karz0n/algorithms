@@ -25,19 +25,19 @@ EdgeWeightedGraph::add(const Edge& edge)
     _forest[w].push_front(edge);
 }
 
-const EdgeWeightedGraph::Edges&
+const EdgeWeightedGraph::EdgesList&
 EdgeWeightedGraph::adjacency(std::size_t v) const
 {
     return _forest[v];
 }
 
-EdgeWeightedGraph::Edges
+Edges
 EdgeWeightedGraph::edges() const
 {
     Edges edges;
-    for (const auto& v : _forest) {
-        for (const auto& edge : v) {
-            edges.push_front(edge);
+    for (const auto& edgeList : _forest) {
+        for (const auto& edge : edgeList) {
+            edges.push_back(edge);
         }
     }
     return edges;
