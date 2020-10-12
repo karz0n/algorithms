@@ -21,4 +21,6 @@ SpacesInContainerLiterals: false
 SpaceAfterTemplateKeyword: false
 ColumnLimit: 100
 AlwaysBreakTemplateDeclarations: Yes
+BinPackArguments: false
+BinPackParameters: false
 ...
