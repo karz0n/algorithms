@@ -84,7 +84,9 @@ private:
     partitionBy(float median, Points& points, Directions direction);
 
     static void
-    findBestPoint(const Point& queryPoint, const Points& points, Point& bestPoint,
+    findBestPoint(const Point& queryPoint,
+                  const Points& points,
+                  Point& bestPoint,
                   float& bestDistance);
 
 private:

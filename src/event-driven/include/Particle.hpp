@@ -15,8 +15,8 @@ public:
 
     explicit Particle(DrawArea& area);
 
-    Particle(DrawArea& area, double radius, double mass, double vx, double vy, double rx,
-             double ry);
+    Particle(
+        DrawArea& area, double radius, double mass, double vx, double vy, double rx, double ry);
 
     void
     move(double dt);

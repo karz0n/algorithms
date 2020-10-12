@@ -1,194 +1,173 @@
 # Determines whether the compiler supports C++11
 function(checkForCxx11Compiler _VAR)
     set(${_VAR}
-        0
-        PARENT_SCOPE
-    )
+            0
+            PARENT_SCOPE)
 
     message(STATUS "Checking for C++11 compiler")
     try_compile(
-        _COMPILER_TEST_RESULT ${PROJECT_BINARY_DIR}
-        ${CMAKE_CURRENT_LIST_DIR}/modules/CxxTestCompiler.cpp
-        CMAKE_FLAGS -DCMAKE_CXX_STANDARD=11 -DCMAKE_CXX_STANDARD_REQUIRED=ON
-    )
+            _COMPILER_TEST_RESULT ${PROJECT_BINARY_DIR}
+            ${CMAKE_CURRENT_LIST_DIR}/modules/CxxTestCompiler.cpp
+            CMAKE_FLAGS -DCMAKE_CXX_STANDARD=11 -DCMAKE_CXX_STANDARD_REQUIRED=ON)
 
     if(NOT _COMPILER_TEST_RESULT AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
         try_compile(
-            _COMPILER_TEST_RESULT ${PROJECT_BINARY_DIR}
-            ${CMAKE_CURRENT_LIST_DIR}/modules/CxxTestCompiler.cpp
-            CMAKE_FLAGS -DCMAKE_CXX_FLAGS="-stdlib=libc++" -DCMAKE_CXX_STANDARD=11
-                        -DCMAKE_CXX_STANDARD_REQUIRED=ON
-        )
+                _COMPILER_TEST_RESULT ${PROJECT_BINARY_DIR}
+                ${CMAKE_CURRENT_LIST_DIR}/modules/CxxTestCompiler.cpp
+                CMAKE_FLAGS
+                -DCMAKE_CXX_FLAGS="-stdlib=libc++" -DCMAKE_CXX_STANDARD=11
+                -DCMAKE_CXX_STANDARD_REQUIRED=ON)
         if(_COMPILER_TEST_RESULT)
             set(CMAKE_CXX_FLAGS
-                "${CMAKE_CXX_FLAGS} -stdlib=libc++"
-                PARENT_SCOPE
-            )
-        else()
+                    "${CMAKE_CXX_FLAGS} -stdlib=libc++"
+                    PARENT_SCOPE)
+        else ()
             message(
-                STATUS
+                    STATUS
                     "To enable C++11 install libc++ standard library from https://libcxx.llvm.org/"
             )
-        endif()
-    endif()
+        endif ()
+    endif ()
 
-    if(_COMPILER_TEST_RESULT
-       AND (CMAKE_COMPILER_IS_GNUCXX AND NOT ${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS 4.8.1)
-       OR (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND NOT ${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS
-                                                      3.3)
-       OR (CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
-    )
+    if (_COMPILER_TEST_RESULT
+            AND (CMAKE_COMPILER_IS_GNUCXX AND NOT ${CMAKE_CXX_COMPILER_VERSION}
+            VERSION_LESS 4.8.1)
+            OR (CMAKE_CXX_COMPILER_ID STREQUAL "Clang"
+            AND NOT ${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS 3.3)
+            OR (CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang"))
         set(${_VAR}
-            1
-            PARENT_SCOPE
-        )
+                1
+                PARENT_SCOPE)
         message(STATUS "Checking for C++11 compiler - available")
-    else()
+    else ()
         message(STATUS "Checking for C++11 compiler - unavailable")
-    endif()
+    endif ()
 endfunction()
 
 # Determines whether the compiler supports C++14
 function(checkForCxx14Compiler _VAR)
     set(${_VAR}
-        0
-        PARENT_SCOPE
-    )
+            0
+            PARENT_SCOPE)
 
     message(STATUS "Checking for C++14 compiler")
     try_compile(
-        _COMPILER_TEST_RESULT ${PROJECT_BINARY_DIR}
-        ${CMAKE_CURRENT_LIST_DIR}/modules/CxxTestCompiler.cpp
-        CMAKE_FLAGS -DCMAKE_CXX_STANDARD=14 -DCMAKE_CXX_STANDARD_REQUIRED=ON
-    )
+            _COMPILER_TEST_RESULT ${PROJECT_BINARY_DIR}
+            ${CMAKE_CURRENT_LIST_DIR}/modules/CxxTestCompiler.cpp
+            CMAKE_FLAGS -DCMAKE_CXX_STANDARD=14 -DCMAKE_CXX_STANDARD_REQUIRED=ON)
 
     if(NOT _COMPILER_TEST_RESULT AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
         try_compile(
-            _COMPILER_TEST_RESULT ${PROJECT_BINARY_DIR}
-            ${CMAKE_CURRENT_LIST_DIR}/modules/CxxTestCompiler.cpp
-            CMAKE_FLAGS -DCMAKE_CXX_FLAGS="-stdlib=libc++" -DCMAKE_CXX_STANDARD=14
-                        -DCMAKE_CXX_STANDARD_REQUIRED=ON
-        )
+                _COMPILER_TEST_RESULT ${PROJECT_BINARY_DIR}
+                ${CMAKE_CURRENT_LIST_DIR}/modules/CxxTestCompiler.cpp
+                CMAKE_FLAGS
+                -DCMAKE_CXX_FLAGS="-stdlib=libc++" -DCMAKE_CXX_STANDARD=14
+                -DCMAKE_CXX_STANDARD_REQUIRED=ON)
         if(_COMPILER_TEST_RESULT)
             set(CMAKE_CXX_FLAGS
-                "${CMAKE_CXX_FLAGS} -stdlib=libc++"
-                PARENT_SCOPE
-            )
-        else()
+                    "${CMAKE_CXX_FLAGS} -stdlib=libc++"
+                    PARENT_SCOPE)
+        else ()
             message(
-                STATUS
+                    STATUS
                     "To enable C++14 install libc++ standard library from https://libcxx.llvm.org/"
             )
-        endif()
-    endif()
+        endif ()
+    endif ()
 
-    if(_COMPILER_TEST_RESULT
-       AND (CMAKE_COMPILER_IS_GNUCXX AND NOT ${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS 4.8.1)
-       OR (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND NOT ${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS
-                                                      3.3)
-       OR (CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
-    )
+    if (_COMPILER_TEST_RESULT
+            AND (CMAKE_COMPILER_IS_GNUCXX AND NOT ${CMAKE_CXX_COMPILER_VERSION}
+            VERSION_LESS 4.8.1)
+            OR (CMAKE_CXX_COMPILER_ID STREQUAL "Clang"
+            AND NOT ${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS 3.3)
+            OR (CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang"))
         set(${_VAR}
-            1
-            PARENT_SCOPE
-        )
+                1
+                PARENT_SCOPE)
         message(STATUS "Checking for C++14 compiler - available")
-    else()
+    else ()
         message(STATUS "Checking for C++14 compiler - unavailable")
-    endif()
+    endif ()
 endfunction()
 
 # Determines whether the compiler supports C++17
 function(checkForCxx17Compiler _VAR)
     set(${_VAR}
-        0
-        PARENT_SCOPE
-    )
+            0
+            PARENT_SCOPE)
 
     message(STATUS "Checking for C++17 compiler")
     try_compile(
-        _COMPILER_TEST_RESULT ${PROJECT_BINARY_DIR}
-        ${CMAKE_CURRENT_LIST_DIR}/modules/CxxTestCompiler.cpp
-        CMAKE_FLAGS -DCMAKE_CXX_STANDARD=17 -DCMAKE_CXX_STANDARD_REQUIRED=ON
-    )
+            _COMPILER_TEST_RESULT ${PROJECT_BINARY_DIR}
+            ${CMAKE_CURRENT_LIST_DIR}/modules/CxxTestCompiler.cpp
+            CMAKE_FLAGS -DCMAKE_CXX_STANDARD=17 -DCMAKE_CXX_STANDARD_REQUIRED=ON)
 
     if(NOT _COMPILER_TEST_RESULT AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
         try_compile(
-            _COMPILER_TEST_RESULT ${PROJECT_BINARY_DIR}
-            ${CMAKE_CURRENT_LIST_DIR}/modules/CxxTestCompiler.cpp
-            CMAKE_FLAGS -DCMAKE_CXX_FLAGS="-stdlib=libc++" -DCMAKE_CXX_STANDARD=17
-                        -DCMAKE_CXX_STANDARD_REQUIRED=ON
-        )
+                _COMPILER_TEST_RESULT ${PROJECT_BINARY_DIR}
+                ${CMAKE_CURRENT_LIST_DIR}/modules/CxxTestCompiler.cpp
+                CMAKE_FLAGS
+                -DCMAKE_CXX_FLAGS="-stdlib=libc++" -DCMAKE_CXX_STANDARD=17
+                -DCMAKE_CXX_STANDARD_REQUIRED=ON)
         if(_COMPILER_TEST_RESULT)
             set(CMAKE_CXX_FLAGS
-                "${CMAKE_CXX_FLAGS} -stdlib=libc++"
-                PARENT_SCOPE
-            )
-        else()
+                    "${CMAKE_CXX_FLAGS} -stdlib=libc++"
+                    PARENT_SCOPE)
+        else ()
             message(
-                STATUS
+                    STATUS
                     "To enable C++17 install libc++ standard library from https://libcxx.llvm.org/"
             )
-        endif()
-    endif()
+        endif ()
+    endif ()
 
-    if(_COMPILER_TEST_RESULT
-       AND (CMAKE_COMPILER_IS_GNUCXX AND NOT ${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS 4.8.1)
-       OR (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND NOT ${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS
-                                                      3.3)
-       OR (CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
-    )
+    if (_COMPILER_TEST_RESULT
+            AND (CMAKE_COMPILER_IS_GNUCXX AND NOT ${CMAKE_CXX_COMPILER_VERSION}
+            VERSION_LESS 4.8.1)
+            OR (CMAKE_CXX_COMPILER_ID STREQUAL "Clang"
+            AND NOT ${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS 3.3)
+            OR (CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang"))
         set(${_VAR}
-            1
-            PARENT_SCOPE
-        )
+                1
+                PARENT_SCOPE)
         message(STATUS "Checking for C++17 compiler - available")
-    else()
+    else ()
         message(STATUS "Checking for C++17 compiler - unavailable")
-    endif()
+    endif ()
 endfunction()
 
 function(enableCxx11)
     set(CMAKE_CXX_STANDARD
-        11
-        PARENT_SCOPE
-    )
+            11
+            PARENT_SCOPE)
     set(CMAKE_CXX_STANDARD_REQUIRED
-        ON
-        PARENT_SCOPE
-    )
+            ON
+            PARENT_SCOPE)
     set(CMAKE_CXX_EXTENSIONS
-        OFF
-        PARENT_SCOPE
-    )
+            OFF
+            PARENT_SCOPE)
 endfunction()
 
 function(enableCxx14)
     set(CMAKE_CXX_STANDARD
-        14
-        PARENT_SCOPE
-    )
+            14
+            PARENT_SCOPE)
     set(CMAKE_CXX_STANDARD_REQUIRED
-        ON
-        PARENT_SCOPE
-    )
+            ON
+            PARENT_SCOPE)
     set(CMAKE_CXX_EXTENSIONS
-        OFF
-        PARENT_SCOPE
-    )
+            OFF
+            PARENT_SCOPE)
 endfunction()
 
 function(enableCxx17)
     set(CMAKE_CXX_STANDARD
-        17
-        PARENT_SCOPE
-    )
+            17
+            PARENT_SCOPE)
     set(CMAKE_CXX_STANDARD_REQUIRED
-        ON
-        PARENT_SCOPE
-    )
+            ON
+            PARENT_SCOPE)
     set(CMAKE_CXX_EXTENSIONS
-        OFF
-        PARENT_SCOPE
-    )
+            OFF
+            PARENT_SCOPE)
 endfunction()

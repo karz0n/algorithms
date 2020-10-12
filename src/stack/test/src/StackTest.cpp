@@ -22,19 +22,22 @@ public:
     void
     SetUp() override;
 
-    void TearDown() override;
+    void
+    TearDown() override;
 
 protected:
     IntStackPtr _stack;
 };
 
-void StackTest::SetUp()
+void
+StackTest::SetUp()
 {
     CreateStackFunctionPtr f = *GetParam();
     _stack = f();
 }
 
-void StackTest::TearDown()
+void
+StackTest::TearDown()
 {
     _stack.reset();
 }
@@ -55,24 +58,30 @@ TEST_P(StackTest, Order)
     }
 }
 
-IntStackPtr createFixedArrayStack()
+IntStackPtr
+createFixedArrayStack()
 {
     using IntFixedArrayStack = FixedArrayStack<int>;
     return std::make_unique<IntFixedArrayStack>(MaxValue - MinValue
                                                 + 1 /* Specify size of stack */);
 }
 
-IntStackPtr createLinkedStack()
+IntStackPtr
+createLinkedStack()
 {
     using IntLinkedStack = LinkedStack<int>;
     return std::make_unique<IntLinkedStack>();
 }
 
-IntStackPtr createResizableArrayStack()
+IntStackPtr
+createResizableArrayStack()
 {
     using IntResizableArrayStack = ResizableArrayStack<int>;
     return std::make_unique<IntResizableArrayStack>();
 }
 
-INSTANTIATE_TEST_SUITE_P(StackTestSuite, StackTest,
-                         ::testing::Values(&createFixedArrayStack, &createLinkedStack, &createResizableArrayStack));
+INSTANTIATE_TEST_SUITE_P(StackTestSuite,
+                         StackTest,
+                         ::testing::Values(&createFixedArrayStack,
+                                           &createLinkedStack,
+                                           &createResizableArrayStack));

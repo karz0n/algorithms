@@ -61,8 +61,9 @@ private:
     typename Chain::iterator
     find(Chain& chain, const Key& key)
     {
-        return std::find_if(chain.begin(), chain.end(),
-                            [&key](const KeyValuePair& kv) { return (std::get<Key>(kv) == key); });
+        return std::find_if(chain.begin(), chain.end(), [&key](const KeyValuePair& kv) {
+            return (std::get<Key>(kv) == key);
+        });
     }
 
 private:

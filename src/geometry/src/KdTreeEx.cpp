@@ -191,7 +191,9 @@ KdTreeEx::partitionBy(float median, Points& points, Directions direction)
 }
 
 void
-KdTreeEx::findBestPoint(const Point& queryPoint, const Points& points, Point& bestPoint,
+KdTreeEx::findBestPoint(const Point& queryPoint,
+                        const Points& points,
+                        Point& bestPoint,
                         float& bestDistance)
 {
     for (const auto& p : points) {

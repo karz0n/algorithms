@@ -158,12 +158,14 @@ void
 KdTree::sortBy(Points& points, Directions direction)
 {
     if (direction == Directions::vertical) {
-        ThreeWayQuick::sort(points.begin(), points.end(),
-                            [](const Point& lh, const Point& rh) { return lh.x < rh.x; });
+        ThreeWayQuick::sort(points.begin(), points.end(), [](const Point& lh, const Point& rh) {
+            return lh.x < rh.x;
+        });
     }
     else {
-        ThreeWayQuick::sort(points.begin(), points.end(),
-                            [](const Point& lh, const Point& rh) { return lh.y < rh.y; });
+        ThreeWayQuick::sort(points.begin(), points.end(), [](const Point& lh, const Point& rh) {
+            return lh.y < rh.y;
+        });
     }
 }
 
@@ -184,7 +186,9 @@ KdTree::partitionBy(float median, Points& points, Directions direction)
 }
 
 void
-KdTree::findBestPoint(const Point& queryPoint, const Points& points, Point& bestPoint,
+KdTree::findBestPoint(const Point& queryPoint,
+                      const Points& points,
+                      Point& bestPoint,
                       float& bestDistance)
 {
     for (const auto& p : points) {

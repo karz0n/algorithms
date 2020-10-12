@@ -43,7 +43,11 @@ public:
         std::vector<T> buffer(size);
         for (std::size_t step = 1; step < size; step += step) {
             for (std::size_t lo = 0; lo < size - step; lo += 2 * step) {
-                merge(first, buffer.begin(), less, lo, lo + step - 1,
+                merge(first,
+                      buffer.begin(),
+                      less,
+                      lo,
+                      lo + step - 1,
                       std::min(lo + 2 * step - 1, size - 1));
             }
         }
@@ -52,8 +56,8 @@ public:
 private:
     template<typename RandomIt, typename Less>
     static void
-    merge(RandomIt input, RandomIt output, Less less, std::size_t lo, std::size_t mid,
-          std::size_t hi)
+    merge(
+        RandomIt input, RandomIt output, Less less, std::size_t lo, std::size_t mid, std::size_t hi)
     {
         for (std::size_t k = lo; k <= hi; ++k) {
             output[k] = input[k];

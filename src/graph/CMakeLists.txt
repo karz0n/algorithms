@@ -3,9 +3,9 @@ set(TARGET "Graph-Library" "")
 add_library(${TARGET})
 add_library("Graph::Library" ALIAS ${TARGET})
 
-target_sources(${TARGET}
-        PUBLIC
-        "${CMAKE_CURRENT_SOURCE_DIR}/include/Graph.hpp"
+target_sources(
+        ${TARGET}
+        PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/Graph.hpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/DirectedGraph.hpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/UndirectedGraph.hpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/Routes.hpp"
@@ -19,8 +19,7 @@ target_sources(${TARGET}
         "${CMAKE_CURRENT_SOURCE_DIR}/include/EdgeWeightedGraph.hpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/KruskalMinSpanningTree.hpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/EagerPrimsMinSpanningTree.hpp"
-        PRIVATE
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/Graph.cpp"
+        PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src/Graph.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/DirectedGraph.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/UndirectedGraph.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Routes.cpp"
@@ -33,19 +32,11 @@ target_sources(${TARGET}
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Edge.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/EdgeWeightedGraph.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/KruskalMinSpanningTree.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/EagerPrimsMinSpanningTree.cpp"
-        )
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/EagerPrimsMinSpanningTree.cpp")
 
-target_include_directories(${TARGET}
-PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
-)
+target_include_directories(${TARGET} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-target_link_libraries(${TARGET}
-        PUBLIC
-        Queue::Library
-        UnionFind::Library
-        )
+target_link_libraries(${TARGET} PUBLIC Queue::Library UnionFind::Library)
 
 if(ALG_ENABLE_TESTS)
     add_subdirectory(test)

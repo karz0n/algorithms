@@ -62,8 +62,8 @@ private:
 
     template<typename RandomIt, typename Less>
     static void
-    merge(RandomIt input, RandomIt output, Less less, std::size_t lo, std::size_t mid,
-          std::size_t hi)
+    merge(
+        RandomIt input, RandomIt output, Less less, std::size_t lo, std::size_t mid, std::size_t hi)
     {
         // copy elements to buffer
         for (std::size_t k = lo; k <= hi; ++k) {

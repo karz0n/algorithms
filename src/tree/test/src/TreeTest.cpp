@@ -25,8 +25,8 @@ protected:
     void
     fillByTestData()
     {
-        std::for_each(TEST_DATA.cbegin(), TEST_DATA.cend(),
-                      [&](const auto& d) { _tree.put(d, d); });
+        std::for_each(
+            TEST_DATA.cbegin(), TEST_DATA.cend(), [&](const auto& d) { _tree.put(d, d); });
     }
 
 protected:
@@ -147,13 +147,15 @@ TYPED_TEST(TreeTest, DepthPreOrderTraverseTest)
 
     typename TypeParam::KeysType keys;
     this->_tree.traverse(
-        TraverseOrder::DepthPreOrder, [&keys](const auto& key, auto&) { keys.push_back(key); },
+        TraverseOrder::DepthPreOrder,
+        [&keys](const auto& key, auto&) { keys.push_back(key); },
         true);
     EXPECT_EQ(keys, EXPECTED);
 
     keys.clear();
     this->_tree.traverse(
-        TraverseOrder::DepthPreOrder, [&keys](const auto& key, auto&) { keys.push_back(key); },
+        TraverseOrder::DepthPreOrder,
+        [&keys](const auto& key, auto&) { keys.push_back(key); },
         false);
     EXPECT_EQ(keys, EXPECTED);
 }
@@ -166,13 +168,15 @@ TYPED_TEST(TreeTest, DepthInOrderTraverseTest)
 
     typename TypeParam::KeysType keys;
     this->_tree.traverse(
-        TraverseOrder::DepthInOrder, [&keys](const auto& key, auto&) { keys.push_back(key); },
+        TraverseOrder::DepthInOrder,
+        [&keys](const auto& key, auto&) { keys.push_back(key); },
         true);
     EXPECT_EQ(keys, EXPECTED);
 
     keys.clear();
     this->_tree.traverse(
-        TraverseOrder::DepthInOrder, [&keys](const auto& key, auto&) { keys.push_back(key); },
+        TraverseOrder::DepthInOrder,
+        [&keys](const auto& key, auto&) { keys.push_back(key); },
         false);
     EXPECT_EQ(keys, EXPECTED);
 }
@@ -185,13 +189,15 @@ TYPED_TEST(TreeTest, DepthPostOrderTraverseTest)
 
     typename TypeParam::KeysType keys;
     this->_tree.traverse(
-        TraverseOrder::DepthPostOrder, [&keys](const auto& key, auto&) { keys.push_back(key); },
+        TraverseOrder::DepthPostOrder,
+        [&keys](const auto& key, auto&) { keys.push_back(key); },
         true);
     EXPECT_EQ(keys, EXPECTED);
 
     keys.clear();
     this->_tree.traverse(
-        TraverseOrder::DepthPostOrder, [&keys](const auto& key, auto&) { keys.push_back(key); },
+        TraverseOrder::DepthPostOrder,
+        [&keys](const auto& key, auto&) { keys.push_back(key); },
         false);
     EXPECT_EQ(keys, EXPECTED);
 }

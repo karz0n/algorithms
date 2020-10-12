@@ -95,9 +95,11 @@ formatTime(nanoseconds time)
 {
     using T = std::tuple<nanoseconds, int, const char*>;
 
-    static constexpr T formats[]
-        = {T{hours(1), 2, ""}, T{minutes(1), 2, ":"}, T{seconds(1), 2, ":"},
-           T{milliseconds(1), 3, "."}, T{microseconds(1), 3, "."}};
+    static constexpr T formats[] = {T{hours(1), 2, ""},
+                                    T{minutes(1), 2, ":"},
+                                    T{seconds(1), 2, ":"},
+                                    T{milliseconds(1), 3, "."},
+                                    T{microseconds(1), 3, "."}};
 
     std::ostringstream oss;
     tupleForEach(formats, [&](auto d, auto w, auto s) {

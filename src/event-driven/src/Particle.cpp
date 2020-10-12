@@ -28,8 +28,8 @@ Particle::Particle(DrawArea& area)
     _count = 0;
 }
 
-Particle::Particle(DrawArea& area, double radius, double mass, double vx, double vy, double rx,
-                   double ry)
+Particle::Particle(
+    DrawArea& area, double radius, double mass, double vx, double vy, double rx, double ry)
     : DrawObject{area}
     , _radius{radius}
     , _mass{mass}

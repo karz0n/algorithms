@@ -14,13 +14,15 @@ using IntQueuePtr = std::shared_ptr<IntQueue>;
 
 using CreateQueueFunctionPtr = IntQueuePtr (*)();
 
-IntQueuePtr createLinkedQueue()
+IntQueuePtr
+createLinkedQueue()
 {
     using IntLinkedQueue = algorithms::LinkedQueue<int>;
     return std::make_shared<IntLinkedQueue>();
 }
 
-IntQueuePtr createResizableArrayQueue()
+IntQueuePtr
+createResizableArrayQueue()
 {
     using IntResizableArrayQueue = algorithms::ResizableArrayQueue<int>;
     return std::make_shared<IntResizableArrayQueue>();
@@ -28,13 +30,15 @@ IntQueuePtr createResizableArrayQueue()
 
 class QueueTest : public ::testing::TestWithParam<CreateQueueFunctionPtr> {
 public:
-    void SetUp() override
+    void
+    SetUp() override
     {
         CreateQueueFunctionPtr f = GetParam();
         _queue = f();
     }
 
-    void TearDown() override
+    void
+    TearDown() override
     {
         _queue.reset();
     }
@@ -79,4 +83,6 @@ TEST_P(QueueTest, Order)
     }
 }
 
-INSTANTIATE_TEST_SUITE_P(QueueTestSuite, QueueTest, ::testing::Values(&createLinkedQueue, &createResizableArrayQueue));
+INSTANTIATE_TEST_SUITE_P(QueueTestSuite,
+                         QueueTest,
+                         ::testing::Values(&createLinkedQueue, &createResizableArrayQueue));

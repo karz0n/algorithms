@@ -44,8 +44,8 @@ LineCrossFinder::find()
             LineSegment upper{Point{MAX_X, e.segment.p2.y}, Point{MAX_X, e.segment.p2.y}};
             auto it1 = set.lower_bound(lower);
             auto it2 = set.upper_bound(upper);
-            std::for_each(it1, it2,
-                          [&](const auto& s) { points.emplace_back(e.segment.p1.x, s.p1.y); });
+            std::for_each(
+                it1, it2, [&](const auto& s) { points.emplace_back(e.segment.p1.x, s.p1.y); });
             continue;
         }
 

@@ -53,7 +53,9 @@ StrongComponentSpreader::traverse(const DirectedGraph& graph)
 }
 
 void
-StrongComponentSpreader::traverse(const DirectedGraph& graph, std::size_t s, std::size_t component,
+StrongComponentSpreader::traverse(const DirectedGraph& graph,
+                                  std::size_t s,
+                                  std::size_t component,
                                   Marks& marks)
 {
     _components[s] = component;
