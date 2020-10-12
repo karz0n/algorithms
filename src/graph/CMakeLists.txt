@@ -18,6 +18,7 @@ target_sources(${TARGET}
         "${CMAKE_CURRENT_SOURCE_DIR}/include/Edge.hpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/EdgeWeightedGraph.hpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/KruskalMinSpanningTree.hpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/EagerPrimsMinSpanningTree.hpp"
         PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Graph.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/DirectedGraph.cpp"
@@ -32,6 +33,7 @@ target_sources(${TARGET}
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Edge.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/EdgeWeightedGraph.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/KruskalMinSpanningTree.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/EagerPrimsMinSpanningTree.cpp"
         )
 
 target_include_directories(${TARGET}

@@ -6,7 +6,7 @@
 namespace algorithms {
 
 KruskalMinSpanningTree::KruskalMinSpanningTree(const EdgeWeightedGraph& graph)
-    : _weight{}
+    : _weight{0.0}
 {
     traverse(graph);
 }
@@ -31,14 +31,15 @@ KruskalMinSpanningTree::traverse(const EdgeWeightedGraph& graph)
         queue.push(edge);
     }
 
-    UnionFind uf{graph.verticesCount()};
+    UnionFind unions{graph.verticesCount()};
     while (!queue.empty() && _edges.size() < graph.verticesCount() - 1) {
         const auto edge = queue.pop();
         const std::size_t v = edge.either();
         const std::size_t w = edge.other(v);
-        if (!uf.connected(v, w)) {
+        if (unions.find(v) != unions.find(w)) {
+            unions.associate(v, w);
             _edges.push_back(edge);
-            uf.associate(v, w);
+            _weight += edge.weight();
         }
     }
 }

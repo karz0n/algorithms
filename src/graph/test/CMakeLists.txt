@@ -3,9 +3,9 @@ set(TARGET "Graph-Test")
 add_executable(${TARGET} "")
 
 target_link_libraries(${TARGET}
-PRIVATE
-    Graph::Library
-)
+        PRIVATE
+        Graph::Library UnionFind::Library
+        )
 
 target_include_directories(${TARGET}
 PRIVATE
@@ -25,6 +25,7 @@ target_sources(${TARGET}
         "${CMAKE_CURRENT_SOURCE_DIR}/src/ComponentSpreaderTest.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/StrongComponentSpreaderTest.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/KruskalMinSpanningTreeTest.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/EagerPrimsMinSpanningTreeTest.cpp"
         )
 
 target_add_tests(TARGET ${TARGET})

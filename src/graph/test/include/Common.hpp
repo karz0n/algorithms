@@ -12,3 +12,6 @@ readGraph(const fs::path& path, algorithms::Graph& graph);
 
 extern void
 readGraph(const fs::path& path, algorithms::EdgeWeightedGraph& graph);
+
+extern void
+verifyMinSpanningTree(const algorithms::Edges& tree, const algorithms::EdgeWeightedGraph& graph);
