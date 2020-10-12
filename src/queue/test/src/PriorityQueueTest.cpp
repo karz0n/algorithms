@@ -1,22 +1,21 @@
-#include <gtest/gtest.h>
-
 #include "PriorityQueue.hpp"
+
+#include <gtest/gtest.h>
 
 using namespace algorithms;
 
-static constexpr int MIN = 0;
-static constexpr int MAX = 100;
+static constexpr int MinValue = 0;
+static constexpr int MaxValue = 9;
 
 TEST(PriorityQueue, Order)
 {
-    /** Max priority queue (top value is value with highest priority) */
     MaxPriorityQueue<int> queue;
 
-    for (auto n = MIN; n <= MAX; ++n) {
+    for (auto n = MinValue; n <= MaxValue; ++n) {
         queue.push(n);
     }
 
-    for (auto n = MAX; n >= MIN; --n) {
+    for (auto n = MaxValue; n >= MinValue; --n) {
         ASSERT_TRUE(queue.pop() == n);
     }
 }
@@ -27,13 +26,13 @@ TEST(PriorityQueue, Invariants)
 
     ASSERT_EQ(queue.size(), 0);
     ASSERT_TRUE(queue.empty());
-    queue.push(MIN);
-    queue.push(MAX);
+    queue.push(MinValue);
+    queue.push(MaxValue);
     ASSERT_FALSE(queue.empty());
     ASSERT_EQ(queue.size(), 2);
 
-    ASSERT_EQ(queue.top(), MAX);
-    ASSERT_EQ(queue.bottom(), MIN);
+    ASSERT_EQ(queue.top(), MaxValue);
+    ASSERT_EQ(queue.bottom(), MinValue);
 
     queue.pop();
     queue.pop();
