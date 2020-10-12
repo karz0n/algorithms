@@ -1,5 +1,8 @@
 #include "Edge.hpp"
 
+#include <sstream>
+#include <iomanip>
+
 namespace algorithms {
 
 Edge::Edge(std::size_t v, std::size_t w, double weight)
@@ -27,6 +30,15 @@ Edge::weight() const
     return _weight;
 }
 
+std::string
+Edge::toString() const
+{
+    std::stringstream ss;
+    ss << "{" << _v << ", " << _w << "} "
+       << "[" << std::setprecision(5) << _weight << "]";
+    return ss.str();
+}
+
 bool
 Edge::operator<(const Edge& other) const
 {
@@ -36,7 +48,19 @@ Edge::operator<(const Edge& other) const
 bool
 Edge::operator>(const Edge& other) const
 {
-    return (*this < other);
+    return !(*this < other);
+}
+
+bool
+Edge::operator==(const Edge& other) const
+{
+    return (_v == other._v && _w == other._w);
+}
+
+bool
+Edge::operator!=(const Edge& other) const
+{
+    return !(*this == other);
 }
 
 } // namespace algorithms
