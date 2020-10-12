@@ -3,6 +3,7 @@
 #include "IndexPriorityQueue.hpp"
 
 #include <optional>
+#include <limits>
 
 namespace algorithms {
 

@@ -18,7 +18,7 @@ TEST(IntervalSearchTreeTest, Erase)
     tree.put(1, 5, "R1");
     EXPECT_FALSE(tree.empty());
     tree.erase(1, 5);
-    EXPECT_THROW(tree.get(1, 5), std::exception);
+    EXPECT_THROW([[maybe_unused]] auto v = tree.get(1, 5), std::exception);
     EXPECT_TRUE(tree.empty());
 }
 

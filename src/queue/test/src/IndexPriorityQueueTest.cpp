@@ -42,6 +42,6 @@ TEST(IndexPriorityQueueTest, Invariants)
     EXPECT_TRUE(queue.empty());
 
 #ifndef NDEBUG
-    ASSERT_ANY_THROW(queue.pop());
+    ASSERT_ANY_THROW([[maybe_unused]] auto n = queue.pop());
 #endif
 }

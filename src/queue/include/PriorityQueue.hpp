@@ -2,6 +2,7 @@
 
 #include <functional>
 #include <optional>
+#include <stdexcept>
 
 namespace algorithms {
 
