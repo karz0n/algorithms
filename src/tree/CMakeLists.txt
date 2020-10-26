@@ -4,8 +4,8 @@ add_library(${TARGET} INTERFACE)
 add_library("Tree::Library" ALIAS ${TARGET})
 
 target_sources(
-        ${TARGET}
-        INTERFACE
+    ${TARGET}
+    INTERFACE
         ${CMAKE_CURRENT_SOURCE_DIR}/include/traverse/BreadthOrderTraverse.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/include/traverse/DepthInOrderTraverse.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/include/traverse/DepthPostOrderTraverse.hpp
@@ -15,7 +15,7 @@ target_sources(
         ${CMAKE_CURRENT_SOURCE_DIR}/include/Traverse.hpp)
 
 target_include_directories(${TARGET}
-        INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+                           INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 if(ALG_ENABLE_TESTS)
     add_subdirectory(test)
