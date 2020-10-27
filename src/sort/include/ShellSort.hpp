@@ -36,6 +36,10 @@ public:
     static void
     sort(It first, It last, Compare compare)
     {
+        if (first >= last) {
+            return;
+        }
+
         // Get number of elements.
         std::size_t count = std::distance(first, last);
 

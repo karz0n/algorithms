@@ -1,34 +1,37 @@
 #include <gtest/gtest.h>
 
+#include <HeapSort.hpp>
 #include <Sequence.hpp>
 
-#include "HeapSort.hpp"
-
+using namespace testing;
 using namespace algorithms;
 
-TEST(HeapSortTest, Sort1K)
+class HeapSortTest : public TestWithParam<std::size_t> {
+public:
+    HeapSortTest()
+        : numbers{Sequence::numbers<int>(GetParam())}
+    {
+    }
+
+public:
+    Numbers<int> numbers;
+};
+
+TEST_P(HeapSortTest, AscendingSort)
 {
-    auto numbers = Sequence::numbers<int>(1000);
-
     HeapSort::sort(numbers.begin(), numbers.end());
-
     ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
-TEST(HeapSortTest, Sort10K)
+TEST_P(HeapSortTest, DescendingSort)
 {
-    auto numbers = Sequence::numbers<int>(10000);
-
-    HeapSort::sort(numbers.begin(), numbers.end());
-
-    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
+    HeapSort::sort(numbers.begin(), numbers.end(), std::greater<int>{});
+    ASSERT_TRUE(Sequence::isDescending(numbers.begin(), numbers.end()));
 }
 
-TEST(HeapSortTest, Sort100K)
+TEST_P(HeapSortTest, InvalidIterators)
 {
-    auto numbers = Sequence::numbers<int>(100000);
-
-    HeapSort::sort(numbers.begin(), numbers.end());
-
-    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
+    EXPECT_NO_THROW(HeapSort::sort(numbers.end(), numbers.begin()));
 }
+
+INSTANTIATE_TEST_SUITE_P(Sort, HeapSortTest, Values(100, 1000, 10000));

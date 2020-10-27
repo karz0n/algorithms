@@ -1,34 +1,37 @@
 #include <gtest/gtest.h>
 
+#include <ShellSort.hpp>
 #include <Sequence.hpp>
 
-#include "ShellSort.hpp"
-
+using namespace testing;
 using namespace algorithms;
 
-TEST(ShellTest, Sort1K)
+class ShellTest : public TestWithParam<std::size_t> {
+public:
+    ShellTest()
+        : numbers{Sequence::numbers<int>(GetParam())}
+    {
+    }
+
+public:
+    Numbers<int> numbers;
+};
+
+TEST_P(ShellTest, AscendingSort)
 {
-    auto numbers = Sequence::numbers<int>(1000);
-
     ShellSort::sort(numbers.begin(), numbers.end());
-
     ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
-TEST(ShellTest, Sort10K)
+TEST_P(ShellTest, DescendingSort)
 {
-    auto numbers = Sequence::numbers<int>(10000);
-
-    ShellSort::sort(numbers.begin(), numbers.end());
-
-    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
+    ShellSort::sort(numbers.begin(), numbers.end(), std::greater<int>{});
+    ASSERT_TRUE(Sequence::isDescending(numbers.begin(), numbers.end()));
 }
 
-TEST(ShellTest, Sort100K)
+TEST_P(ShellTest, InvalidIterators)
 {
-    auto numbers = Sequence::numbers<int>(100000);
-
-    ShellSort::sort(numbers.begin(), numbers.end());
-
-    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
+    EXPECT_NO_THROW(ShellSort::sort(numbers.end(), numbers.begin()));
 }
+
+INSTANTIATE_TEST_SUITE_P(Sort, ShellTest, Values(100, 1000, 10000));

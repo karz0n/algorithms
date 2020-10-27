@@ -1,34 +1,37 @@
 #include <gtest/gtest.h>
 
+#include <SelectionSort.hpp>
 #include <Sequence.hpp>
 
-#include "SelectionSort.hpp"
-
+using namespace testing;
 using namespace algorithms;
 
-TEST(SelectionTest, Sort1K)
+class SelectionTest : public TestWithParam<std::size_t> {
+public:
+    SelectionTest()
+        : numbers{Sequence::numbers<int>(GetParam())}
+    {
+    }
+
+public:
+    Numbers<int> numbers;
+};
+
+TEST_P(SelectionTest, AscendingSort)
 {
-    auto numbers = Sequence::numbers<int>(1000);
-
     SelectionSort::sort(numbers.begin(), numbers.end());
-
     ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
-TEST(SelectionTest, Sort10K)
+TEST_P(SelectionTest, DescendingSort)
 {
-    auto numbers = Sequence::numbers<int>(10000);
-
-    SelectionSort::sort(numbers.begin(), numbers.end());
-
-    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
+    SelectionSort::sort(numbers.begin(), numbers.end(), std::greater<int>{});
+    ASSERT_TRUE(Sequence::isDescending(numbers.begin(), numbers.end()));
 }
 
-TEST(SelectionTest, DISABLED_Sort100K /* disabled because test takes too much time */)
+TEST_P(SelectionTest, InvalidIterators)
 {
-    auto numbers = Sequence::numbers<int>(100000);
-
-    SelectionSort::sort(numbers.begin(), numbers.end());
-
-    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
+    EXPECT_NO_THROW(SelectionSort::sort(numbers.end(), numbers.begin()));
 }
+
+INSTANTIATE_TEST_SUITE_P(Sort, SelectionTest, Values(100, 1000, 10000));

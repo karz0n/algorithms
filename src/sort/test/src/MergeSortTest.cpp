@@ -1,34 +1,37 @@
 #include <gtest/gtest.h>
 
+#include <MergeSort.hpp>
 #include <Sequence.hpp>
 
-#include "MergeSort.hpp"
-
+using namespace testing;
 using namespace algorithms;
 
-TEST(MergeTest, Sort1K)
+class MergeTest : public TestWithParam<std::size_t> {
+public:
+    MergeTest()
+        : numbers{Sequence::numbers<int>(GetParam())}
+    {
+    }
+
+public:
+    Numbers<int> numbers;
+};
+
+TEST_P(MergeTest, AscendingSort)
 {
-    auto numbers = Sequence::numbers<int>(1000);
-
     MergeSort::sort(numbers.begin(), numbers.end());
-
     ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
-TEST(MergeTest, Sort10K)
+TEST_P(MergeTest, DescendingSort)
 {
-    auto numbers = Sequence::numbers<int>(10000);
-
-    MergeSort::sort(numbers.begin(), numbers.end());
-
-    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
+    MergeSort::sort(numbers.begin(), numbers.end(), std::greater<int>{});
+    ASSERT_TRUE(Sequence::isDescending(numbers.begin(), numbers.end()));
 }
 
-TEST(MergeTest, Sort100K)
+TEST_P(MergeTest, InvalidIterators)
 {
-    auto numbers = Sequence::numbers<int>(100000);
-
-    MergeSort::sort(numbers.begin(), numbers.end());
-
-    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
+    EXPECT_NO_THROW(MergeSort::sort(numbers.end(), numbers.begin()));
 }
+
+INSTANTIATE_TEST_SUITE_P(Sort, MergeTest, Values(100, 1000, 10000));

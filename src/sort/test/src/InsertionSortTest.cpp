@@ -1,34 +1,37 @@
 #include <gtest/gtest.h>
 
+#include <InsertionSort.hpp>
 #include <Sequence.hpp>
 
-#include "InsertionSort.hpp"
-
+using namespace testing;
 using namespace algorithms;
 
-TEST(InsertionTest, Sort1K)
+class InsertionTest : public TestWithParam<std::size_t> {
+public:
+    InsertionTest()
+        : numbers{Sequence::numbers<int>(GetParam())}
+    {
+    }
+
+public:
+    Numbers<int> numbers;
+};
+
+TEST_P(InsertionTest, AscendingSort)
 {
-    auto numbers = Sequence::numbers<int>(1000);
-
     InsertionSort::sort(numbers.begin(), numbers.end());
-
     ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
-TEST(InsertionTest, Sort10K)
+TEST_P(InsertionTest, DescendingSort)
 {
-    auto numbers = Sequence::numbers<int>(10000);
-
-    InsertionSort::sort(numbers.begin(), numbers.end());
-
-    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
+    InsertionSort::sort(numbers.begin(), numbers.end(), std::greater<int>{});
+    ASSERT_TRUE(Sequence::isDescending(numbers.begin(), numbers.end()));
 }
 
-TEST(InsertionTest, DISABLED_Sort100K /* disabled because test takes too much time */)
+TEST_P(InsertionTest, InvalidIterators)
 {
-    auto numbers = Sequence::numbers<int>(100000);
-
-    InsertionSort::sort(numbers.begin(), numbers.end());
-
-    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
+    EXPECT_NO_THROW(InsertionSort::sort(numbers.end(), numbers.begin()));
 }
+
+INSTANTIATE_TEST_SUITE_P(Sort, InsertionTest, Values(100, 1000, 10000));

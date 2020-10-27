@@ -1,34 +1,37 @@
 #include <gtest/gtest.h>
 
+#include <QuickSort.hpp>
 #include <Sequence.hpp>
 
-#include "QuickSort.hpp"
-
+using namespace testing;
 using namespace algorithms;
 
-TEST(QuickTest, Sort1K)
+class QuickTest : public TestWithParam<std::size_t> {
+public:
+    QuickTest()
+        : numbers{Sequence::numbers<int>(GetParam())}
+    {
+    }
+
+public:
+    Numbers<int> numbers;
+};
+
+TEST_P(QuickTest, AscendingSort)
 {
-    auto numbers = Sequence::numbers<int>(1000);
-
     QuickSort::sort(numbers.begin(), numbers.end());
-
     ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
-TEST(QuickTest, Sort10K)
+TEST_P(QuickTest, DescendingSort)
 {
-    auto numbers = Sequence::numbers<int>(10000);
-
-    QuickSort::sort(numbers.begin(), numbers.end());
-
-    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
+    QuickSort::sort(numbers.begin(), numbers.end(), std::greater<int>{});
+    ASSERT_TRUE(Sequence::isDescending(numbers.begin(), numbers.end()));
 }
 
-TEST(QuickTest, Sort100K)
+TEST_P(QuickTest, InvalidIterators)
 {
-    auto numbers = Sequence::numbers<int>(100000);
-
-    QuickSort::sort(numbers.begin(), numbers.end());
-
-    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
+    EXPECT_NO_THROW(QuickSort::sort(numbers.end(), numbers.begin()));
 }
+
+INSTANTIATE_TEST_SUITE_P(Sort, QuickTest, Values(100, 1000, 10000));

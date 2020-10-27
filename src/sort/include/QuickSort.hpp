@@ -30,25 +30,27 @@ class QuickSort {
 public:
     template<std::random_access_iterator It>
     static void
-    sort(It first, It last)
+    sort(It first, It last, bool evadeWorstCase = true)
     {
         using T = typename std::iterator_traits<It>::value_type;
 
-        sort(first, last, std::less<T>{});
+        sort(first, last, std::less<T>{}, evadeWorstCase);
     }
 
     template<std::random_access_iterator It,
              std::predicate<typename std::iterator_traits<It>::value_type,
                             typename std::iterator_traits<It>::value_type> Compare>
     static void
-    sort(It first, It last, Compare compare)
+    sort(It first, It last, Compare compare, bool evadeWorstCase = true)
     {
         if (first >= last) {
             return;
         }
 
-        // shuffle input elements for case when they are ordered (worst case)
-        Sequence::shuffle(first, last);
+        // Shuffle input elements for case when they are ordered (worst case)
+        if (evadeWorstCase) {
+            Sequence::shuffle(first, last);
+        }
 
         std::size_t size = std::distance(first, last);
         sort(first, compare, 0, size - 1);

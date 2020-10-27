@@ -34,6 +34,10 @@ public:
     static void
     sort(It first, It last, Compare compare)
     {
+        if (first >= last) {
+            return;
+        }
+
         for (; first != last; ++first) {
             It min = first;
             for (auto it = std::next(first); it != last; ++it) {

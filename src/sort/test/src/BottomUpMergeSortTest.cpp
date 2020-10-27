@@ -1,34 +1,37 @@
 #include <gtest/gtest.h>
 
+#include <BottomUpMergeSort.hpp>
 #include <Sequence.hpp>
 
-#include "BottomUpMergeSort.hpp"
-
+using namespace testing;
 using namespace algorithms;
 
-TEST(BottomUpMergeTest, Sort1K)
+class BottomUpMergeTest : public TestWithParam<std::size_t> {
+public:
+    BottomUpMergeTest()
+        : numbers{Sequence::numbers<int>(GetParam())}
+    {
+    }
+
+public:
+    Numbers<int> numbers;
+};
+
+TEST_P(BottomUpMergeTest, AscendingSort)
 {
-    auto numbers = Sequence::numbers<int>(1000);
-
     BottomUpMergeSort::sort(numbers.begin(), numbers.end());
-
     ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
-TEST(BottomUpMergeTest, Sort10K)
+TEST_P(BottomUpMergeTest, DescendingSort)
 {
-    auto numbers = Sequence::numbers<int>(10000);
-
-    BottomUpMergeSort::sort(numbers.begin(), numbers.end());
-
-    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
+    BottomUpMergeSort::sort(numbers.begin(), numbers.end(), std::greater<int>{});
+    ASSERT_TRUE(Sequence::isDescending(numbers.begin(), numbers.end()));
 }
 
-TEST(BottomUpMergeTest, Sort100K)
+TEST_P(BottomUpMergeTest, InvalidIterators)
 {
-    auto numbers = Sequence::numbers<int>(100000);
-
-    BottomUpMergeSort::sort(numbers.begin(), numbers.end());
-
-    ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
+    EXPECT_NO_THROW(BottomUpMergeSort::sort(numbers.end(), numbers.begin()));
 }
+
+INSTANTIATE_TEST_SUITE_P(Sort, BottomUpMergeTest, Values(100, 1000, 10000));
