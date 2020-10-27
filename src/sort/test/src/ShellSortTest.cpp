@@ -2,33 +2,33 @@
 
 #include <Sequence.hpp>
 
-#include "ThreeWayQuick.hpp"
+#include "ShellSort.hpp"
 
 using namespace algorithms;
 
-TEST(ThreeWayQuickTest, Sort1K)
+TEST(ShellTest, Sort1K)
 {
     auto numbers = Sequence::numbers<int>(1000);
 
-    ThreeWayQuick::sort(numbers.begin(), numbers.end());
+    ShellSort::sort(numbers.begin(), numbers.end());
 
     ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
-TEST(ThreeWayQuickTest, Sort10K)
+TEST(ShellTest, Sort10K)
 {
     auto numbers = Sequence::numbers<int>(10000);
 
-    ThreeWayQuick::sort(numbers.begin(), numbers.end());
+    ShellSort::sort(numbers.begin(), numbers.end());
 
     ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
-TEST(ThreeWayQuickTest, Sort100K)
+TEST(ShellTest, Sort100K)
 {
     auto numbers = Sequence::numbers<int>(100000);
 
-    ThreeWayQuick::sort(numbers.begin(), numbers.end());
+    ShellSort::sort(numbers.begin(), numbers.end());
 
     ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }

@@ -19,7 +19,7 @@ namespace algorithms {
  *
  * Remark: improves quicksort in presence of duplicates keys.
  */
-class ThreeWayQuick {
+class ThreeWayQuickSort {
 public:
     template<typename It>
     using ValueType = typename std::iterator_traits<It>::value_type;

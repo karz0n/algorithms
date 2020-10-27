@@ -19,7 +19,7 @@ namespace algorithms {
  *   - Best-case performance: N * lgN
  *   - Average performance: N * lgN
  */
-class BottomUpMerge {
+class BottomUpMergeSort {
 public:
     template<std::random_access_iterator It>
     static void

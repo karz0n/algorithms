@@ -15,7 +15,7 @@ namespace algorithms {
  *   - Average performance: N * lgN
  *   - Best-case performance: N * lgN
  */
-class Merge {
+class MergeSort {
 public:
     template<std::random_access_iterator It>
     static void

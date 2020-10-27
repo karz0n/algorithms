@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-#include <ThreeWayQuick.hpp>
+#include <ThreeWayQuickSort.hpp>
 
 namespace algorithms {
 
@@ -158,12 +158,12 @@ void
 KdTree::sortBy(Points& points, Directions direction)
 {
     if (direction == Directions::vertical) {
-        ThreeWayQuick::sort(points.begin(), points.end(), [](const Point& lh, const Point& rh) {
+        ThreeWayQuickSort::sort(points.begin(), points.end(), [](const Point& lh, const Point& rh) {
             return lh.x < rh.x;
         });
     }
     else {
-        ThreeWayQuick::sort(points.begin(), points.end(), [](const Point& lh, const Point& rh) {
+        ThreeWayQuickSort::sort(points.begin(), points.end(), [](const Point& lh, const Point& rh) {
             return lh.y < rh.y;
         });
     }

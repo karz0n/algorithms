@@ -2,33 +2,33 @@
 
 #include <Sequence.hpp>
 
-#include "Shell.hpp"
+#include "InsertionSort.hpp"
 
 using namespace algorithms;
 
-TEST(ShellTest, Sort1K)
+TEST(InsertionTest, Sort1K)
 {
     auto numbers = Sequence::numbers<int>(1000);
 
-    Shell::sort(numbers.begin(), numbers.end());
+    InsertionSort::sort(numbers.begin(), numbers.end());
 
     ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
-TEST(ShellTest, Sort10K)
+TEST(InsertionTest, Sort10K)
 {
     auto numbers = Sequence::numbers<int>(10000);
 
-    Shell::sort(numbers.begin(), numbers.end());
+    InsertionSort::sort(numbers.begin(), numbers.end());
 
     ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
-TEST(ShellTest, Sort100K)
+TEST(InsertionTest, DISABLED_Sort100K /* disabled because test takes too much time */)
 {
     auto numbers = Sequence::numbers<int>(100000);
 
-    Shell::sort(numbers.begin(), numbers.end());
+    InsertionSort::sort(numbers.begin(), numbers.end());
 
     ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }

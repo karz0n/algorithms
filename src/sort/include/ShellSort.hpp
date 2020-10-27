@@ -19,7 +19,7 @@ namespace algorithms {
  *
  * Remark: Tight code, sub-quadratic.
  */
-class Shell {
+class ShellSort {
 public:
     template<std::random_access_iterator It>
     static void

@@ -5,13 +5,13 @@ add_library("Sort::Library" ALIAS ${TARGET})
 
 target_sources(
     ${TARGET}
-    INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include/BottomUpMerge.hpp
-              ${CMAKE_CURRENT_SOURCE_DIR}/include/Insertion.hpp
-              ${CMAKE_CURRENT_SOURCE_DIR}/include/Merge.hpp
-              ${CMAKE_CURRENT_SOURCE_DIR}/include/Quick.hpp
-              ${CMAKE_CURRENT_SOURCE_DIR}/include/Selection.hpp
-              ${CMAKE_CURRENT_SOURCE_DIR}/include/Shell.hpp
-              ${CMAKE_CURRENT_SOURCE_DIR}/include/ThreeWayQuick.hpp)
+    INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include/BottomUpMergeSort.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/InsertionSort.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/MergeSort.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/QuickSort.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/SelectionSort.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/ShellSort.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/ThreeWayQuickSort.hpp)
 
 target_include_directories(${TARGET}
                            INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)

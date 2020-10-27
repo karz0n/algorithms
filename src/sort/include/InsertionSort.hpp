@@ -19,7 +19,7 @@ namespace algorithms {
  *
  * Remark: Use for small N or partially ordered.
  */
-class Insertion {
+class InsertionSort {
 public:
     template<std::bidirectional_iterator It>
     static void

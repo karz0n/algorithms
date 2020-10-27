@@ -2,33 +2,33 @@
 
 #include <Sequence.hpp>
 
-#include "Merge.hpp"
+#include "ThreeWayQuickSort.hpp"
 
 using namespace algorithms;
 
-TEST(MergeTest, Sort1K)
+TEST(ThreeWayQuickTest, Sort1K)
 {
     auto numbers = Sequence::numbers<int>(1000);
 
-    Merge::sort(numbers.begin(), numbers.end());
+    ThreeWayQuickSort::sort(numbers.begin(), numbers.end());
 
     ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
-TEST(MergeTest, Sort10K)
+TEST(ThreeWayQuickTest, Sort10K)
 {
     auto numbers = Sequence::numbers<int>(10000);
 
-    Merge::sort(numbers.begin(), numbers.end());
+    ThreeWayQuickSort::sort(numbers.begin(), numbers.end());
 
     ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
 
-TEST(MergeTest, Sort100K)
+TEST(ThreeWayQuickTest, Sort100K)
 {
     auto numbers = Sequence::numbers<int>(100000);
 
-    Merge::sort(numbers.begin(), numbers.end());
+    ThreeWayQuickSort::sort(numbers.begin(), numbers.end());
 
     ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }

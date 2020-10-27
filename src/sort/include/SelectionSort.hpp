@@ -17,7 +17,7 @@ namespace algorithms {
  *
  * Remark: N exchanges.
  */
-class Selection {
+class SelectionSort {
 public:
     template<std::forward_iterator It>
     static void

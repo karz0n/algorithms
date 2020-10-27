@@ -26,7 +26,7 @@ namespace algorithms {
  *
  * Remark: N * logN probabilistic guarantee fastest in practise.
  */
-class Quick {
+class QuickSort {
 public:
     template<std::random_access_iterator It>
     static void

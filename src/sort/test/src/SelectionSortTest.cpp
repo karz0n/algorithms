@@ -2,7 +2,7 @@
 
 #include <Sequence.hpp>
 
-#include "Selection.hpp"
+#include "SelectionSort.hpp"
 
 using namespace algorithms;
 
@@ -10,7 +10,7 @@ TEST(SelectionTest, Sort1K)
 {
     auto numbers = Sequence::numbers<int>(1000);
 
-    Selection::sort(numbers.begin(), numbers.end());
+    SelectionSort::sort(numbers.begin(), numbers.end());
 
     ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
@@ -19,7 +19,7 @@ TEST(SelectionTest, Sort10K)
 {
     auto numbers = Sequence::numbers<int>(10000);
 
-    Selection::sort(numbers.begin(), numbers.end());
+    SelectionSort::sort(numbers.begin(), numbers.end());
 
     ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
@@ -28,7 +28,7 @@ TEST(SelectionTest, DISABLED_Sort100K /* disabled because test takes too much ti
 {
     auto numbers = Sequence::numbers<int>(100000);
 
-    Selection::sort(numbers.begin(), numbers.end());
+    SelectionSort::sort(numbers.begin(), numbers.end());
 
     ASSERT_TRUE(Sequence::isAscending(numbers.begin(), numbers.end()));
 }
