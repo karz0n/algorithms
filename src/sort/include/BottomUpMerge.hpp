@@ -1,8 +1,9 @@
 #pragma once
 
+#include <functional>
 #include <iterator>
 #include <vector>
-#include <functional>
+#include <concepts>
 
 namespace algorithms {
 
@@ -20,20 +21,22 @@ namespace algorithms {
  */
 class BottomUpMerge {
 public:
-    template<typename RandomIt>
+    template<std::random_access_iterator It>
     static void
-    sort(RandomIt first, RandomIt last)
+    sort(It first, It last)
     {
-        using T = typename std::iterator_traits<RandomIt>::value_type;
+        using T = typename std::iterator_traits<It>::value_type;
 
         sort(first, last, std::less<T>{});
     }
 
-    template<typename RandomIt, typename Less>
+    template<std::random_access_iterator It,
+             std::predicate<typename std::iterator_traits<It>::value_type,
+                            typename std::iterator_traits<It>::value_type> Compare>
     static void
-    sort(RandomIt first, RandomIt last, Less less)
+    sort(It first, It last, Compare compare)
     {
-        using T = typename std::iterator_traits<RandomIt>::value_type;
+        using T = typename std::iterator_traits<It>::value_type;
 
         if (first >= last) {
             return;
@@ -45,7 +48,7 @@ public:
             for (std::size_t lo = 0; lo < size - step; lo += 2 * step) {
                 merge(first,
                       buffer.begin(),
-                      less,
+                      compare,
                       lo,
                       lo + step - 1,
                       std::min(lo + 2 * step - 1, size - 1));
@@ -54,30 +57,28 @@ public:
     }
 
 private:
-    template<typename RandomIt, typename Less>
+    template<typename It, typename Compare>
     static void
-    merge(
-        RandomIt input, RandomIt output, Less less, std::size_t lo, std::size_t mid, std::size_t hi)
+    merge(It to, It from, Compare compare, std::size_t lo, std::size_t mid, std::size_t hi)
     {
+        // copy elements to buffer
         for (std::size_t k = lo; k <= hi; ++k) {
-            output[k] = input[k];
+            from[k] = std::move(to[k]);
         }
 
+        // merge two parts
         std::size_t i = lo;
         std::size_t j = mid + 1;
         for (std::size_t k = lo; k <= hi; ++k) {
             if (i > mid) {
-                input[k] = output[j++];
+                to[k] = std::move(from[j++]);
+                continue;
             }
-            else if (j > hi) {
-                input[k] = output[i++];
+            if (j > hi) {
+                to[k] = std::move(from[i++]);
+                continue;
             }
-            else if (less(output[j], output[i])) {
-                input[k] = output[j++];
-            }
-            else {
-                input[k] = output[i++];
-            }
+            to[k] = compare(from[j], from[i]) ? std::move(from[j++]) : std::move(from[i++]);
         }
     }
 };

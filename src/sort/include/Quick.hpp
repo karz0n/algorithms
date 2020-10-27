@@ -1,7 +1,8 @@
 #pragma once
 
 #include <iterator>
-#include <algorithm>
+#include <concepts>
+#include <utility>
 #include <functional>
 
 #include <Sequence.hpp>
@@ -27,18 +28,20 @@ namespace algorithms {
  */
 class Quick {
 public:
-    template<typename RandomIt>
+    template<std::random_access_iterator It>
     static void
-    sort(RandomIt first, RandomIt last)
+    sort(It first, It last)
     {
-        using T = typename std::iterator_traits<RandomIt>::value_type;
+        using T = typename std::iterator_traits<It>::value_type;
 
         sort(first, last, std::less<T>{});
     }
 
-    template<typename RandomIt, typename Less>
+    template<std::random_access_iterator It,
+             std::predicate<typename std::iterator_traits<It>::value_type,
+                            typename std::iterator_traits<It>::value_type> Compare>
     static void
-    sort(RandomIt first, RandomIt last, Less less)
+    sort(It first, It last, Compare compare)
     {
         if (first >= last) {
             return;
@@ -48,46 +51,43 @@ public:
         Sequence::shuffle(first, last);
 
         std::size_t size = std::distance(first, last);
-        sort(first, less, 0, size - 1);
+        sort(first, compare, 0, size - 1);
     }
 
 private:
-    template<typename RandomIt, typename Less>
+    template<typename It, typename Compare>
     static void
-    sort(RandomIt input, Less less, std::size_t lo, std::size_t hi)
+    sort(It input, Compare compare, std::size_t lo, std::size_t hi)
     {
         if (hi <= lo) {
             return;
         }
 
-        std::size_t j = partition(input, less, lo, hi);
+        std::size_t j = partition(input, compare, lo, hi);
         if (j > lo) {
-            sort(input, less, lo, j - 1);
+            sort(input, compare, lo, j - 1);
         }
         if (j < hi) {
-            sort(input, less, j + 1, hi);
+            sort(input, compare, j + 1, hi);
         }
     }
 
-    template<typename RandomIt, typename Less>
+    template<typename It, typename Compare>
     static std::size_t
-    partition(RandomIt input, Less less, std::size_t lo, std::size_t hi)
+    partition(It input, Compare compare, std::size_t lo, std::size_t hi)
     {
         std::size_t i = lo;
         std::size_t j = hi + 1;
         while (true) {
-            //     Find item from left to right
-            // (continue while input[i] < input[lo])
-            while (less(input[++i], input[lo])) {
+            // Find item from left to right greater than reference element
+            while (compare(input[++i], input[lo])) {
                 if (i == hi) {
                     break;
                 }
             }
 
-            //     Find item from right to left
-            // (continue while input[j] > input[lo])
-            while (less(input[lo], input[--j])) { //
-
+            // Find item from right to left less than reference element
+            while (compare(input[lo], input[--j])) {
                 if (j == lo) {
                     break;
                 }
@@ -98,9 +98,11 @@ private:
                 break;
             }
 
-            std::iter_swap(input + i, input + j); // Exchange items to the right place
+            // Exchange items to the right place
+            std::swap(input[i], input[j]);
         }
-        std::iter_swap(input + lo, input + j);
+        // Place reference element to the right place (between two group of elements)
+        std::swap(input[lo], input[j]);
         return j;
     }
 };

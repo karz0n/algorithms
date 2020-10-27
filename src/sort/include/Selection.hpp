@@ -19,23 +19,25 @@ namespace algorithms {
  */
 class Selection {
 public:
-    template<typename ForwardIt>
+    template<std::forward_iterator It>
     static void
-    sort(ForwardIt first, ForwardIt last)
+    sort(It first, It last)
     {
-        using T = typename std::iterator_traits<ForwardIt>::value_type;
+        using T = typename std::iterator_traits<It>::value_type;
 
         sort(first, last, std::less<T>{});
     }
 
-    template<typename ForwardIt, typename Less>
+    template<std::forward_iterator It,
+             std::predicate<typename std::iterator_traits<It>::value_type,
+                            typename std::iterator_traits<It>::value_type> Compare>
     static void
-    sort(ForwardIt first, ForwardIt last, Less less)
+    sort(It first, It last, Compare compare)
     {
         for (; first != last; ++first) {
-            ForwardIt min = first;
+            It min = first;
             for (auto it = std::next(first); it != last; ++it) {
-                if (less(*it, *min)) {
+                if (compare(*it, *min)) {
                     min = it;
                 }
             }

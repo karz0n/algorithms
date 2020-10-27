@@ -1,11 +1,9 @@
 #pragma once
 
-#include <iterator>
 #include <functional>
-#include <algorithm>
+#include <iterator>
 #include <tuple>
-
-#include <Sequence.hpp>
+#include <concepts>
 
 namespace algorithms {
 
@@ -23,56 +21,57 @@ namespace algorithms {
  */
 class ThreeWayQuick {
 public:
-    template<typename RandomIt>
+    template<typename It>
+    using ValueType = typename std::iterator_traits<It>::value_type;
+
+    template<std::random_access_iterator It>
     static void
-    sort(RandomIt first, RandomIt last)
+    sort(It first, It last)
     {
-        using T = typename std::iterator_traits<RandomIt>::value_type;
+        using T = typename std::iterator_traits<It>::value_type;
 
         sort(first, last, std::less<T>{});
     }
 
-    template<typename RandomIt, typename Less>
+    template<std::random_access_iterator It, std::predicate<ValueType<It>, ValueType<It>> Compare>
     static void
-    sort(RandomIt first, RandomIt last, Less less)
+    sort(It first, It last, Compare compare)
     {
         if (first >= last) {
             return;
         }
 
-        std::size_t size = std::distance(first, last);
-        sort(first, less, 0, size - 1);
+        sort(first, compare, 0, std::distance(first, last) - 1);
     }
 
 private:
-    template<typename RandomIt, typename Less>
+    template<typename It, typename Compare>
     static void
-    sort(RandomIt input, Less less, std::size_t lo, std::size_t hi)
+    sort(It input, Compare compare, std::size_t lo, std::size_t hi)
     {
         if (hi <= lo) {
             return;
         }
 
-        std::size_t lt = 0, gt = 0;
-        std::tie(lt, gt) = partition(input, less, lo, hi);
+        auto [lt, gt] = partition(input, compare, lo, hi);
         if (lt > lo) {
-            sort(input, less, lo, lt - 1);
+            sort(input, compare, lo, lt - 1);
         }
         if (gt < hi) {
-            sort(input, less, gt + 1, hi);
+            sort(input, compare, gt + 1, hi);
         }
     }
 
-    template<typename RandomIt, typename Less>
+    template<typename It, typename Compare>
     static std::tuple<std::size_t, std::size_t>
-    partition(RandomIt input, Less less, std::size_t lo, std::size_t hi)
+    partition(It input, Compare compare, std::size_t lo, std::size_t hi)
     {
         std::size_t lt = lo;
         std::size_t gt = hi;
         std::size_t i = lo;
 
         while (i <= gt) {
-            int cmp = compareTo(input + i, input + lt, less);
+            int cmp = compareTo(input + i, input + lt, compare);
             if (cmp < 0) {
                 std::swap(input[i++], input[lt++]);
             }
@@ -87,13 +86,13 @@ private:
         return std::make_tuple(lt, gt);
     }
 
-    template<typename RandomIt, typename Less>
+    template<typename It, typename Compare>
     static int
-    compareTo(RandomIt e1, RandomIt e2, Less less)
+    compareTo(It e1, It e2, Compare compare)
     {
-        if (less(*e1, *e2))
+        if (compare(*e1, *e2))
             return -1;
-        if (less(*e2, *e1))
+        if (compare(*e2, *e1))
             return +1;
         return 0;
     }

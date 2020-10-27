@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iterator>
+#include <concepts>
 #include <algorithm>
 #include <functional>
 
@@ -20,18 +21,20 @@ namespace algorithms {
  */
 class Insertion {
 public:
-    template<typename BidirectionalIt>
+    template<std::bidirectional_iterator It>
     static void
-    sort(BidirectionalIt first, BidirectionalIt last)
+    sort(It first, It last)
     {
-        using T = typename std::iterator_traits<BidirectionalIt>::value_type;
+        using T = typename std::iterator_traits<It>::value_type;
 
         sort(first, last, std::less<T>{});
     }
 
-    template<typename BidirectionalIt, typename Less>
+    template<std::bidirectional_iterator It,
+             std::predicate<typename std::iterator_traits<It>::value_type,
+                            typename std::iterator_traits<It>::value_type> Compare>
     static void
-    sort(BidirectionalIt first, BidirectionalIt last, Less less)
+    sort(It first, It last, Compare compare)
     {
         if (first >= last) {
             return;
@@ -40,7 +43,7 @@ public:
         for (auto it = std::next(first); it != last; ++it) {
             for (auto c = it; c != first;) {
                 auto p = std::prev(c);
-                if (less(*c, *p)) {
+                if (compare(*c, *p)) {
                     std::iter_swap(c, p);
                     c = p;
                 }

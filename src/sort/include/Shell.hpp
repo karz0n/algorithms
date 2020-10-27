@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iterator>
+#include <concepts>
 #include <algorithm>
 #include <functional>
 
@@ -20,25 +21,25 @@ namespace algorithms {
  */
 class Shell {
 public:
-    template<typename RandomIt>
+    template<std::random_access_iterator It>
     static void
-    sort(RandomIt first, RandomIt last)
+    sort(It first, It last)
     {
-        using T = typename std::iterator_traits<RandomIt>::value_type;
+        using T = typename std::iterator_traits<It>::value_type;
 
         sort(first, last, std::less<T>{});
     }
 
-    template<typename RandomIt, typename Less>
+    template<std::random_access_iterator It,
+             std::predicate<typename std::iterator_traits<It>::value_type,
+                            typename std::iterator_traits<It>::value_type> Compare>
     static void
-    sort(RandomIt first, RandomIt last, Less less)
+    sort(It first, It last, Compare compare)
     {
         // Get number of elements.
-        //
         std::size_t count = std::distance(first, last);
 
         // Obtain optimal first step.
-        //
         std::size_t h = 1;
         while (h < count / 3) {
             h = 3 * h + 1;
@@ -46,23 +47,19 @@ public:
 
         // First cycle: iterate size of step beginning from optimal and
         // reduce step by 1/3 in each iteration.
-        //
         while (h >= 1) {
             // Sort interleaved sequence array using insertion sort.
-            //
             for (std::size_t i = h; i < count; ++i) {
                 // Sort items by h (not by one).
-                //
                 for (std::size_t j = i; j >= h; j -= h) {
-                    if (less(first[j], first[j - h])) {
-                        std::iter_swap(first + j, first + j - h);
+                    if (compare(first[j], first[j - h])) {
+                        std::swap(first[j], first[j - h]);
                     }
                     else {
                         break;
                     }
                 }
             }
-
             h /= 3;
         }
     }

@@ -1,8 +1,9 @@
 #pragma once
 
-#include <iterator>
 #include <functional>
+#include <iterator>
 #include <utility>
+#include <concepts>
 
 namespace algorithms {
 
@@ -20,18 +21,20 @@ namespace algorithms {
  */
 class HeapSort {
 public:
-    template<typename RandomIt>
+    template<std::random_access_iterator It>
     static void
-    sort(RandomIt first, RandomIt last)
+    sort(It first, It last)
     {
-        using T = typename std::iterator_traits<RandomIt>::value_type;
+        using T = typename std::iterator_traits<It>::value_type;
 
         sort(first, last, std::less<T>{});
     }
 
-    template<typename RandomIt, typename Less>
+    template<std::random_access_iterator It,
+             std::predicate<typename std::iterator_traits<It>::value_type,
+                            typename std::iterator_traits<It>::value_type> Compare>
     static void
-    sort(RandomIt first, RandomIt last, Less less)
+    sort(It first, It last, Compare compare)
     {
         if (first >= last) {
             return;
@@ -39,32 +42,33 @@ public:
 
         std::size_t size = std::distance(first, last);
         for (std::size_t k = size / 2; k >= 1; --k) {
-            sink(first, k, size, less);
+            sink(first, k, size, compare);
         }
 
         while (size > 1) {
             std::swap(first[0], first[size - 1]);
             size--;
-            sink(first, 1, size, less);
+            sink(first, 1, size, compare);
         }
     }
 
 private:
-    template<typename RandomIt, typename Less>
+    template<typename It, typename Compare>
     static void
-    sink(RandomIt input, std::size_t k, std::size_t size, Less less)
+    sink(It input, std::size_t k, std::size_t size, Compare compare)
     {
         while (2 * k <= size) {
             std::size_t j = 2 * k;
-            if (j < size && less(input[j - 1], input[j])) {
+            if (j < size && compare(input[j - 1], input[j])) {
                 j++;
             }
-            if (less(input[k - 1], input[j - 1])) {
+            if (compare(input[k - 1], input[j - 1])) {
                 std::swap(input[k - 1], input[j - 1]);
                 k = j;
             }
-            else
+            else {
                 break;
+            }
         }
     }
 };

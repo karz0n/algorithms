@@ -2,6 +2,7 @@
 
 #include <functional>
 #include <vector>
+#include <concepts>
 
 namespace algorithms {
 
@@ -16,20 +17,22 @@ namespace algorithms {
  */
 class Merge {
 public:
-    template<typename RandomIt>
+    template<std::random_access_iterator It>
     static void
-    sort(RandomIt first, RandomIt last)
+    sort(It first, It last)
     {
-        using T = typename std::iterator_traits<RandomIt>::value_type;
+        using T = typename std::iterator_traits<It>::value_type;
 
         sort(first, last, std::less<T>{});
     }
 
-    template<typename RandomIt, typename Less>
+    template<std::random_access_iterator It,
+             std::predicate<typename std::iterator_traits<It>::value_type,
+                            typename std::iterator_traits<It>::value_type> Compare>
     static void
-    sort(RandomIt first, RandomIt last, Less less)
+    sort(It first, It last, Compare compare)
     {
-        using T = typename std::iterator_traits<RandomIt>::value_type;
+        using T = typename std::iterator_traits<It>::value_type;
 
         if (first >= last) {
             return;
@@ -37,13 +40,13 @@ public:
 
         std::size_t size = std::distance(first, last);
         std::vector<T> buffer(size);
-        sort(first, buffer.begin(), less, 0, size - 1);
+        sort(first, buffer.begin(), compare, 0, size - 1);
     }
 
 private:
-    template<typename RandomIt, typename Less>
+    template<typename It, typename Compare>
     static void
-    sort(RandomIt input, RandomIt output, Less less, std::size_t lo, std::size_t hi)
+    sort(It input, It output, Compare compare, std::size_t lo, std::size_t hi)
     {
         if (hi <= lo) {
             return;
@@ -53,21 +56,20 @@ private:
         std::size_t mid = lo + (hi - lo) / 2;
 
         // sort two parts
-        sort(input, output, less, lo, mid);
-        sort(input, output, less, mid + 1, hi);
+        sort(input, output, compare, lo, mid);
+        sort(input, output, compare, mid + 1, hi);
 
         // merge two sorted parts
-        merge(input, output, less, lo, mid, hi);
+        merge(input, output, compare, lo, mid, hi);
     }
 
-    template<typename RandomIt, typename Less>
+    template<typename It, typename Compare>
     static void
-    merge(
-        RandomIt input, RandomIt output, Less less, std::size_t lo, std::size_t mid, std::size_t hi)
+    merge(It to, It from, Compare compare, std::size_t lo, std::size_t mid, std::size_t hi)
     {
         // copy elements to buffer
         for (std::size_t k = lo; k <= hi; ++k) {
-            output[k] = input[k];
+            from[k] = std::move(to[k]);
         }
 
         // merge two parts
@@ -75,17 +77,14 @@ private:
         std::size_t j = mid + 1;
         for (std::size_t k = lo; k <= hi; ++k) {
             if (i > mid) {
-                input[k] = output[j++];
+                to[k] = std::move(from[j++]);
+                continue;
             }
-            else if (j > hi) {
-                input[k] = output[i++];
+            if (j > hi) {
+                to[k] = std::move(from[i++]);
+                continue;
             }
-            else if (less(output[j], output[i])) {
-                input[k] = output[j++];
-            }
-            else {
-                input[k] = output[i++];
-            }
+            to[k] = compare(from[j], from[i]) ? std::move(from[j++]) : std::move(from[i++]);
         }
     }
 };
