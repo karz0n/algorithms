@@ -1,4 +1,4 @@
-#include "EagerPrimsMinSpanningTree.hpp"
+#include "PrimsMinSpanningTree.hpp"
 
 #include "IndexPriorityQueue.hpp"
 
@@ -7,26 +7,26 @@
 
 namespace algorithms {
 
-EagerPrimsMinSpanningTree::EagerPrimsMinSpanningTree(const EdgeWeightedGraph& graph)
+PrimsMinSpanningTree::PrimsMinSpanningTree(const EdgeWeightedGraph& graph)
     : _weight{0.0}
 {
     traverse(graph);
 }
 
 const Edges&
-EagerPrimsMinSpanningTree::edges() const
+PrimsMinSpanningTree::edges() const
 {
     return _edges;
 }
 
 double
-EagerPrimsMinSpanningTree::weight() const
+PrimsMinSpanningTree::weight() const
 {
     return _weight;
 }
 
 void
-EagerPrimsMinSpanningTree::traverse(const EdgeWeightedGraph& graph)
+PrimsMinSpanningTree::traverse(const EdgeWeightedGraph& graph)
 {
     Marks marks(graph.verticesCount(), false);
     for (std::size_t v = 0; v < graph.verticesCount(); ++v) {
@@ -37,7 +37,7 @@ EagerPrimsMinSpanningTree::traverse(const EdgeWeightedGraph& graph)
 }
 
 void
-EagerPrimsMinSpanningTree::traverse(const EdgeWeightedGraph& graph, Marks& marks, std::size_t v)
+PrimsMinSpanningTree::traverse(const EdgeWeightedGraph& graph, Marks& marks, std::size_t v)
 {
     using EdgeOrNull = std::optional<Edge>;
     using EdgesQueue = IndexMinPriorityQueue<double>;

@@ -18,7 +18,7 @@ target_sources(
            "${CMAKE_CURRENT_SOURCE_DIR}/include/Edge.hpp"
            "${CMAKE_CURRENT_SOURCE_DIR}/include/EdgeWeightedGraph.hpp"
            "${CMAKE_CURRENT_SOURCE_DIR}/include/KruskalMinSpanningTree.hpp"
-           "${CMAKE_CURRENT_SOURCE_DIR}/include/EagerPrimsMinSpanningTree.hpp"
+           "${CMAKE_CURRENT_SOURCE_DIR}/include/PrimsMinSpanningTree.hpp"
            "${CMAKE_CURRENT_SOURCE_DIR}/include/DirectedEdge.hpp"
            "${CMAKE_CURRENT_SOURCE_DIR}/include/EdgeWeightedDigraph.hpp"
            "${CMAKE_CURRENT_SOURCE_DIR}/include/DijkstraShortestPaths.hpp"
@@ -35,7 +35,7 @@ target_sources(
             "${CMAKE_CURRENT_SOURCE_DIR}/src/Edge.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/EdgeWeightedGraph.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/KruskalMinSpanningTree.cpp"
-            "${CMAKE_CURRENT_SOURCE_DIR}/src/EagerPrimsMinSpanningTree.cpp"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/PrimsMinSpanningTree.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/DirectedEdge.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/EdgeWeightedDigraph.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/DijkstraShortestPaths.cpp")

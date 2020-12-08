@@ -20,7 +20,7 @@ target_sources(
             "${CMAKE_CURRENT_SOURCE_DIR}/src/ComponentSpreaderTest.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/StrongComponentSpreaderTest.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/KruskalMinSpanningTreeTest.cpp"
-            "${CMAKE_CURRENT_SOURCE_DIR}/src/EagerPrimsMinSpanningTreeTest.cpp"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/PrimsMinSpanningTreeTest.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/DijkstraShortestPathsTest.cpp")
 
 target_add_tests(TARGET ${TARGET})

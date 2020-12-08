@@ -5,9 +5,9 @@
 
 namespace algorithms {
 
-class EagerPrimsMinSpanningTree {
+class PrimsMinSpanningTree {
 public:
-    explicit EagerPrimsMinSpanningTree(const EdgeWeightedGraph& graph);
+    explicit PrimsMinSpanningTree(const EdgeWeightedGraph& graph);
 
     [[nodiscard]] const Edges&
     edges() const;
