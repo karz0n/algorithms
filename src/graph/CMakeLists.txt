@@ -6,7 +6,7 @@ add_library("Graph::Library" ALIAS ${TARGET})
 target_sources(
     ${TARGET}
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/Graph.hpp"
-           "${CMAKE_CURRENT_SOURCE_DIR}/include/DirectedGraph.hpp"
+           "${CMAKE_CURRENT_SOURCE_DIR}/include/Digraph.hpp"
            "${CMAKE_CURRENT_SOURCE_DIR}/include/UndirectedGraph.hpp"
            "${CMAKE_CURRENT_SOURCE_DIR}/include/Routes.hpp"
            "${CMAKE_CURRENT_SOURCE_DIR}/include/DepthFirstRoutes.hpp"
@@ -23,7 +23,7 @@ target_sources(
            "${CMAKE_CURRENT_SOURCE_DIR}/include/EdgeWeightedDigraph.hpp"
            "${CMAKE_CURRENT_SOURCE_DIR}/include/DijkstraShortestPaths.hpp"
     PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src/Graph.cpp"
-            "${CMAKE_CURRENT_SOURCE_DIR}/src/DirectedGraph.cpp"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/Digraph.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/UndirectedGraph.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/Routes.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/DepthFirstRoutes.cpp"

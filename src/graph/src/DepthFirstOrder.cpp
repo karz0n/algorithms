@@ -4,7 +4,7 @@
 
 namespace algorithms {
 
-DepthFirstOrder::DepthFirstOrder(const DirectedGraph& graph, bool inTopologicalOrder /*= false*/)
+DepthFirstOrder::DepthFirstOrder(const Digraph& graph, bool inTopologicalOrder /*= false*/)
 {
     sort(graph, inTopologicalOrder);
 }
@@ -16,12 +16,12 @@ DepthFirstOrder::reversePost() const
 }
 
 void
-DepthFirstOrder::sort(const DirectedGraph& graph, bool inTopologicalOrder)
+DepthFirstOrder::sort(const Digraph& graph, bool inTopologicalOrder)
 {
     Marks marks(graph.verticesCount(), false);
     for (std::size_t s = 0; s < graph.verticesCount(); ++s) {
         if (!marks[s]) {
-            if (inTopologicalOrder && DirectedGraph::hasCycle(graph, s)) {
+            if (inTopologicalOrder && Digraph::hasCycle(graph, s)) {
                 throw std::logic_error{"Cycle in graph detected"};
             }
             sort(graph, s, marks);
@@ -30,7 +30,7 @@ DepthFirstOrder::sort(const DirectedGraph& graph, bool inTopologicalOrder)
 }
 
 void
-DepthFirstOrder::sort(const DirectedGraph& graph, std::size_t s, Marks& marks)
+DepthFirstOrder::sort(const Digraph& graph, std::size_t s, Marks& marks)
 {
     marks[s] = true;
 

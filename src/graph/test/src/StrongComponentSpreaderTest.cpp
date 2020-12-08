@@ -16,7 +16,7 @@ public:
     }
 
 public:
-    DirectedGraph graph;
+    Digraph graph;
 };
 
 TEST_F(StrongComponentSpreaderTest, IsConnected)

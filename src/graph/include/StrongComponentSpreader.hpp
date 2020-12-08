@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Types.hpp"
-#include "DirectedGraph.hpp"
+#include "Digraph.hpp"
 
 namespace algorithms {
 
@@ -18,7 +18,7 @@ namespace algorithms {
  */
 class StrongComponentSpreader {
 public:
-    explicit StrongComponentSpreader(const DirectedGraph& graph);
+    explicit StrongComponentSpreader(const Digraph& graph);
 
     [[nodiscard]] bool
     connected(std::size_t v, std::size_t w) const;
@@ -31,10 +31,10 @@ public:
 
 private:
     void
-    traverse(const DirectedGraph& graph);
+    traverse(const Digraph& graph);
 
     void
-    traverse(const DirectedGraph& graph, std::size_t s, std::size_t component, Marks& marks);
+    traverse(const Digraph& graph, std::size_t s, std::size_t component, Marks& marks);
 
 private:
     std::size_t _count;

@@ -1,5 +1,5 @@
 #include "MultiSourceShortestPaths.hpp"
-#include "DirectedGraph.hpp"
+#include "Digraph.hpp"
 #include "Common.hpp"
 
 #include <gtest/gtest.h>
@@ -11,7 +11,7 @@ using ::testing::ElementsAre;
 
 TEST(MultiSourceShortestPaths, Dummy)
 {
-    DirectedGraph graph;
+    Digraph graph;
     readGraph("assets/graph/multiSourceShortestPaths.txt", graph);
 
     MultiSourceShortestPaths paths{graph, {0, 4} /* Target vertices */};

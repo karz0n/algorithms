@@ -11,7 +11,7 @@ target_sources(
     ${TARGET}
     PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include/Common.hpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/Common.cpp"
-            "${CMAKE_CURRENT_SOURCE_DIR}/src/DirectedGraphTest.cpp"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/DigraphTest.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/DirectedRoutesTest.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/UndirectedGraphTest.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/UndirectedRoutesTest.cpp"

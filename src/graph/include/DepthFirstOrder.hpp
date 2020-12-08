@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Types.hpp"
-#include "DirectedGraph.hpp"
+#include "Digraph.hpp"
 
 namespace algorithms {
 
@@ -10,17 +10,17 @@ namespace algorithms {
  */
 class DepthFirstOrder {
 public:
-    explicit DepthFirstOrder(const DirectedGraph& graph, bool inTopologicalOrder = false);
+    explicit DepthFirstOrder(const Digraph& graph, bool inTopologicalOrder = false);
 
     [[nodiscard]] const Vertices&
     reversePost() const;
 
 private:
     void
-    sort(const DirectedGraph& graph, bool inTopologicalOrder);
+    sort(const Digraph& graph, bool inTopologicalOrder);
 
     void
-    sort(const DirectedGraph& graph, std::size_t s, Marks& marks);
+    sort(const Digraph& graph, std::size_t s, Marks& marks);
 
 private:
     Vertices _reversePost;

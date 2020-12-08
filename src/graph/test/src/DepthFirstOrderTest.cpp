@@ -10,7 +10,7 @@ using ::testing::ElementsAre;
 
 TEST(DepthFirstOrderTest, TopologicalSortNegative)
 {
-    DirectedGraph graph;
+    Digraph graph;
     readGraph("assets/graph/graphWithDirectedCycle.txt", graph);
 
     EXPECT_ANY_THROW({ DepthFirstOrder order(graph, true); });
@@ -18,7 +18,7 @@ TEST(DepthFirstOrderTest, TopologicalSortNegative)
 
 TEST(DepthFirstOrderTest, TopologicalSortPositive)
 {
-    DirectedGraph graph;
+    Digraph graph;
     readGraph("assets/graph/graphWithoutDirectedCycle.txt", graph);
 
     EXPECT_NO_THROW({

@@ -5,7 +5,7 @@
 
 namespace algorithms {
 
-StrongComponentSpreader::StrongComponentSpreader(const DirectedGraph& graph)
+StrongComponentSpreader::StrongComponentSpreader(const Digraph& graph)
     : _count{0}
     , _components(graph.verticesCount(), std::numeric_limits<std::size_t>::max())
 {
@@ -34,7 +34,7 @@ StrongComponentSpreader::id(std::size_t v) const
 }
 
 void
-StrongComponentSpreader::traverse(const DirectedGraph& graph)
+StrongComponentSpreader::traverse(const Digraph& graph)
 {
     if (graph.empty()) {
         return;
@@ -53,7 +53,7 @@ StrongComponentSpreader::traverse(const DirectedGraph& graph)
 }
 
 void
-StrongComponentSpreader::traverse(const DirectedGraph& graph,
+StrongComponentSpreader::traverse(const Digraph& graph,
                                   std::size_t s,
                                   std::size_t component,
                                   Marks& marks)

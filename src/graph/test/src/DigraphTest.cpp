@@ -2,25 +2,25 @@
 #include <gmock/gmock.h>
 
 #include "Common.hpp"
-#include "DirectedGraph.hpp"
+#include "Digraph.hpp"
 
 using namespace algorithms;
 
 using ::testing::ElementsAre;
 using ::testing::IsTrue;
 
-TEST(DirectedGraphTest, Properties)
+TEST(DigraphTest, Properties)
 {
-    DirectedGraph graph{2};
+    Digraph graph{2};
     graph.connect(0, 1);
 
     EXPECT_EQ(graph.verticesCount(), 2);
     EXPECT_EQ(graph.edgesCount(), 1);
 }
 
-TEST(DirectedGraphTest, Connect)
+TEST(DigraphTest, Connect)
 {
-    DirectedGraph graph{2};
+    Digraph graph{2};
     graph.connect(1, 0);
 
     EXPECT_THAT(graph.adjacency(0).empty(), IsTrue());
@@ -32,9 +32,9 @@ TEST(DirectedGraphTest, Connect)
     EXPECT_THAT(graph.adjacency(1), ElementsAre(0));
 }
 
-TEST(DirectedGraphTest, Reverse)
+TEST(DigraphTest, Reverse)
 {
-    DirectedGraph graph{5};
+    Digraph graph{5};
     graph.connect(0, 1);
     graph.connect(1, 2);
     graph.connect(3, 0);
@@ -48,54 +48,54 @@ TEST(DirectedGraphTest, Reverse)
     EXPECT_THAT(reverseGraph.adjacency(4).empty(), IsTrue());
 }
 
-TEST(DirectedGraphTest, hasCyclePositive)
+TEST(DigraphTest, hasCyclePositive)
 {
-    DirectedGraph graph;
+    Digraph graph;
     readGraph("assets/graph/graphWithoutDirectedCycle.txt", graph);
-    EXPECT_FALSE(DirectedGraph::hasCycle(graph));
+    EXPECT_FALSE(Digraph::hasCycle(graph));
 }
 
-TEST(DirectedGraphTest, hasCycleNegative)
+TEST(DigraphTest, hasCycleNegative)
 {
-    DirectedGraph graph;
+    Digraph graph;
     readGraph("assets/graph/graphWithDirectedCycle.txt", graph);
-    EXPECT_TRUE(DirectedGraph::hasCycle(graph));
+    EXPECT_TRUE(Digraph::hasCycle(graph));
 }
 
-TEST(DirectedGraphTest, Degree)
+TEST(DigraphTest, Degree)
 {
-    DirectedGraph graph{2};
+    Digraph graph{2};
     graph.connect(0, 1);
 
     EXPECT_EQ(Graph::degree(graph, 0), 1);
     EXPECT_EQ(Graph::degree(graph, 1), 0);
 }
 
-TEST(DirectedGraphTest, MaxDegree)
+TEST(DigraphTest, MaxDegree)
 {
-    DirectedGraph graph{3};
+    Digraph graph{3};
     graph.connect(0, 1);
     graph.connect(0, 2);
     graph.connect(1, 2);
 
-    EXPECT_EQ(DirectedGraph::maxDegree(graph), 2);
+    EXPECT_EQ(Digraph::maxDegree(graph), 2);
 }
 
-TEST(DirectedGraphTest, AverageDegree)
+TEST(DigraphTest, AverageDegree)
 {
-    DirectedGraph graph{3};
+    Digraph graph{3};
     graph.connect(0, 1);
     graph.connect(0, 2);
     graph.connect(1, 2);
 
-    EXPECT_EQ(DirectedGraph::averageDegree(graph), 1.0);
+    EXPECT_EQ(Digraph::averageDegree(graph), 1.0);
 }
 
-TEST(DirectedGraphTest, CountOfSelfLoop)
+TEST(DigraphTest, CountOfSelfLoop)
 {
-    DirectedGraph graph{2};
+    Digraph graph{2};
     graph.connect(0, 0);
     graph.connect(1, 1);
 
-    EXPECT_EQ(DirectedGraph::countOfSelfLoop(graph), 2);
+    EXPECT_EQ(Digraph::countOfSelfLoop(graph), 2);
 }

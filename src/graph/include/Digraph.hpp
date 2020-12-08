@@ -8,23 +8,23 @@ namespace algorithms {
 /**
  * The class of directed graph.
  */
-class DirectedGraph final : public Graph {
+class Digraph final : public Graph {
 public:
-    DirectedGraph() = default;
+    Digraph() = default;
 
-    explicit DirectedGraph(std::size_t numberOfVertices);
+    explicit Digraph(std::size_t numberOfVertices);
 
     void
     connect(std::size_t v1, std::size_t v2) override;
 
-    [[nodiscard]] DirectedGraph
+    [[nodiscard]] Digraph
     reverse() const;
 
     [[nodiscard]] static bool
-    hasCycle(const DirectedGraph& graph);
+    hasCycle(const Digraph& graph);
 
     [[nodiscard]] static bool
-    hasCycle(const DirectedGraph& graph, std::size_t s);
+    hasCycle(const Digraph& graph, std::size_t s);
 
 public:
     /**

@@ -3,7 +3,7 @@
 
 #include "Common.hpp"
 
-#include <DirectedGraph.hpp>
+#include <Digraph.hpp>
 #include <BreadthFirstRoutes.hpp>
 #include <DepthFirstRoutes.hpp>
 
@@ -26,7 +26,7 @@ protected:
     }
 
 protected:
-    DirectedGraph graph;
+    Digraph graph;
 };
 
 using TestTypes = ::testing::Types<DepthFirstRoutes, BreadthFirstRoutes>;

@@ -1,9 +1,9 @@
-#include "DirectedGraph.hpp"
+#include "Digraph.hpp"
 
 namespace algorithms {
 
 static bool
-hasCycle(const DirectedGraph& graph, std::size_t s, Marks& marks, Marks& state)
+hasCycle(const Digraph& graph, std::size_t s, Marks& marks, Marks& state)
 {
     marks[s] = true;
     state[s] = true; // Mark current vertex in recursion tree
@@ -23,23 +23,23 @@ hasCycle(const DirectedGraph& graph, std::size_t s, Marks& marks, Marks& state)
     return false;
 }
 
-DirectedGraph::DirectedGraph(std::size_t numberOfVertices)
+Digraph::Digraph(std::size_t numberOfVertices)
     : Graph{numberOfVertices}
 {
 }
 
 void
-DirectedGraph::connect(std::size_t v1, std::size_t v2)
+Digraph::connect(std::size_t v1, std::size_t v2)
 {
     edges++;
     forest[v1].push_front(v2);
 }
 
-DirectedGraph
-DirectedGraph::reverse() const
+Digraph
+Digraph::reverse() const
 {
     const std::size_t count = verticesCount();
-    DirectedGraph output{count};
+    Digraph output{count};
     for (std::size_t s = 0; s < count; ++s) {
         for (const std::size_t v : forest[s]) {
             output.connect(v, s);
@@ -49,7 +49,7 @@ DirectedGraph::reverse() const
 }
 
 bool
-DirectedGraph::hasCycle(const DirectedGraph& graph)
+Digraph::hasCycle(const Digraph& graph)
 {
     const std::size_t count = graph.verticesCount();
     if (count == 0) {
@@ -69,7 +69,7 @@ DirectedGraph::hasCycle(const DirectedGraph& graph)
 }
 
 bool
-DirectedGraph::hasCycle(const DirectedGraph& graph, std::size_t s)
+Digraph::hasCycle(const Digraph& graph, std::size_t s)
 {
     Marks marks(graph.verticesCount(), false);
     Marks state(graph.verticesCount(), false);
@@ -77,7 +77,7 @@ DirectedGraph::hasCycle(const DirectedGraph& graph, std::size_t s)
 }
 
 std::size_t
-DirectedGraph::countOfSelfLoop(const Graph& graph)
+Digraph::countOfSelfLoop(const Graph& graph)
 {
     std::size_t count{0};
     for (std::size_t v = 0; v < graph.verticesCount(); ++v) {
@@ -91,7 +91,7 @@ DirectedGraph::countOfSelfLoop(const Graph& graph)
 }
 
 double
-DirectedGraph::averageDegree(const Graph& graph)
+Digraph::averageDegree(const Graph& graph)
 {
     double sum{0};
     for (std::size_t v = 0; v < graph.verticesCount(); ++v) {

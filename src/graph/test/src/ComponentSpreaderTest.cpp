@@ -1,6 +1,6 @@
 #include "Common.hpp"
 #include "ComponentSpreader.hpp"
-#include "DirectedGraph.hpp"
+#include "Digraph.hpp"
 #include "UndirectedGraph.hpp"
 
 #include <gtest/gtest.h>
@@ -20,7 +20,7 @@ public:
     T graph;
 };
 
-using TestTypes = ::testing::Types<DirectedGraph, UndirectedGraph>;
+using TestTypes = ::testing::Types<Digraph, UndirectedGraph>;
 TYPED_TEST_SUITE(ConnectorTest, TestTypes);
 
 TYPED_TEST(ConnectorTest, IsConnected)

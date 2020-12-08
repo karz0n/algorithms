@@ -9,7 +9,7 @@ namespace algorithms {
  * The base graph class.
  *
  * @see UndirectedGraph
- * @see DirectedGraph
+ * @see Digraph
  */
 class Graph {
 public:
@@ -29,7 +29,7 @@ public:
 
     /**
      * Connect two vertices.
-     * @see DirectedGraph
+     * @see Digraph
      * @see UndirectedGraph
      * @param v1 The vertex number one
      * @param v2 The vertex number two
