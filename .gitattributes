@@ -19,3 +19,6 @@ assets/union-find/tinyUF.txt filter=lfs diff=lfs merge=lfs -text
 assets/graph/largeEWG.txt filter=lfs diff=lfs merge=lfs -text
 assets/graph/mediumEWG.txt filter=lfs diff=lfs merge=lfs -text
 assets/graph/tinyEWG.txt filter=lfs diff=lfs merge=lfs -text
+assets/graph/largeEWD.txt filter=lfs diff=lfs merge=lfs -text
+assets/graph/mediumEWD.txt filter=lfs diff=lfs merge=lfs -text
+assets/graph/tinyEWD.txt filter=lfs diff=lfs merge=lfs -text
