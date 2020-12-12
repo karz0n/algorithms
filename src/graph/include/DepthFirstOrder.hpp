@@ -13,7 +13,10 @@ public:
     explicit DepthFirstOrder(const Digraph& graph, bool inTopologicalOrder = false);
 
     [[nodiscard]] const Vertices&
-    reversePost() const;
+    reversePost() const&;
+
+    Vertices&&
+    reversePost() &&;
 
 private:
     void

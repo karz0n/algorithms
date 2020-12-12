@@ -12,9 +12,15 @@ DepthFirstOrder::DepthFirstOrder(const Digraph& graph, bool inTopologicalOrder /
 }
 
 const Vertices&
-DepthFirstOrder::reversePost() const
+DepthFirstOrder::reversePost() const&
 {
     return _reversePost;
+}
+
+Vertices&&
+DepthFirstOrder::reversePost() &&
+{
+    return std::move(_reversePost);
 }
 
 void
