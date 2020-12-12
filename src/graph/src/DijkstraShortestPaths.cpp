@@ -49,8 +49,11 @@ DijkstraShortestPaths::traverse(const EdgeWeightedDigraph& graph, std::size_t s)
     Queue queue(graph.verticesCount());
     queue.push(s, minDistance());
     while (!queue.empty()) {
-        const auto v = queue.pop();
+        const double v = queue.pop();
         for (const auto& edge : graph.adjacency(v)) {
+            if (edge.weight() < minDistance()) {
+                throw std::logic_error{"Only edge with non-negative weight allowed"};
+            }
             relax(queue, edge);
         }
     }

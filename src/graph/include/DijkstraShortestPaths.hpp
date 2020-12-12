@@ -11,6 +11,11 @@ namespace algorithms {
 /**
  * Find shortest paths from given vertex using Dijkstra's algorithm.
  *
+ * Short overview of Dijkstra's algorithm:
+ *  - consider vertices in increasing order of distance from s
+ *    (non-tree vertex with the lowest distTo[v] value)
+ *  - add vertex to tree and relax all edges pointing from that vertex
+ *
  * Main goal - compute SPT (shortest path tree) from given vertex by two actions:
  *  - repeat until optimality conditions are satisfied:
  *      - distTo[v] - the length of path from s to v
