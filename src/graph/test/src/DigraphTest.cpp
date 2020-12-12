@@ -1,13 +1,10 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
-#include "Common.hpp"
 #include "Digraph.hpp"
 
 using namespace algorithms;
-
-using ::testing::ElementsAre;
-using ::testing::IsTrue;
+using namespace testing;
 
 TEST(DigraphTest, Properties)
 {
@@ -46,20 +43,6 @@ TEST(DigraphTest, Reverse)
     EXPECT_THAT(reverseGraph.adjacency(2), ElementsAre(1));
     EXPECT_THAT(reverseGraph.adjacency(3), ElementsAre(4));
     EXPECT_THAT(reverseGraph.adjacency(4).empty(), IsTrue());
-}
-
-TEST(DigraphTest, hasCyclePositive)
-{
-    Digraph graph;
-    readGraph("assets/graph/graphWithoutDirectedCycle.txt", graph);
-    EXPECT_FALSE(Digraph::hasCycle(graph));
-}
-
-TEST(DigraphTest, hasCycleNegative)
-{
-    Digraph graph;
-    readGraph("assets/graph/graphWithDirectedCycle.txt", graph);
-    EXPECT_TRUE(Digraph::hasCycle(graph));
 }
 
 TEST(DigraphTest, Degree)

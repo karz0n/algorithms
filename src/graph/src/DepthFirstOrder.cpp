@@ -1,5 +1,7 @@
 #include "DepthFirstOrder.hpp"
 
+#include "DirectedCycleFinder.hpp"
+
 #include <stdexcept>
 
 namespace algorithms {
@@ -18,25 +20,29 @@ DepthFirstOrder::reversePost() const
 void
 DepthFirstOrder::sort(const Digraph& graph, bool inTopologicalOrder)
 {
-    Marks marks(graph.verticesCount(), false);
+    if (inTopologicalOrder) {
+        DirectedCycleFinder finder{graph};
+        if (finder.hasCycle()) {
+            throw std::logic_error{"Directed cycle in graph detected"};
+        }
+    }
+
+    Marks visitMarks(graph.verticesCount(), false);
     for (std::size_t s = 0; s < graph.verticesCount(); ++s) {
-        if (!marks[s]) {
-            if (inTopologicalOrder && Digraph::hasCycle(graph, s)) {
-                throw std::logic_error{"Cycle in graph detected"};
-            }
-            sort(graph, s, marks);
+        if (!visitMarks[s]) {
+            sort(graph, s, visitMarks);
         }
     }
 }
 
 void
-DepthFirstOrder::sort(const Digraph& graph, std::size_t s, Marks& marks)
+DepthFirstOrder::sort(const Digraph& graph, std::size_t s, Marks& visitMarks)
 {
-    marks[s] = true;
+    visitMarks[s] = true;
 
     for (const std::size_t v : graph.adjacency(s)) {
-        if (!marks[v]) {
-            sort(graph, v, marks);
+        if (!visitMarks[v]) {
+            sort(graph, v, visitMarks);
         }
     }
 

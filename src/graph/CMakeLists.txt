@@ -22,6 +22,7 @@ target_sources(
            "${CMAKE_CURRENT_SOURCE_DIR}/include/DirectedEdge.hpp"
            "${CMAKE_CURRENT_SOURCE_DIR}/include/EdgeWeightedDigraph.hpp"
            "${CMAKE_CURRENT_SOURCE_DIR}/include/DijkstraShortestPaths.hpp"
+           "${CMAKE_CURRENT_SOURCE_DIR}/include/DirectedCycleFinder.hpp"
     PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src/Graph.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/Digraph.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/UndirectedGraph.cpp"
@@ -38,7 +39,8 @@ target_sources(
             "${CMAKE_CURRENT_SOURCE_DIR}/src/PrimsMinSpanningTree.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/DirectedEdge.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/EdgeWeightedDigraph.cpp"
-            "${CMAKE_CURRENT_SOURCE_DIR}/src/DijkstraShortestPaths.cpp")
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/DijkstraShortestPaths.cpp"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/DirectedCycleFinder.cpp")
 
 target_include_directories(${TARGET} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 

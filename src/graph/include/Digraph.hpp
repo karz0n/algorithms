@@ -20,12 +20,6 @@ public:
     [[nodiscard]] Digraph
     reverse() const;
 
-    [[nodiscard]] static bool
-    hasCycle(const Digraph& graph);
-
-    [[nodiscard]] static bool
-    hasCycle(const Digraph& graph, std::size_t s);
-
 public:
     /**
      * Counts the number of loops in graph.

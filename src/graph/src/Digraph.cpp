@@ -2,27 +2,6 @@
 
 namespace algorithms {
 
-static bool
-hasCycle(const Digraph& graph, std::size_t s, Marks& marks, Marks& state)
-{
-    marks[s] = true;
-    state[s] = true; // Mark current vertex in recursion tree
-    for (const std::size_t v : graph.adjacency(s)) {
-        if (state[v]) {
-            // Adjacent vertex has already present in recursion tree
-            return true;
-        }
-        if (!marks[v]) {
-            // Move deeper and check all descendants
-            if (hasCycle(graph, v, marks, state)) {
-                return true;
-            }
-        }
-    }
-    state[s] = false; // Unmark current vertex in recursion tree
-    return false;
-}
-
 Digraph::Digraph(std::size_t numberOfVertices)
     : Graph{numberOfVertices}
 {
@@ -46,34 +25,6 @@ Digraph::reverse() const
         }
     }
     return output;
-}
-
-bool
-Digraph::hasCycle(const Digraph& graph)
-{
-    const std::size_t count = graph.verticesCount();
-    if (count == 0) {
-        return false;
-    }
-
-    Marks marks(count, false);
-    Marks state(count, false);
-    for (std::size_t s = 0; s < count; ++s) {
-        if (!marks[s]) {
-            if (algorithms::hasCycle(graph, s, marks, state)) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-bool
-Digraph::hasCycle(const Digraph& graph, std::size_t s)
-{
-    Marks marks(graph.verticesCount(), false);
-    Marks state(graph.verticesCount(), false);
-    return algorithms::hasCycle(graph, s, marks, state);
 }
 
 std::size_t

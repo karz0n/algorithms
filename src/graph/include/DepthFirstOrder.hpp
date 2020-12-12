@@ -20,7 +20,7 @@ private:
     sort(const Digraph& graph, bool inTopologicalOrder);
 
     void
-    sort(const Digraph& graph, std::size_t s, Marks& marks);
+    sort(const Digraph& graph, std::size_t s, Marks& visitMarks);
 
 private:
     Vertices _reversePost;
