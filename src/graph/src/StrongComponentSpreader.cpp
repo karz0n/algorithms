@@ -1,4 +1,5 @@
 #include "StrongComponentSpreader.hpp"
+
 #include "DepthFirstOrder.hpp"
 
 #include <limits>
@@ -40,12 +41,11 @@ StrongComponentSpreader::traverse(const Digraph& graph)
         return;
     }
 
-    DepthFirstOrder order{graph.reverse()};
-    const auto& vertices = order.reversePost();
+    Marks marks(graph.verticesCount(), false);
 
-    Marks marks(vertices.size(), false);
-    for (auto it = vertices.crbegin(); it != vertices.crend(); ++it) {
-        const std::size_t v = *it;
+    DepthFirstOrder order{graph.reverse()};
+    const auto vertices = order.reversePost();
+    for (const std::size_t v : vertices) {
         if (!marks[v]) {
             traverse(graph, v, _count++, marks);
         }

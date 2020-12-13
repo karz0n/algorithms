@@ -2,6 +2,7 @@
 
 #include "Types.hpp"
 #include "Digraph.hpp"
+#include "EdgeWeightedDigraph.hpp"
 
 namespace algorithms {
 
@@ -14,6 +15,8 @@ class DirectedCycleFinder {
 public:
     explicit DirectedCycleFinder(const Digraph& graph);
 
+    explicit DirectedCycleFinder(const EdgeWeightedDigraph& graph);
+
     [[nodiscard]] bool
     hasCycle() const;
 
@@ -21,15 +24,20 @@ public:
     cycle() const;
 
 private:
+    template<typename GraphType>
     void
-    traverse(const Digraph& graph);
+    traverse(const GraphType& graph);
 
+    template<typename GraphType>
     void
-    traverse(const Digraph& graph,
+    traverse(const GraphType& w,
              std::size_t s,
              Marks& visitMarks,
              Marks& stackMarks,
              Vertices& parentLinks);
+
+    void
+    makeCycleChain(const Vertices& parentLinks, std::size_t s, std::size_t w);
 
 private:
     Vertices _cycle;

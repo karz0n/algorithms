@@ -7,6 +7,18 @@ namespace algorithms {
 TopologicalOrderIterator::TopologicalOrderIterator(const Digraph& graph)
 {
     try {
+        auto vertices = DepthFirstOrder(graph, true).reversePost();
+        _vertices = std::make_shared<Vertices>(std::move(vertices));
+        moveToBegin();
+    }
+    catch (...) {
+        // Suppress exception if the given graph has cycle
+    }
+}
+
+TopologicalOrderIterator::TopologicalOrderIterator(const EdgeWeightedDigraph& graph)
+{
+    try {
         _vertices = std::make_shared<Vertices>(DepthFirstOrder(graph, true).reversePost());
         moveToBegin();
     }

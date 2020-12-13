@@ -2,6 +2,7 @@
 
 #include "Digraph.hpp"
 #include "DepthFirstOrder.hpp"
+#include "EdgeWeightedDigraph.hpp"
 
 #include <memory>
 
@@ -18,6 +19,8 @@ public:
     TopologicalOrderIterator() = default;
 
     explicit TopologicalOrderIterator(const Digraph& graph);
+
+    explicit TopologicalOrderIterator(const EdgeWeightedDigraph& graph);
 
     ~TopologicalOrderIterator() = default;
 
