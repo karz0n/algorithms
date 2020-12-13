@@ -23,6 +23,7 @@ target_sources(
             "${CMAKE_CURRENT_SOURCE_DIR}/src/PrimsMinSpanningTreeTest.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/DijkstraShortestPathsTest.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/DirectedCycleFinderTest.cpp"
-            "${CMAKE_CURRENT_SOURCE_DIR}/src/TopologicalOrderIteratorTest.cpp")
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/TopologicalOrderIteratorTest.cpp"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/AcyclicShortestPathsTest.cpp")
 
 target_add_tests(TARGET ${TARGET})
