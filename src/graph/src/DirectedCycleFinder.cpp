@@ -109,11 +109,11 @@ DirectedCycleFinder::traverse(const GraphType& graph,
 void
 DirectedCycleFinder::makeCycleChain(const Vertices& parentLinks, std::size_t s, std::size_t w)
 {
+    _cycle.push_back(w);
     for (std::size_t p = s; p != w; p = parentLinks[p]) {
         _cycle.push_back(p);
     }
     _cycle.push_back(w);
-    _cycle.push_back(s);
     std::reverse(_cycle.begin(), _cycle.end());
 }
 

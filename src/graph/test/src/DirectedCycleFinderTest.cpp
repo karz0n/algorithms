@@ -27,7 +27,5 @@ TEST(DigraphTest, DirectedCycleIsPresent)
 
     DirectedCycleFinder finder{graph};
     EXPECT_TRUE(finder.hasCycle());
-
-    const auto& cycle = finder.cycle();
-    EXPECT_THAT(cycle, ElementsAre(5, 1, 3, 5));
+    EXPECT_THAT(finder.cycle(), ElementsAre(1, 3, 5, 1));
 }
