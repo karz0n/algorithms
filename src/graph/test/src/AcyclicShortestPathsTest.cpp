@@ -44,7 +44,8 @@ public:
     EdgeWeightedDigraph graph;
 };
 
-Matcher<const DirectedEdge&> matchToFrom(const std::size_t from, const std::size_t to)
+static Matcher<const DirectedEdge&>
+matchToFrom(const std::size_t from, const std::size_t to)
 {
     return AllOf(Property(&DirectedEdge::from, from), Property(&DirectedEdge::to, to));
 }
