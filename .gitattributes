@@ -22,3 +22,5 @@ assets/graph/tinyEWG.txt filter=lfs diff=lfs merge=lfs -text
 assets/graph/largeEWD.txt filter=lfs diff=lfs merge=lfs -text
 assets/graph/mediumEWD.txt filter=lfs diff=lfs merge=lfs -text
 assets/graph/tinyEWD.txt filter=lfs diff=lfs merge=lfs -text
+assets/graph/tinyEWDn.txt filter=lfs diff=lfs merge=lfs -text
+assets/graph/tinyEWDnc.txt filter=lfs diff=lfs merge=lfs -text
