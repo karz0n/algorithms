@@ -11,7 +11,7 @@ using namespace testing;
 TEST(TopologicalOrderIteratorTest, TopologicalSorting)
 {
     Digraph graph;
-    readGraph("assets/graph/graphWithoutDirectedCycle.txt", graph);
+    read("assets/graph/graphWithoutDirectedCycle.txt", graph);
 
     Vertices vertices;
     for (auto v : TopologicalOrderIterator{graph}) {

@@ -13,7 +13,7 @@ public:
     void
     SetUp() override
     {
-        readGraph("assets/graph/tinyG.txt", graph);
+        read("assets/graph/tinyG.txt", graph);
     }
 
 public:

@@ -82,7 +82,7 @@ TYPED_TEST_SUITE(MinSpanningTreeTest, Implementations);
 TYPED_TEST(MinSpanningTreeTest, tinyGraph)
 {
     EdgeWeightedGraph graph;
-    ASSERT_NO_THROW({ readGraph("assets/graph/tinyEWG.txt", graph); });
+    ASSERT_NO_THROW({ read("assets/graph/tinyEWG.txt", graph); });
 
     TypeParam tree{graph};
     EXPECT_THAT(tree.edges(), Not(IsEmpty()));
@@ -96,7 +96,7 @@ TYPED_TEST(MinSpanningTreeTest, tinyGraph)
 TYPED_TEST(MinSpanningTreeTest, mediumGraph)
 {
     EdgeWeightedGraph graph;
-    ASSERT_NO_THROW({ readGraph("assets/graph/mediumEWG.txt", graph); });
+    ASSERT_NO_THROW({ read("assets/graph/mediumEWG.txt", graph); });
 
     TypeParam tree{graph};
     EXPECT_THAT(tree.edges(), Not(IsEmpty()));
@@ -110,7 +110,7 @@ TYPED_TEST(MinSpanningTreeTest, mediumGraph)
 TYPED_TEST(MinSpanningTreeTest, DISABLED_largeGraph /* Disabled due takes too much time */)
 {
     EdgeWeightedGraph graph;
-    ASSERT_NO_THROW({ readGraph("assets/graph/largeEWG.txt", graph); });
+    ASSERT_NO_THROW({ read("assets/graph/largeEWG.txt", graph); });
 
     TypeParam tree{graph};
     EXPECT_THAT(tree.edges(), Not(IsEmpty()));

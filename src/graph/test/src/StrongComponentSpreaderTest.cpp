@@ -12,7 +12,7 @@ public:
     void
     SetUp() override
     {
-        readGraph("assets/graph/strongComponents.txt", graph);
+        read("assets/graph/strongComponents.txt", graph);
     }
 
 public:

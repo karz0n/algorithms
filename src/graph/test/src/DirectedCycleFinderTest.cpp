@@ -11,7 +11,7 @@ using namespace testing;
 TEST(DigraphTest, DirectedCycleIsAbsent)
 {
     Digraph graph;
-    readGraph("assets/graph/graphWithoutDirectedCycle.txt", graph);
+    read("assets/graph/graphWithoutDirectedCycle.txt", graph);
 
     DirectedCycleFinder finder{graph};
     EXPECT_FALSE(finder.hasCycle());
@@ -23,7 +23,7 @@ TEST(DigraphTest, DirectedCycleIsAbsent)
 TEST(DigraphTest, DirectedCycleIsPresent)
 {
     Digraph graph;
-    readGraph("assets/graph/graphWithDirectedCycle.txt", graph);
+    read("assets/graph/graphWithDirectedCycle.txt", graph);
 
     DirectedCycleFinder finder{graph};
     EXPECT_TRUE(finder.hasCycle());

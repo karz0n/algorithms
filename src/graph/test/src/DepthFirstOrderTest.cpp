@@ -10,7 +10,7 @@ using namespace testing;
 TEST(DepthFirstOrderTest, TopologicalSortNegative)
 {
     Digraph graph;
-    readGraph("assets/graph/graphWithDirectedCycle.txt", graph);
+    read("assets/graph/graphWithDirectedCycle.txt", graph);
 
     EXPECT_ANY_THROW({ DepthFirstOrder order(graph, true); });
 }
@@ -18,7 +18,7 @@ TEST(DepthFirstOrderTest, TopologicalSortNegative)
 TEST(DepthFirstOrderTest, TopologicalSortPositive)
 {
     Digraph graph;
-    readGraph("assets/graph/graphWithoutDirectedCycle.txt", graph);
+    read("assets/graph/graphWithoutDirectedCycle.txt", graph);
 
     DepthFirstOrder order{graph};
 

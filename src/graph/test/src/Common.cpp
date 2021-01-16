@@ -46,7 +46,7 @@ read(const fs::path& path, const HeadCallback& headCallback, const LineCallback&
 } // namespace
 
 void
-readGraph(const fs::path& path, Graph& graph)
+read(const fs::path& path, Graph& graph)
 {
     const auto headCallback = [&](std::size_t vertices, std::size_t) { graph.reset(vertices); };
 
@@ -68,7 +68,7 @@ readGraph(const fs::path& path, Graph& graph)
 }
 
 void
-readGraph(const fs::path& path, EdgeWeightedGraph& graph)
+read(const fs::path& path, EdgeWeightedGraph& graph)
 {
     const auto headCallback = [&](std::size_t vertices, std::size_t) { graph.reset(vertices); };
 
@@ -91,7 +91,7 @@ readGraph(const fs::path& path, EdgeWeightedGraph& graph)
 }
 
 void
-readGraph(const fs::path& path, EdgeWeightedDigraph& graph)
+read(const fs::path& path, EdgeWeightedDigraph& graph)
 {
     const auto headCallback = [&](std::size_t vertices, std::size_t) { graph.reset(vertices); };
 
@@ -108,6 +108,31 @@ readGraph(const fs::path& path, EdgeWeightedDigraph& graph)
             throw std::runtime_error{"Invalid number of vertex"};
         }
         graph.add(DirectedEdge{v, w, weight});
+    };
+
+    read(path, headCallback, lineCallback);
+}
+
+void
+read(const fs::path& path, algorithms::FlowNetwork& network)
+{
+    const auto headCallback = [&](std::size_t vertices, std::size_t) { network.reset(vertices); };
+
+    const auto lineCallback = [&](const std::string& line) {
+        std::stringstream s{line};
+        std::size_t v{};
+        std::size_t w{};
+        double weight{};
+
+        s >> v >> w >> weight;
+        if (!s) {
+            throw std::logic_error{"End of stream"};
+        }
+        if (v >= network.verticesCount() || w >= network.verticesCount()) {
+            throw std::runtime_error{"Invalid number of vertex"};
+        }
+
+        network.add(FlowEdge{v, w, weight});
     };
 
     read(path, headCallback, lineCallback);

@@ -11,7 +11,7 @@ static EdgeWeightedDigraph
 getGraph(const std::filesystem::path& path)
 {
     EdgeWeightedDigraph graph;
-    readGraph(path, graph);
+    read(path, graph);
     return graph;
 }
 

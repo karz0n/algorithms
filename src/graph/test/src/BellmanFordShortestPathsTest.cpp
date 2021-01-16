@@ -27,7 +27,7 @@ matchToFrom(const std::size_t from, const std::size_t to)
 TEST_F(BellmanFordShortestPathsTest, WithoutNegaticeCycle)
 {
     EdgeWeightedDigraph graph;
-    readGraph("assets/graph/tinyEWDn.txt", graph);
+    read("assets/graph/tinyEWDn.txt", graph);
 
     BellmanFordShortestPaths paths(graph, source());
     EXPECT_FALSE(paths.hasPathTo(0));
@@ -106,7 +106,7 @@ TEST_F(BellmanFordShortestPathsTest, WithoutNegaticeCycle)
 TEST_F(BellmanFordShortestPathsTest, WithNegativeCycle)
 {
     EdgeWeightedDigraph graph;
-    readGraph("assets/graph/tinyEWDnc.txt", graph);
+    read("assets/graph/tinyEWDnc.txt", graph);
 
     BellmanFordShortestPaths paths(graph, source());
     EXPECT_TRUE(paths.hasNegativeCycle());

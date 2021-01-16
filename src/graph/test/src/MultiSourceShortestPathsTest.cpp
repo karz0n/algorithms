@@ -12,7 +12,7 @@ using ::testing::ElementsAre;
 TEST(MultiSourceShortestPaths, Dummy)
 {
     Digraph graph;
-    readGraph("assets/graph/multiSourceShortestPaths.txt", graph);
+    read("assets/graph/multiSourceShortestPaths.txt", graph);
 
     MultiSourceShortestPaths paths{graph, {0, 4} /* Target vertices */};
     /* Distance from one of the source vertex (index of distance array) to the target vertices */

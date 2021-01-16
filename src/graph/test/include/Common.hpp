@@ -3,14 +3,18 @@
 #include "Graph.hpp"
 #include "EdgeWeightedGraph.hpp"
 #include "EdgeWeightedDigraph.hpp"
+#include "FlowNetwork.hpp"
 
 #include <filesystem>
 
 extern void
-readGraph(const std::filesystem::path& path, algorithms::Graph& graph);
+read(const std::filesystem::path& path, algorithms::Graph& graph);
 
 extern void
-readGraph(const std::filesystem::path& path, algorithms::EdgeWeightedGraph& graph);
+read(const std::filesystem::path& path, algorithms::EdgeWeightedGraph& graph);
 
 extern void
-readGraph(const std::filesystem::path& path, algorithms::EdgeWeightedDigraph& graph);
+read(const std::filesystem::path& path, algorithms::EdgeWeightedDigraph& graph);
+
+extern void
+read(const std::filesystem::path& path, algorithms::FlowNetwork& network);
