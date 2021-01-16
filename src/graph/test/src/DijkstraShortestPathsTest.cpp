@@ -7,6 +7,14 @@
 using namespace testing;
 using namespace algorithms;
 
+static EdgeWeightedDigraph
+getGraph(const std::filesystem::path& path)
+{
+    EdgeWeightedDigraph graph;
+    readGraph(path, graph);
+    return graph;
+}
+
 class DijkstraShortestPathsTest : public TestWithParam<EdgeWeightedDigraph> {
 public:
     DijkstraShortestPathsTest()
@@ -26,9 +34,9 @@ public:
 
 INSTANTIATE_TEST_SUITE_P(DijkstraShortestPaths,
                          DijkstraShortestPathsTest,
-                         Values(readEdgeWeightedDigraph("assets/graph/tinyEWD.txt"),
-                                readEdgeWeightedDigraph("assets/graph/mediumEWG.txt"),
-                                readEdgeWeightedDigraph("assets/graph/largeEWG.txt")));
+                         Values(getGraph("assets/graph/tinyEWD.txt"),
+                                getGraph("assets/graph/mediumEWG.txt"),
+                                getGraph("assets/graph/largeEWG.txt")));
 
 Matcher<const DirectedEdge&>
 isNegative()

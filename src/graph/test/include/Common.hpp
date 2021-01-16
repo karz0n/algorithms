@@ -14,9 +14,3 @@ readGraph(const std::filesystem::path& path, algorithms::EdgeWeightedGraph& grap
 
 extern void
 readGraph(const std::filesystem::path& path, algorithms::EdgeWeightedDigraph& graph);
-
-extern algorithms::EdgeWeightedDigraph
-readEdgeWeightedDigraph(const std::filesystem::path& path);
-
-extern void
-verifyMinSpanningTree(const algorithms::Edges& tree, const algorithms::EdgeWeightedGraph& graph);
