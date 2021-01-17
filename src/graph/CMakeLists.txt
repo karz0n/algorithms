@@ -26,6 +26,9 @@ target_sources(
            "${CMAKE_CURRENT_SOURCE_DIR}/include/TopologicalOrderIterator.hpp"
            "${CMAKE_CURRENT_SOURCE_DIR}/include/AcyclicShortestPaths.hpp"
            "${CMAKE_CURRENT_SOURCE_DIR}/include/BellmanFordShortestPaths.hpp"
+           "${CMAKE_CURRENT_SOURCE_DIR}/include/FlowEdge.hpp"
+           "${CMAKE_CURRENT_SOURCE_DIR}/include/FlowNetwork.hpp"
+           "${CMAKE_CURRENT_SOURCE_DIR}/include/FordFulkerson.hpp"
     PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src/Graph.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/Digraph.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/UndirectedGraph.cpp"
@@ -46,7 +49,10 @@ target_sources(
             "${CMAKE_CURRENT_SOURCE_DIR}/src/DirectedCycleFinder.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/TopologicalOrderIterator.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/AcyclicShortestPaths.cpp"
-            "${CMAKE_CURRENT_SOURCE_DIR}/src/BellmanFordShortestPaths.cpp")
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/BellmanFordShortestPaths.cpp"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/FlowEdge.cpp"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/FlowNetwork.cpp"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/FordFulkerson.cpp")
 
 target_include_directories(${TARGET} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 

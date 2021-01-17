@@ -24,6 +24,7 @@ target_sources(
             "${CMAKE_CURRENT_SOURCE_DIR}/src/DirectedCycleFinderTest.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/TopologicalOrderIteratorTest.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/AcyclicShortestPathsTest.cpp"
-            "${CMAKE_CURRENT_SOURCE_DIR}/src/BellmanFordShortestPathsTest.cpp")
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/BellmanFordShortestPathsTest.cpp"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/FordFulkersonTest.cpp")
 
 target_add_tests(TARGET ${TARGET})
