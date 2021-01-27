@@ -8,6 +8,7 @@ include(${PROJECT_SOURCE_DIR}/cmake/ProjectResources.cmake)
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/union-find)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/stack)
+add_subdirectory(${PROJECT_SOURCE_DIR}/src/string)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/queue)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/selection)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/list)
