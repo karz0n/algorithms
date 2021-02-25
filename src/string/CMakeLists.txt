@@ -10,10 +10,12 @@ target_sources(
            "${CMAKE_CURRENT_SOURCE_DIR}/include/MsdRadixSort.hpp"
            "${CMAKE_CURRENT_SOURCE_DIR}/include/ThreeWayRadixSort.hpp"
            "${CMAKE_CURRENT_SOURCE_DIR}/include/LongestCommonPrefix.hpp"
+           "${CMAKE_CURRENT_SOURCE_DIR}/include/TernarySearchTries.hpp"
     PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src/LsdRadixSort.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/MsdRadixSort.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/ThreeWayRadixSort.cpp"
-            "${CMAKE_CURRENT_SOURCE_DIR}/src/LongestCommonPrefix.cpp")
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/LongestCommonPrefix.cpp"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/TernarySearchTries.cpp")
 
 target_include_directories(${TARGET} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
