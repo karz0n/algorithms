@@ -8,7 +8,7 @@
 namespace algorithms {
 
 /**
- * The KnuthMorrisPratt substring search algorithm implementation
+ * The Knuth-Morris-Pratt substring search algorithm implementation.
  */
 template<typename Ch = char>
 class TrioSubstringSearch {
@@ -29,7 +29,7 @@ public:
     }
 
 private:
-    /** The number of possible character value */
+    /** The number of possible character values */
     static constexpr std::size_t R = std::numeric_limits<Ch>::max() + 1;
 
     class Automaton {
