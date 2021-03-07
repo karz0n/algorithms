@@ -12,6 +12,8 @@ target_sources(
            "${CMAKE_CURRENT_SOURCE_DIR}/include/LongestCommonPrefix.hpp"
            "${CMAKE_CURRENT_SOURCE_DIR}/include/TernarySearchTries.hpp"
            "${CMAKE_CURRENT_SOURCE_DIR}/include/TrioSubstringSearch.hpp"
+           "${CMAKE_CURRENT_SOURCE_DIR}/include/BoyerMooreSubstringSearch.hpp"
+           "${CMAKE_CURRENT_SOURCE_DIR}/include/RabinKarpSubstringSearch.hpp"
     PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src/LsdRadixSort.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/MsdRadixSort.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/ThreeWayRadixSort.cpp"

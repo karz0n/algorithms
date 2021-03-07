@@ -11,6 +11,8 @@ target_sources(
             "${CMAKE_CURRENT_SOURCE_DIR}/src/ThreeWayRadixSortTest.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/LongestCommonPrefixTest.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/TernarySearchTriesTest.cpp"
-            "${CMAKE_CURRENT_SOURCE_DIR}/src/TrioSubstringSearchTest.cpp")
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/TrioSubstringSearchTest.cpp"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/BoyerMooreSubstringSearchTest.cpp"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/RabinKarpSubstringSearchTest.cpp")
 
 target_add_tests(TARGET ${TARGET})
