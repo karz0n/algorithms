@@ -5,38 +5,47 @@
 namespace algorithms {
 
 bool
-Routes::hasRouteTo(std::size_t v) const
+Routes::hasRouteTo(std::size_t vertex) const
 {
-    return marks[v];
+    return marked[vertex];
+}
+
+Vertices
+Routes::reachability() const
+{
+    Vertices output;
+    for (std::size_t v{0}; v < marked.size(); ++v) {
+        if (marked[v]) {
+            output.push_back(v);
+        }
+    }
+    return output;
 }
 
 Route
-Routes::routeTo(std::size_t v) const
+Routes::routeTo(std::size_t vertex) const
 {
-    if (!hasRouteTo(v)) {
+    if (!hasRouteTo(vertex)) {
         return Route{};
     }
 
     Route steps;
-    steps.push_back(v);
+    steps.push_back(vertex);
 
-    std::size_t p = v;
-    std::size_t n = source[v]; // Get source vertex (where did we come from to reach this vertex)
-    while (p != n) {
-        steps.push_back(p = n);
-        n = source[n];
+    int p = edgeTo[vertex];
+    while (p != -1) {
+        steps.push_back(p);
+        p = edgeTo[p];
     }
 
-    /** Flip over steps */
+    /** Flip over our steps */
     return Route(steps.crbegin(), steps.crend());
 }
 
-Routes::Routes(const Graph& graph, std::size_t s)
-    : marks(graph.verticesCount(), false)
-    , source(graph.verticesCount(), std::numeric_limits<std::size_t>::max())
+Routes::Routes(const Graph& graph)
+    : marked(graph.verticesCount(), false)
+    , edgeTo(graph.verticesCount(), -1)
 {
-    marks[s] = true;
-    source[s] = s;
 }
 
 } // namespace algorithms

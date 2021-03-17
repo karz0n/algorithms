@@ -4,30 +4,40 @@
 
 namespace algorithms {
 
-BreadthFirstRoutes::BreadthFirstRoutes(const Graph& graph, std::size_t s)
-    : Routes{graph, s}
+BreadthFirstRoutes::BreadthFirstRoutes(const Graph& graph, std::size_t source)
+    : Routes{graph}
 {
-    traverse(graph, s);
+    traverse(graph, source);
+}
+
+BreadthFirstRoutes::BreadthFirstRoutes(const Graph& graph, const Vertices& sources)
+    : Routes{graph}
+{
+    for (std::size_t v : sources) {
+        traverse(graph, v);
+    }
 }
 
 void
-BreadthFirstRoutes::traverse(const Graph& graph, std::size_t s)
+BreadthFirstRoutes::traverse(const Graph& graph, std::size_t source)
 {
     if (graph.empty()) {
         return;
     }
 
     std::queue<std::size_t> vs;
-    vs.push(s);
+    vs.push(source);
     while (!vs.empty()) {
-        s = vs.front();
+        source = vs.front();
         vs.pop();
 
-        /* Examine all adjacency in order of increasing distance from s */
-        for (const std::size_t v : graph.adjacency(s)) {
-            if (!marks[v]) {
-                source[v] = s;
-                marks[v] = true;
+        marked[source] = true;
+
+        /* Examine all adjacency in order of increasing distance from source */
+        for (const std::size_t v : graph.adjacency(source)) {
+            if (!marked[v]) {
+                edgeTo[v] = source;
+                marked[v] = true;
                 vs.push(v);
             }
         }

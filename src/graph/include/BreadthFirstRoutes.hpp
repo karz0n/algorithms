@@ -6,22 +6,26 @@ namespace algorithms {
 
 /**
  * BFS algorithm graph implementation.
- *
+ * <p>
  * Properties:
- *  - computes shortest path from s to t (fewest number of edges)
- *  - each vertex connected to s is visited once
- *  - finds vertices connected to s in constant time
- *  - finds a path to s in time proportional to its length
- *
- *  Not optimal in finding best path between two vertices.
+ * <ul>
+ * <li>computes shortest path from source to each fewest vertices
+ * <li>each vertex connected to source is visited once
+ * <li>finds vertices connected to source in constant time
+ * <li>finds a path to s in time proportional to its length
+ * </ul>
+ * <p>
+ * <b>Not optimal in finding best path between two vertices.</b>
  */
 class BreadthFirstRoutes final : public Routes {
 public:
-    BreadthFirstRoutes(const Graph& graph, std::size_t s);
+    BreadthFirstRoutes(const Graph& graph, std::size_t source);
+
+    BreadthFirstRoutes(const Graph& graph, const Vertices& sources);
 
 private:
     void
-    traverse(const Graph& graph, std::size_t s);
+    traverse(const Graph& graph, std::size_t source);
 };
 
 } // namespace algorithms

@@ -17,7 +17,7 @@ using ::testing::AllOf;
 using ::testing::AnyOf;
 
 template<typename T>
-class DirectedRoutesTest : public ::testing::Test {
+class RoutesTest : public ::testing::Test {
 protected:
     void
     SetUp() override
@@ -30,9 +30,9 @@ protected:
 };
 
 using TestTypes = ::testing::Types<DepthFirstRoutes, BreadthFirstRoutes>;
-TYPED_TEST_SUITE(DirectedRoutesTest, TestTypes);
+TYPED_TEST_SUITE(RoutesTest, TestTypes);
 
-TYPED_TEST(DirectedRoutesTest, HasRouteTo)
+TYPED_TEST(RoutesTest, HasRouteTo)
 {
     TypeParam r1{this->graph, 0};
     EXPECT_TRUE(r1.hasRouteTo(4));
@@ -43,7 +43,7 @@ TYPED_TEST(DirectedRoutesTest, HasRouteTo)
     EXPECT_FALSE(r2.hasRouteTo(4));
 }
 
-TYPED_TEST(DirectedRoutesTest, RouteTo)
+TYPED_TEST(RoutesTest, RouteTo)
 {
     TypeParam r1{this->graph, 0};
     auto route = r1.routeTo(4);

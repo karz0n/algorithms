@@ -14,13 +14,17 @@ target_sources(
            "${CMAKE_CURRENT_SOURCE_DIR}/include/TrioSubstringSearch.hpp"
            "${CMAKE_CURRENT_SOURCE_DIR}/include/BoyerMooreSubstringSearch.hpp"
            "${CMAKE_CURRENT_SOURCE_DIR}/include/RabinKarpSubstringSearch.hpp"
+           "${CMAKE_CURRENT_SOURCE_DIR}/include/RegExpMatcher.hpp"
     PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src/LsdRadixSort.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/MsdRadixSort.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/ThreeWayRadixSort.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/LongestCommonPrefix.cpp"
-            "${CMAKE_CURRENT_SOURCE_DIR}/src/TernarySearchTries.cpp")
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/TernarySearchTries.cpp"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/RegExpMatcher.cpp")
 
 target_include_directories(${TARGET} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
+
+target_link_libraries(${TARGET} PUBLIC Graph::Library)
 
 if(ALG_ENABLE_TESTS)
     add_subdirectory(test)

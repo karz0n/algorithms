@@ -2,21 +2,29 @@
 
 namespace algorithms {
 
-DepthFirstRoutes::DepthFirstRoutes(const Graph& graph, std::size_t s)
-    : Routes{graph, s}
+DepthFirstRoutes::DepthFirstRoutes(const Graph& graph, std::size_t source)
+    : Routes{graph}
 {
-    traverse(graph, s);
+    traverse(graph, source);
+}
+
+DepthFirstRoutes::DepthFirstRoutes(const Graph& graph, const Vertices& sources)
+    : Routes{graph}
+{
+    for (std::size_t v : sources) {
+        traverse(graph, v);
+    }
 }
 
 void
-DepthFirstRoutes::traverse(const Graph& graph, std::size_t s)
+DepthFirstRoutes::traverse(const Graph& graph, std::size_t source)
 {
-    marks[s] = true;
-    for (std::size_t w : graph.adjacency(s)) {
-        if (!marks[w]) {
-            source[w] = s;
+    marked[source] = true;
+    for (std::size_t v : graph.adjacency(source)) {
+        if (!marked[v]) {
+            edgeTo[v] = source;
             /* Used recursion to go deeply of graph */
-            traverse(graph, w);
+            traverse(graph, v);
         }
     }
 }

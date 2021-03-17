@@ -15,7 +15,7 @@ using Route = std::vector<std::size_t>;
 /**
  * The basic class of graph routes.
  *
- * Represents the set of routes which are reachable from source vertex.
+ * Represents the set of routes which are reachable from sourceOf vertex.
  * Particular implementation presents in derived classes.
  *
  * @see DepthFirstRoutes
@@ -28,29 +28,44 @@ public:
     /**
      * Checks if given vertex reachable from start vertex.
      *
-     * @param v - The target vertex
+     * @param vertex - The target vertex
      *
      * @return @c true iff given vertex is reachable, @c false otherwise.
      */
     [[nodiscard]] bool
-    hasRouteTo(std::size_t v) const;
+    hasRouteTo(std::size_t vertex) const;
 
     /**
-     * Create route from given vertex to the start vertex.
+     * Returns list of reachable vertices.
      *
-     * @param v - The target vertex
+     * @return The list of reachable vertices.
+     */
+    [[nodiscard]] Vertices
+    reachability() const;
+
+    /**
+     * Returns total number of vertices.
+     * @return The number of vertices.
+     */
+    [[nodiscard]] std::size_t
+    verticesCount() const;
+
+    /**
+     * Creates route from given vertex to the start vertex.
+     *
+     * @param vertex - The target vertex
      *
      * @return The route from given vertex to the start vertex.
      */
     [[nodiscard]] Route
-    routeTo(std::size_t v) const;
+    routeTo(std::size_t vertex) const;
 
 protected:
-    Routes(const Graph& graph, std::size_t s);
+    explicit Routes(const Graph& graph);
 
 protected:
-    Marks marks;
-    std::vector<std::size_t> source;
+    Marks marked;
+    std::vector<long> edgeTo;
 };
 
 } // namespace algorithms
