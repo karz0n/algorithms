@@ -1,5 +1,7 @@
 #include "TernarySearchTries.hpp"
 
+#include <stdexcept>
+
 namespace algorithms {
 
 TernarySearchTries::TernarySearchTries()
@@ -19,11 +21,14 @@ TernarySearchTries::has(std::string_view key)
     return node && node->value.has_value();
 }
 
-std::optional<int>
+int
 TernarySearchTries::get(std::string_view key)
 {
     const Node* node = get(_root, key, 0);
-    return node ? node->value : std::nullopt;
+    if (!node) {
+        throw std::runtime_error{"Element is absent"};
+    }
+    return node->value.value();
 }
 
 void

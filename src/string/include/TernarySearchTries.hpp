@@ -1,10 +1,9 @@
 #pragma once
 
-#include <string_view>
 #include <string>
+#include <string_view>
 #include <vector>
 #include <optional>
-#include <iostream>
 
 namespace algorithms {
 
@@ -19,7 +18,7 @@ public:
     [[nodiscard]] bool
     has(std::string_view key);
 
-    std::optional<int>
+    int
     get(std::string_view key);
 
     void
