@@ -26,14 +26,14 @@ TEST(TernarySearchTriesTest, Update)
     tree.put("shells", 3);
     tree.put("she", 2);
 
-    EXPECT_THAT(tree.get("shells"), Optional(3));
-    EXPECT_THAT(tree.get("she"), Optional(2));
+    EXPECT_THAT(tree.get("shells"), 3);
+    EXPECT_THAT(tree.get("she"), 2);
 
     tree.put("shells", 1);
     tree.put("she", 0);
 
-    EXPECT_THAT(tree.get("shells"), Optional(1));
-    EXPECT_THAT(tree.get("she"), Optional(0));
+    EXPECT_THAT(tree.get("shells"), 1);
+    EXPECT_THAT(tree.get("she"), 0);
 }
 
 TEST(TernarySearchTriesTest, Keys)
