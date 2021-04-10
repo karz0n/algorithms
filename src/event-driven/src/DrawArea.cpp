@@ -170,8 +170,7 @@ DrawArea::reshape(int width, int height)
         _clipAreaXRight = 1.0 * aspect;
         _clipAreaYBottom = -1.0;
         _clipAreaYTop = 1.0;
-    }
-    else {
+    } else {
         _clipAreaXLeft = -1.0;
         _clipAreaXRight = 1.0;
         _clipAreaYBottom = -1.0 / aspect;

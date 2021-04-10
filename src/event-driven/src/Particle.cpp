@@ -91,11 +91,9 @@ Particle::timeToHitVerticalWall()
 {
     if (_vx > 0) {
         return (getXMax() - _rx) / _vx;
-    }
-    else if (_vx < 0) {
+    } else if (_vx < 0) {
         return (getXMin() - _rx) / _vx;
-    }
-    else {
+    } else {
         return std::numeric_limits<double>::infinity();
     }
 }
@@ -105,11 +103,9 @@ Particle::timeToHitHorizontalWall()
 {
     if (_vy > 0) {
         return (getYMax() - _ry) / _vy;
-    }
-    else if (_vy < 0) {
+    } else if (_vy < 0) {
         return (getYMin() - _ry) / _vy;
-    }
-    else {
+    } else {
         return std::numeric_limits<double>::infinity();
     }
 }

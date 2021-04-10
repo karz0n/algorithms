@@ -64,4 +64,4 @@ EdgeWeightedDigraph::empty() const
     return _forest.empty();
 }
 
-}
+} // namespace algorithms

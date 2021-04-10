@@ -63,4 +63,4 @@ DirectedEdge::operator!=(const DirectedEdge& other) const
     return !(*this == other);
 }
 
-}
+} // namespace algorithms

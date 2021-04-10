@@ -89,7 +89,6 @@ TEST(HuffmanTest, Decode)
     EXPECT_EQ(decoder.decode({true, true, false, true, false}), input);
 }
 
-
 TEST(HuffmanTest, Reconstruction)
 {
     static const std::string_view text{"Peter Piper picked a peck of pickled peppers\n"

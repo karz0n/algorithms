@@ -146,8 +146,7 @@ MemoryStreamBuffer::seekoff(off_type off, std::ios_base::seekdir dir, std::ios_b
     if (dir == std::ios_base::end) {
         pOffset += size();
         gOffset += size();
-    }
-    else if (dir == std::ios_base::cur) {
+    } else if (dir == std::ios_base::cur) {
         pOffset += pptr() - pbase();
         gOffset += gptr() - eback();
     }

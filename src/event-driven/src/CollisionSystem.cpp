@@ -43,14 +43,11 @@ CollisionSystem::draw()
 
         if (event.hasA() && event.hasB()) {
             event.getA().bounceOff(event.getB());
-        }
-        else if (event.hasA() && !event.hasB()) {
+        } else if (event.hasA() && !event.hasB()) {
             event.getA().bounceOffVerticalWall();
-        }
-        else if (!event.hasA() && event.hasB()) {
+        } else if (!event.hasA() && event.hasB()) {
             event.getB().bounceOffHorizontalWall();
-        }
-        else {
+        } else {
             redraw();
             postpone(DefaultInterval);
             return;

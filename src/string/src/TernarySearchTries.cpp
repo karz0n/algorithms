@@ -111,8 +111,7 @@ TernarySearchTries::put(Node* node, std::string_view key, int value, std::size_t
 
     if (key.size() == dimension + 1) {
         node->value = value;
-    }
-    else {
+    } else {
         node->mi = put(node->mi, key, value, dimension + 1);
     }
     return node;
@@ -135,8 +134,7 @@ TernarySearchTries::get(Node* node, std::string_view key, std::size_t dimension)
 
     if (key.size() == dimension + 1) {
         return node;
-    }
-    else {
+    } else {
         return get(node->mi, key, dimension + 1);
     }
 }
@@ -165,8 +163,7 @@ TernarySearchTries::search(Node* node,
 
     if (key.size() == dimension + 1) {
         return length;
-    }
-    else {
+    } else {
         return search(node->mi, key, dimension + 1, length);
     }
 }

@@ -95,8 +95,7 @@ UnionFind::associate(std::size_t p, std::size_t q)
     if (_size[proot] < _size[qroot]) {
         _container[proot] = qroot;
         _size[qroot] += _size[proot];
-    }
-    else {
+    } else {
         _container[qroot] = proot;
         _size[proot] += _size[qroot];
     }

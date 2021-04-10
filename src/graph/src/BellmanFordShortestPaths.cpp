@@ -94,7 +94,7 @@ bool
 BellmanFordShortestPaths::relax(const DirectedEdge& edge)
 {
     const std::size_t v{edge.from()}, w{edge.to()};
-    if (_distTo[w] > _distTo[v] + edge.weight()  + std::numeric_limits<double>::epsilon()) {
+    if (_distTo[w] > _distTo[v] + edge.weight() + std::numeric_limits<double>::epsilon()) {
         _distTo[w] = _distTo[v] + edge.weight();
         _edgeTo[w] = edge;
         return true;
@@ -102,7 +102,8 @@ BellmanFordShortestPaths::relax(const DirectedEdge& edge)
     return false;
 }
 
-void BellmanFordShortestPaths::findCycle()
+void
+BellmanFordShortestPaths::findCycle()
 {
     EdgeWeightedDigraph graph{_edgeTo.size()};
     for (const auto& edge : _edgeTo) {

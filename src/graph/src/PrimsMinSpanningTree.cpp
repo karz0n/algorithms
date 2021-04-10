@@ -67,8 +67,7 @@ PrimsMinSpanningTree::traverse(const EdgeWeightedGraph& graph, Marks& marks, std
                 distTo[w] = edge.weight();
                 if (queue.contains(w)) {
                     queue.decreaseKey(w, distTo[w]);
-                }
-                else {
+                } else {
                     queue.push(w, distTo[w]);
                 }
             }

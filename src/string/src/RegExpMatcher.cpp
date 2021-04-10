@@ -48,8 +48,7 @@ RegExpMatcher::buildEpsilonTransitions()
         const auto ch = _pattern[i];
         if (ch == '(' || ch == '|') {
             ops.push(i);
-        }
-        else if (ch == ')') {
+        } else if (ch == ')') {
             const auto op = ops.top();
             ops.pop();
             if (_pattern[op] == '|') {
@@ -57,8 +56,7 @@ RegExpMatcher::buildEpsilonTransitions()
                 ops.pop();
                 _transitions.connect(lp, op + 1);
                 _transitions.connect(op, i);
-            }
-            else {
+            } else {
                 lp = op;
             }
         }

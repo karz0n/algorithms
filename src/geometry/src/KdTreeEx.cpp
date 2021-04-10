@@ -110,8 +110,7 @@ KdTreeEx::nearestTo(const Point& queryPoint)
             if (value + bestDistance > node->value) {
                 nodes.push(node->rh);
             }
-        }
-        else {
+        } else {
             if (value + bestDistance > node->value) {
                 nodes.push(node->rh);
             }
@@ -163,8 +162,7 @@ KdTreeEx::getMedian(Points points, KdTreeEx::Directions direction)
         const std::size_t index = (count + 1) / 2;
         auto point = Select::get<Point>(points.begin(), points.end(), comparator, index - 1);
         return (direction == Directions::vertical) ? point.x : point.y;
-    }
-    else {
+    } else {
         /* Median equals of average value of two middle elements of sequence */
         const std::size_t index1 = (count / 2);
         const std::size_t index2 = (count + 2) / 2;

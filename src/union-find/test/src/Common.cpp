@@ -43,8 +43,7 @@ readUnionsFromFile(const fs::path& path)
         }
         fs.close();
         return unions;
-    }
-    catch (...) {
+    } catch (...) {
         fs.close();
         std::throw_with_nested(std::runtime_error("Read unions from '" + path.string() + "' file"));
     }

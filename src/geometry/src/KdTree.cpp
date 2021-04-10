@@ -65,8 +65,7 @@ KdTree::nearestTo(Node* node, const Point& queryPoint, Point& bestPoint, float& 
         if (value + bestDistance > node->value) {
             nearestTo(node->rh, queryPoint, bestPoint, bestDistance);
         }
-    }
-    else {
+    } else {
         if (value + bestDistance > node->value) {
             nearestTo(node->rh, queryPoint, bestPoint, bestDistance);
         }
@@ -137,8 +136,7 @@ KdTree::getMedian(const Points& points, Directions direction)
         /* Median equals of middle value of sequence */
         const std::size_t index = (count + 1) / 2;
         return (direction == Directions::vertical) ? points[index - 1].x : points[index - 1].y;
-    }
-    else {
+    } else {
         /* Median equals of average value of two middle elements of sequence */
         const std::size_t index1 = (count / 2);
         const std::size_t index2 = (count + 2) / 2;
@@ -161,8 +159,7 @@ KdTree::sortBy(Points& points, Directions direction)
         ThreeWayQuickSort::sort(points.begin(), points.end(), [](const Point& lh, const Point& rh) {
             return lh.x < rh.x;
         });
-    }
-    else {
+    } else {
         ThreeWayQuickSort::sort(points.begin(), points.end(), [](const Point& lh, const Point& rh) {
             return lh.y < rh.y;
         });

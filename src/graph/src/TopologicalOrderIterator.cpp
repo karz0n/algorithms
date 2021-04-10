@@ -10,8 +10,7 @@ TopologicalOrderIterator::TopologicalOrderIterator(const Digraph& graph)
         auto vertices = DepthFirstOrder(graph, true).reversePost();
         _vertices = std::make_shared<Vertices>(std::move(vertices));
         moveToBegin();
-    }
-    catch (...) {
+    } catch (...) {
         // Suppress exception if the given graph has cycle
     }
 }
@@ -21,8 +20,7 @@ TopologicalOrderIterator::TopologicalOrderIterator(const EdgeWeightedDigraph& gr
     try {
         _vertices = std::make_shared<Vertices>(DepthFirstOrder(graph, true).reversePost());
         moveToBegin();
-    }
-    catch (...) {
+    } catch (...) {
         // Suppress exception if the given graph has cycle
     }
 }

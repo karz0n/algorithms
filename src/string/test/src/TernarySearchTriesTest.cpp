@@ -73,4 +73,3 @@ TEST(TernarySearchTriesTest, LongestPrefixOf)
     tree.put("shellso", 2);
     EXPECT_EQ(tree.longestPrefixOf("shellsort"), "shellso");
 }
-
