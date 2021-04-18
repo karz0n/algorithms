@@ -16,6 +16,7 @@ target_sources(
            ${CMAKE_CURRENT_SOURCE_DIR}/include/Rect.hpp
            ${CMAKE_CURRENT_SOURCE_DIR}/include/Rects.hpp
            ${CMAKE_CURRENT_SOURCE_DIR}/include/RectCrossFinder.hpp
+           ${CMAKE_CURRENT_SOURCE_DIR}/include/GrahamScan.hpp
     PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/KdTree.cpp
             ${CMAKE_CURRENT_SOURCE_DIR}/src/KdTreeEx.cpp
             ${CMAKE_CURRENT_SOURCE_DIR}/src/LineSegment.cpp
@@ -24,7 +25,8 @@ target_sources(
             ${CMAKE_CURRENT_SOURCE_DIR}/src/Points.cpp
             ${CMAKE_CURRENT_SOURCE_DIR}/src/LineCrossFinder.cpp
             ${CMAKE_CURRENT_SOURCE_DIR}/src/Rect.cpp
-            ${CMAKE_CURRENT_SOURCE_DIR}/src/RectCrossFinder.cpp)
+            ${CMAKE_CURRENT_SOURCE_DIR}/src/RectCrossFinder.cpp
+            ${CMAKE_CURRENT_SOURCE_DIR}/src/GrahamScan.cpp)
 
 target_include_directories(${TARGET} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 

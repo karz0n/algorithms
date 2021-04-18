@@ -13,10 +13,10 @@ struct Point {
     bool
     operator!=(const Point& other) const;
 
-    bool
+    [[nodiscard]] bool
     equalByX(const Point& other) const;
 
-    bool
+    [[nodiscard]] bool
     equalByY(const Point& other) const;
 
     float x;
