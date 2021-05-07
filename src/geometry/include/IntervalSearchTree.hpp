@@ -18,6 +18,11 @@ public:
     {
     }
 
+    ~IntervalSearchTree()
+    {
+        clear();
+    }
+
     void
     put(Key lo, Key hi, Value value)
     {
@@ -71,6 +76,12 @@ public:
     empty() const
     {
         return !_root;
+    }
+
+    void
+    clear()
+    {
+        clear(_root);
     }
 
 private:
@@ -191,6 +202,18 @@ private:
         }
         node->lh = dropMin(node->lh);
         return node;
+    }
+
+    void
+    clear(Node* node)
+    {
+        if (!node) {
+            return;
+        }
+
+        clear(node->lh);
+        clear(node->rh);
+        delete node;
     }
 
     Node*

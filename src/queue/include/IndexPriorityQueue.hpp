@@ -69,7 +69,7 @@ public:
         if (!contains(index)) {
             throw std::logic_error{"Element is absent"};
         }
-        if (compare(value, _keys[index])) {
+        if (_comparator(value, _keys[index])) {
             throw std::logic_error{"Element is invalid"};
         }
 #endif
