@@ -34,7 +34,7 @@ public:
 
 INSTANTIATE_TEST_SUITE_P(DijkstraShortestPaths,
                          DijkstraShortestPathsTest,
-                         Values(getGraph("assets/graph/tinyEWD.txt"),
+                         Values(getGraph("assets/graph/tinyEWG.txt"),
                                 getGraph("assets/graph/mediumEWG.txt"),
                                 getGraph("assets/graph/largeEWG.txt")));
 
